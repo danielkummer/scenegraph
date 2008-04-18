@@ -28,3 +28,6 @@ PlanetDef::PlanetDef(float aDiameter,       // in earths
 EarthDef::EarthDef():PlanetDef(1.0f, 1.0f, 23.45f, 1.0f, 1.0f, 0.0f, "Textures/Earth.bmp"){}
 MoonDef::MoonDef():PlanetDef(0.546f, (float)INFINITE, 1.54f, 0.257f, 0.0747f, 5.145f, "Textures/Moon.bmp", false){}
 MarsDef::MarsDef():PlanetDef(0.532f, 1.03f, 23.98f, 1.52f, 1.88f, 0.0f, "Textures/Mars.bmp"){}
+
+
+
