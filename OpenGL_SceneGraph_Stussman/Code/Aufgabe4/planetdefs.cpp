@@ -1,8 +1,9 @@
 #include "planetdefs.h"
 
 
-
-
+#ifndef WIN32
+#define INFINITE 0xFFFFFFFF
+#endif
 
 
 
