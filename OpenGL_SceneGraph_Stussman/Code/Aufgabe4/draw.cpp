@@ -34,7 +34,7 @@ float speed = 1.0f;
 
 GLUquadricObj* quadric = gluNewQuadric();
 GroupNode* sceneRoot;
-Clock* clock;
+Clock* clk;
 // TODO: remove testcode
 SwitchNode* vToggle;
 long counter = 0;
@@ -55,7 +55,7 @@ void draw3D() {
 
   gluQuadricNormals(quadric, GL_SMOOTH);
 
-  clock->tick();
+  clk->tick();
   Visitor vVisitor = Visitor();
   vVisitor.apply(sceneRoot);
   counter++;
@@ -275,7 +275,7 @@ void countFrames() {
 //------------------
 void initScene(){
 
-  clock = Clock::getDefaultClock();
+  clk = Clock::getDefaultClock();
   sceneRoot = new GroupNode();
 
   sceneRoot->ref();
@@ -285,7 +285,7 @@ void initScene(){
   for(int i=1; i<20; i++){
     TransformSeparator* group2 = new TransformSeparator();
     RotorNode* vRotorN = new RotorNode(10.0f, i*20.0f, 0, 1, 0);
-    clock->addListener(vRotorN);
+    clk->addListener(vRotorN);
     group2->add(vRotorN);
     group2->add(new TranslationNode(5, i*0.2f, 0));
     group2->add(new SphereNode(1));
@@ -315,7 +315,7 @@ void quitScene(){
   DestructorVisitor vDVisitor = DestructorVisitor();
   vDVisitor.apply(sceneRoot);
   sceneRoot->unref();
-  delete clock;
+  delete clk;
 
 }
 //------------------
