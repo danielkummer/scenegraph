@@ -312,7 +312,9 @@ bool init_SDL()
 
 int main( int argc, char* argv[] )
 {
+#ifdef WIN32
 //  _CrtSetBreakAlloc(121);
+#endif
 
 	if(!init_SDL())					// If intialising of SDL fails -> quit the program with error code 1
 	{
