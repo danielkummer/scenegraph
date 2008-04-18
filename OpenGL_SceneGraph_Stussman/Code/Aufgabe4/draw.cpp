@@ -183,9 +183,9 @@ void drawShip() {
 	  float v2[] = {  4.0f,  0.0f,  -1.0f };		// Vertices
 	  float v3[] = {  4.0f,  1.0f,  0.0f };		// Vertices
 	  // ...
-	  byte red[]    = { 255,   0,   0, 255 };		// Colors
-    byte blue[] = {0, 255, 0, 255};
-    byte green[] = {0, 0, 255, 255};
+	  unsigned char red[]    = { 255,   0,   0, 255 };		// Colors
+    unsigned char blue[] = {0, 255, 0, 255};
+    unsigned char green[] = {0, 0, 255, 255};
 	  // ...
 
   	glBegin( GL_TRIANGLES );		// Tell OpenGL to draw triangles using the following vertexes
