@@ -18,10 +18,14 @@
 
 
 //------ memory leaks -------//
+#ifdef WIN32
+
 #define _CRTDBG_MAP_ALLOC
 #define _CRTDBG_MAPALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
+
+#endif
 
 //_CrtSetBreakAlloc(122); // to set a memory-allocation breakpoint in your code (for the 18th memory allocation)
 //_crtBreakAlloc = 122;
