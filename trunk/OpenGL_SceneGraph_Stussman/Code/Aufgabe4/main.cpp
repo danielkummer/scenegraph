@@ -46,7 +46,9 @@ void quit_program( int code )
 {
     quitScene();
     SDL_Quit( );									// Quit SDL and restore previous video settings
+#ifdef WIN32
     _CrtDumpMemoryLeaks();
+#endif
     exit( code );									// Exit program
 }
 
