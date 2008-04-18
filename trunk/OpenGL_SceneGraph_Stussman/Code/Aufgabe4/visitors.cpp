@@ -39,7 +39,8 @@ void Visitor::visit(ScaleNode &aScaleNode){
 }
 //-------------------------------------------------------//
 void Visitor::visit(RotorNode &aRotorNode){
-  Visitor::visit((RotationNode)aRotorNode);
+  RotationNode vTmp = aRotorNode;
+  Visitor::visit(vTmp);
 }
 //-------------------------------------------------------//
 void Visitor::visit(LightNode &aLightNode){
