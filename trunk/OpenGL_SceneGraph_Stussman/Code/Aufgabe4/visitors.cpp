@@ -84,6 +84,43 @@ void Visitor::visit(StarsNode &aStarNode){
 //  glDisable(GL_COLOR_MATERIAL);
 }
 //-------------------------------------------------------//
+void Visitor::visit(RingNode &aRingNode){
+  float fNormalVec[3] = {0.0f, 1.0f, 0.0f};
+  float** vertices = aRingNode.mVertices;
+  int quadCount = aRingNode.mQuadCount;
+
+  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+
+  glBegin(GL_QUADS);
+    glNormal3fv(fNormalVec);
+
+    //iterate over all quads but the last one
+    for(int i = 0; i < quadCount -1; i++) {           
+      glTexCoord2f(0.0f, 1.0f);           
+      glVertex3fv(vertices[i]);
+
+      glTexCoord2f(0.0f, 0.0f);
+      glVertex3fv(vertices[i+quadCount]);
+
+      glTexCoord2f(1.0f, 0.0f);
+      glVertex3fv(vertices[i+quadCount + 1]);
+
+      glTexCoord2f(1.0f, 1.0f);
+      glVertex3fv(vertices[i + 1]);
+    }
+    //last vertex
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3fv(vertices[quadCount - 1]);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3fv(vertices[2 * quadCount - 1]);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3fv(vertices[quadCount]);
+    glTexCoord2f(1.0f, 1.0f);       
+    glVertex3fv(vertices[0]);
+
+  glEnd();   
+}
+//-------------------------------------------------------//
 /*********************************************************/
 //-------------------------------------------------------//
 void DestructorVisitor::postvisit(GroupNode &aGroupNode){
@@ -215,6 +252,16 @@ void PrintVisitor::visit(StarsNode &aStarsNode){
     aStarsNode.mDeltaR,
     aStarsNode.mNumStars);
 }
+//-------------------------------------------------------//
+void PrintVisitor::visit(RingNode &aRingNode){
+  printIdent();
+  printf("%p RingNode minR: %.2f, maxR: %.2f, numQuads: %d",
+        &aRingNode,
+        aRingNode.mInnerRadius,
+        aRingNode.mOuterRadius,
+        aRingNode.mQuadCount);
+}
+
 //-------------------------------------------------------//
 /*********************************************************/
 //-------------------------------------------------------//

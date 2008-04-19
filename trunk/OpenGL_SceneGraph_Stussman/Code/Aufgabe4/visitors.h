@@ -33,6 +33,7 @@ public:
   virtual void visit(TextureNode &aTexNode) { }
   virtual void visit(ShadowNode &aShadow) { }
   virtual void visit(StarsNode &aStarNode) { }
+  virtual void visit(RingNode &aRingNode) { }
 
   void apply(AbstractNode* aAbstractNode);
 protected:
@@ -55,7 +56,7 @@ public:
   virtual void visit(TextureNode &aTexNode);
   virtual void visit(ShadowNode &aShadow);
   virtual void visit(StarsNode &aStarNode);
-
+  virtual void visit(RingNode &aRingNode);
 };
 //-------------------------------------------------------//
 class DestructorVisitor:public AbstractVisitor{
@@ -86,6 +87,7 @@ public:
   virtual void visit(TextureNode &aTexNode);
   virtual void visit(ShadowNode &aShadow);
   virtual void visit(StarsNode &aStarNode);
+  virtual void visit(RingNode &aRingNode);
 
 private:
   void printIdent();
