@@ -50,6 +50,7 @@ public:
   AbstractNode* createSun();
   AbstractNode* createSolarSystem();
   AbstractNode* createAxis(float aLength=1.0);
+  AbstractNode* createSaturnRings(PlanetDef* aPlanetDef, char* aTextureName, float aInnerFactor=1.5f, float aOuterFactor=2.5f);
 private:
   Builder mBuilder;
 

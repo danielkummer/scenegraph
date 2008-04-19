@@ -176,7 +176,6 @@ AbstractNode* Director::createPlanet(PlanetDef* aPlanterDef, AbstractNode** aNod
   mBuilder.buildRotationNode(aPlanterDef->orbitInclination, 1, 0, 0);
   mBuilder.buildRotorNode(aPlanterDef->orbitVelocity, 0, 0, 1, 0); // rot around sun
   mBuilder.buildTranslationNode(aPlanterDef->orbitRadius, 0, 0); // radius to sun
-  // TODO: add here moons
   for(unsigned i=0; i<aNodeCount; i++){
     mBuilder.append(NULL, aNodelist[i]);
   }
@@ -204,7 +203,7 @@ AbstractNode* Director::createPlanet(PlanetDef* aPlanterDef, AbstractNode** aNod
   mBuilder.buildSphereNode(aPlanterDef->radius, 16, 16, true);
 
   ToggleNode* vToggleN = new ToggleNode();
-  vToggleN->add(createAxis());
+  vToggleN->add(createAxis(2*aPlanterDef->radius));
   vToggleN->on();
   //TODO: add toggle axis action
   mBuilder.append(NULL, vToggleN);
@@ -221,12 +220,31 @@ AbstractNode* Director::createSolarSystem(){
 //  vGroup->add(createAxis());
   AbstractNode* vMoon = createPlanet(&(MoonDef()));
   AbstractNode* earth = createPlanet(&(EarthDef()), &vMoon, 1);
+  
+  AbstractNode* vRing = createSaturnRings(&(MarsDef()), "Textures/Saturnring.bmp");
 
-  AbstractNode* mars = createPlanet(&(MarsDef()));
+  AbstractNode* mars = createPlanet(&(MarsDef()), &vRing, 1);
   vGroup->add(earth);
   vGroup->add(mars);
   vGroup->add(new StarsNode(200, 200, 10000));
   return vGroup;
+}
+//-------------------------------------------------------//
+AbstractNode* Director::createSaturnRings(PlanetDef *aPlanetDef, char* aTextureName, float aInnerFactor, float aOuterFactor){
+  TransformSeparator* vTSep = new TransformSeparator();
+  // ring should be stable as the rotation axis of the planet
+  vTSep->add(new RotorNode(-aPlanetDef->orbitVelocity, 0, 0, 1, 0));
+  // same tilt as planet
+  vTSep->add(new RotationNode(aPlanetDef->tilt, 1, 0, 0));
+
+  vTSep->add( new TextureNode( createTexture(aTextureName)) );
+  vTSep->add( new ColorNode(1, 1, 1) ); 
+  float vInner = aPlanetDef->radius * aInnerFactor;
+  float vOuter = aPlanetDef->radius * aOuterFactor;
+  vTSep->add( new RingNode(vInner, vOuter, 64) );
+
+  return vTSep;
+
 }
 //-------------------------------------------------------//
 AbstractNode* Director::createAxis(float aLength){

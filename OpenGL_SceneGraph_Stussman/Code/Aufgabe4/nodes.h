@@ -229,20 +229,21 @@ public:
   float* mVertices;
 };
 //-------------------------------------------------------//
-/*
+
 class RingNode:public AbstractNode{
 public:
   RingNode(float fOuterRadius, float fInnerRadius, unsigned iQuadCount);
-  ~RingNode();
+  virtual ~RingNode();
+  virtual void accept(AbstractVisitor &aVisitor);
 
-  float* mVertices;
+  float** mVertices;
   float mOuterRadius;
   float mInnerRadius;
   unsigned mQuadCount;
   int mVertexCount;
 
 };
-*/
+
 //-------------------------------------------------------//
 class ActionBase:public GroupNode{
   inline virtual void accept(AbstractVisitor &aVisitor);
