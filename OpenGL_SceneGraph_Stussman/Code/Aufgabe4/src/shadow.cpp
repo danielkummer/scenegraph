@@ -1,5 +1,5 @@
-#include "main.h"
-#include "shadow.h"
+#include "../header/main.h"
+#include "../header/shadow.h"
 
 /**************************************************/
 /* Build shadow matrix                            */

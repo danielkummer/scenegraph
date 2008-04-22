@@ -1,9 +1,9 @@
 #ifndef _BUILDER_H
 #define _BUILDER_H
 
-#include "main.h"
-#include "nodes.h"
-#include "planetdefs.h"
+#include "../main.h"
+#include "../nodes/nodes.h"
+#include "../planetdefs.h"
 
 //-------------------------------------------------------//
 class Builder{

@@ -22,9 +22,9 @@
 #include <math.h>
 #include "main.h"
 //#include "shadow.h"
-#include "nodes.h"
-#include "visitors.h"
-#include "builder.h"
+#include "nodes/nodes.h"
+#include "visitors/visitors.h"
+#include "factories/builder.h"
 
 
 extern float fps;									// Frames per second
