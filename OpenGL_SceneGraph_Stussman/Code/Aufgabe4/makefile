@@ -26,14 +26,14 @@ SDLLIB  = -L/usr/lib -lSDL
 ############################################
 
 X11LIBS = -L/usr/X11R6/lib
-CCFLAGS = $(REENTRANT) $(POSIX) $(CFLAGS) -Wall -g
+CCFLAGS = $(REENTRANT) $(POSIX) $(CFLAGS) -Wall -g -Iinclude
 INCL    = $(GLINCL) $(SDLINCL) 
 LIBS    = $(GLLIBS) $(SDLLIB) 
 
 
 .PHONY: all clean build
 
-SRCFILES=builder.cpp  clock.cpp  draw.cpp  main.cpp  nodes.cpp  planetdefs.cpp  shadow.cpp  visitors.cpp
+SRCFILES=src/clock.cpp src/main.cpp src/planetdefs.cpp src/nodes/nodes.cpp src/shadow.cpp src/factories/builder.cpp src/draw.cpp src/visitors/visitors.cpp
 
 
 OBJS=$(SRCFILES:%.cpp=%.o)
@@ -46,7 +46,7 @@ SceneGraphRendnerer : $(OBJS)
 	g++ -o $@ $(OBJS) $(LIBS)
 
 %.o : %.cpp
-	g++ $(CCFLAGS) $(INCL) -c $<
+	g++ $(CCFLAGS) $(INCL) -c $< -o $@
 
 
 
