@@ -1,5 +1,5 @@
-#include "nodes.h"
-#include "visitors.h"
+#include "../../header/nodes/nodes.h"
+#include "../../header/visitors/visitors.h"
 
 
 //-------------------------------------------------------//

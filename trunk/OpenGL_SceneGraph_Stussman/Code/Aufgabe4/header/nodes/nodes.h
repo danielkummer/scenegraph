@@ -14,7 +14,7 @@
 #include <map>
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include "clock.h"
+#include "../../header/clock.h"
 
 class AbstractVisitor;
 
