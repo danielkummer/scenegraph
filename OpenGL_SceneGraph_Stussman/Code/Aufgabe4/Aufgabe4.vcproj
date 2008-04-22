@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\header;&quot;..\SDL_Libraries\Windows\SDL-1.2.7\include&quot;"
+				AdditionalIncludeDirectories=".\include;&quot;..\SDL_Libraries\Windows\SDL-1.2.7\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -235,34 +235,34 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\header\clock.h"
+				RelativePath=".\include\clock.h"
 				>
 			</File>
 			<File
-				RelativePath=".\header\draw.h"
+				RelativePath=".\include\draw.h"
 				>
 			</File>
 			<File
-				RelativePath=".\header\main.h"
+				RelativePath=".\include\main.h"
 				>
 			</File>
 			<File
-				RelativePath=".\header\planetdefs.h"
+				RelativePath=".\include\planetdefs.h"
 				>
 			</File>
 			<File
-				RelativePath=".\header\planets.h"
+				RelativePath=".\include\planets.h"
 				>
 			</File>
 			<File
-				RelativePath=".\header\shadow.h"
+				RelativePath=".\include\shadow.h"
 				>
 			</File>
 			<Filter
 				Name="nodes"
 				>
 				<File
-					RelativePath=".\header\nodes\nodes.h"
+					RelativePath=".\include\nodes\nodes.h"
 					>
 				</File>
 			</Filter>
@@ -274,7 +274,7 @@
 				Name="visitors"
 				>
 				<File
-					RelativePath=".\header\visitors\visitors.h"
+					RelativePath=".\include\visitors\visitors.h"
 					>
 				</File>
 			</Filter>
@@ -282,7 +282,7 @@
 				Name="factories"
 				>
 				<File
-					RelativePath=".\header\factories\builder.h"
+					RelativePath=".\include\factories\builder.h"
 					>
 				</File>
 			</Filter>
