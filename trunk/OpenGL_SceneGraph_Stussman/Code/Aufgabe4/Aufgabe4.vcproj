@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\SDL_Libraries\Windows\SDL-1.2.7\include&quot;"
+				AdditionalIncludeDirectories=".\header;&quot;..\SDL_Libraries\Windows\SDL-1.2.7\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

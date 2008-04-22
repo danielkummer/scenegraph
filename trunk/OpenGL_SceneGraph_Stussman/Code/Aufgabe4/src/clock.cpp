@@ -1,4 +1,4 @@
-#include "../header/clock.h"
+#include "clock.h"
 
 
 Clock* Clock::mDefaultClock = NULL;

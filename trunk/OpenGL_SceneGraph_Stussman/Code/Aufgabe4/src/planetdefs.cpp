@@ -1,4 +1,4 @@
-#include "../header/planetdefs.h"
+#include "planetdefs.h"
 
 //HACK: remove this HACK!! -> change how PlanetDef works
 #ifndef WIN32

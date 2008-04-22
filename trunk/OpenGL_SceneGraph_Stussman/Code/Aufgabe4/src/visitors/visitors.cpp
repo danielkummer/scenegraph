@@ -1,4 +1,4 @@
-#include "../../header/visitors/visitors.h"
+#include "visitors/visitors.h"
 
 //-------------------------------------------------------//
 void AbstractVisitor::apply(AbstractNode* aAbstractNode){
