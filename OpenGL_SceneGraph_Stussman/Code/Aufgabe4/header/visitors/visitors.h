@@ -2,7 +2,7 @@
 #define _VISITORS_H
 
 
-#include "../nodes/nodes.h"
+#include "nodes/nodes.h"
 
 //-------------------------------------------------------//
 class AbstractVisitor{
