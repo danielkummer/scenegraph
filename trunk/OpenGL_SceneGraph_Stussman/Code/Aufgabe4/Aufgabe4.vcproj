@@ -180,68 +180,12 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath=".\builder.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\clock.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\draw.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\main.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\nodes.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\planetdefs.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\visitors.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\builder.h"
-				>
-			</File>
-			<File
-				RelativePath=".\clock.h"
-				>
-			</File>
-			<File
-				RelativePath=".\draw.h"
-				>
-			</File>
-			<File
-				RelativePath=".\main.h"
-				>
-			</File>
-			<File
-				RelativePath=".\nodes.h"
-				>
-			</File>
-			<File
-				RelativePath=".\planetdefs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\visitors.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
