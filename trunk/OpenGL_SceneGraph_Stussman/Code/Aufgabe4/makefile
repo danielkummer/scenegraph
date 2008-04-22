@@ -26,8 +26,8 @@ SDLLIB  = -L/usr/lib -lSDL
 ############################################
 
 X11LIBS = -L/usr/X11R6/lib
-CCFLAGS = $(REENTRANT) $(POSIX) $(CFLAGS) -Wall -g -Iinclude
-INCL    = $(GLINCL) $(SDLINCL) 
+CCFLAGS = $(REENTRANT) $(POSIX) $(CFLAGS) -Wall -g
+INCL    = $(GLINCL) $(SDLINCL) -Iinclude
 LIBS    = $(GLLIBS) $(SDLLIB) 
 
 
@@ -40,7 +40,7 @@ OBJS=$(SRCFILES:%.cpp=%.o)
 
 ####
 
-all : SceneGraphRendnerer
+all : dep SceneGraphRendnerer
 
 SceneGraphRendnerer : $(OBJS)
 	g++ -o $@ $(OBJS) $(LIBS)
@@ -48,10 +48,12 @@ SceneGraphRendnerer : $(OBJS)
 %.o : %.cpp
 	g++ $(CCFLAGS) $(INCL) -c $< -o $@
 
-
-
+dep: 
+	makedepend -- $(CCFLAGS) $(INCL) -- $(SRCFILES) 2>/dev/null
 
 clean :
-	rm *.o
+	rm $(OBJS) SceneGraphRendnerer 2>/dev/null
+	
 
 build : clean all
+
