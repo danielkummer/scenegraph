@@ -332,7 +332,7 @@ void drawMoon(){
     glRotatef(angle*365.25f/4, 0, 1, 0); // Drehung um Erde
     glTranslatef(2, 0 , 0);
 
-    float radius = 0.6;
+    float radius = 0.6f;
     if(showShadow){
       float modelMatrix[16];
       glGetFloatv(GL_MODELVIEW_MATRIX, modelMatrix);
