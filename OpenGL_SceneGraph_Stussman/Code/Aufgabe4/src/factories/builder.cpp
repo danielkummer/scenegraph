@@ -156,6 +156,10 @@ void Builder::buildMaterialNode(GLenum aFace, ActionBase* aAction){
   append(aAction, new MaterialNode(aFace));
 }
 //-------------------------------------------------------//
+void Builder::buildMaterialNode(GLenum aFace, Material* aMaterial, ActionBase* aAction){
+  append(aAction, new MaterialNode(aFace, aMaterial));
+}
+//-------------------------------------------------------//
 void Builder::buildColorNode(float aRed, float aGreen, float aBlue, ActionBase* aAction){
   append(aAction, new ColorNode(aRed, aGreen, aBlue));
 }

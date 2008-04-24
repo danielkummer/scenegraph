@@ -34,6 +34,7 @@ public:
   void buildRotorNode(float aAngleVel, float aAngle, float aAxisX, float aAxisY, float aAxisZ, ActionBase* aAction=NULL);
   void buildLightNode(GLenum aLightNr, ActionBase* aAction=NULL);
   void buildMaterialNode(GLenum aFace, ActionBase* aAction=NULL);
+  void buildMaterialNode(GLenum aFace, Material* aMaterial, ActionBase* aAction=NULL);
   void buildColorNode(float aRed=1.0f, float aGreen=1.0f, float aBlue=1.0f, ActionBase* aAction=NULL);
   void buildTextureNode(GLint aTexID, GLenum aTarget=GL_TEXTURE_2D, ActionBase* aAction=NULL);
   void buildShadowNode(float* aLightPos, float* aNormal, float* aPointInPlane, float* aColor, ActionBase* aAction=NULL);

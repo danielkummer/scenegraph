@@ -12,72 +12,7 @@
 #include <GL/glu.h> 
 #include <vector>
 
-
-
-class Material{
-public:
-  Material(){
-    set(GL_AMBIENT, 0.0f, 0.0f, 0.0f);
-	  set(GL_DIFFUSE, 0.0f, 0.0f, 0.0f);
-    set(GL_SPECULAR, 0.0f, 0.0f, 0.0f);
-    set(GL_EMISSION, 0.0f, 0.0f, 0.0f);
-    set(GL_SHININESS, 0.0f, 0.0f, 0.0f);
-	  set(GL_AMBIENT_AND_DIFFUSE,	0.0f, 0.0f, 0.0f);
-    ambientAndDiffuse = false;
-  }
-  float ambient[4];
-  float diffuse[4];
-  float specular[4];
-  float emission[4];
-  float shininess[4];
-  bool ambientAndDiffuse;
-  void set(GLenum aParamName, float a, float b, float c, float d=1.0f){
-    switch(aParamName){
-      case GL_AMBIENT:
-        {
-          ambient[0] = a;
-          ambient[1] = b;
-          ambient[2] = c;
-          ambient[3] = d;
-        }break;
-      case GL_DIFFUSE:
-        {
-          diffuse[0] = a;
-          diffuse[1] = b;
-          diffuse[2] = c;
-          diffuse[3] = d;
-        }break;
-      case GL_SPECULAR:
-        {
-          specular[0] = a;
-          specular[1] = b;
-          specular[2] = c;
-          specular[3] = d;
-        }break;
-      case GL_EMISSION:
-        {
-          emission[0] = a;
-          emission[1] = b;
-          emission[2] = c;
-          emission[3] = d;
-        }break;
-      case GL_SHININESS:
-        {
-          shininess[0] = a;
-          shininess[1] = b;
-          shininess[2] = c;
-          shininess[3] = d;
-        }break;
-    }
-    ambientAndDiffuse = false;
-    if(ambient[0] == diffuse[0] &&
-      ambient[1] == diffuse[1] &&
-      ambient[2] == diffuse[2] &&
-      ambient[3] == diffuse[3]){
-      ambientAndDiffuse = true;
-    }
-  }
-};
+#include "material.h"
 
 
 class PlanetDef{
@@ -89,7 +24,8 @@ public:
          float aOrbitPeriod,    // in earthyears
          float aOrbitInclination, // in degrees to suns equator
          char* aTextureName,
-         bool aAntiRot=true);  // name of texture to use
+         bool aAntiRot=true,
+         Material* aMaterial = new DefaultMaterial());  // name of texture to use
   ~PlanetDef();
   // planet
   float radius;
@@ -106,7 +42,7 @@ public:
   float green;
   float blue;
   // material
-  Material material;
+  Material* material;
 
   bool mAntiRot;
 
@@ -169,9 +105,9 @@ public:
   PlanetDef* mPlanetDef;
 };
 
-class SunnDef:public PlanetDef{
+class SunDef:public PlanetDef{
 public:
-  SunnDef();
+  SunDef();
 };
 
 #endif

@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\material.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\planetdefs.cpp"
 				>
 			</File>
@@ -260,6 +264,10 @@
 			</File>
 			<File
 				RelativePath=".\include\main.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\material.h"
 				>
 			</File>
 			<File
