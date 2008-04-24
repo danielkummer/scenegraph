@@ -19,12 +19,10 @@
 
 //------ memory leaks -------//
 #ifdef WIN32
-
-#define _CRTDBG_MAP_ALLOC
-#define _CRTDBG_MAPALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-
+  #define _CRTDBG_MAP_ALLOC
+  #define _CRTDBG_MAPALLOC
+  #include <stdlib.h>
+  #include <crtdbg.h>
 #endif
 
 //_CrtSetBreakAlloc(122); // to set a memory-allocation breakpoint in your code (for the 18th memory allocation)
@@ -32,7 +30,7 @@
 //------    -------//
 
 #ifdef WIN32 
-#include <windows.h> 
+  #include <windows.h> 
 #else 
 #include <GL/glx.h> 
 #include <stdarg.h> 

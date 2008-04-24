@@ -14,7 +14,7 @@
 /**************************************************/
 
 #include "draw.h"
-
+#include "scene.h"
 
 /**************************************************/
 /* Variable definition                            */
@@ -33,7 +33,8 @@ float mousetune = 0.1f;
 float speed = 1.0f;
 
 GLUquadricObj* quadric = gluNewQuadric();
-GroupNode* sceneRoot;
+//GroupNode* sceneRoot;
+SolarSytemScene* scene;
 Clock* clk;
 // TODO: remove testcode
 SwitchNode* vToggle;
@@ -56,22 +57,7 @@ void draw3D() {
   gluQuadricNormals(quadric, GL_SMOOTH);
 
   clk->tick();
-  Visitor vVisitor = Visitor();
-  vVisitor.apply(sceneRoot);
-  counter++;
-  if(counter==40){
-//    vToggle->toggle();
-//    vToggle->switchTo(counter);
-    printf("toggle!!\n");
-    counter = 0;
-  }
-//  vToggle->switchTo(counter/2);
-	// Draw Ship
-	/////////////////////	
-//  drawSun();
-//  drawEarth();
-
-  
+  scene->update();
 
 	drawShip();										// Draw ship
 
@@ -276,46 +262,28 @@ void countFrames() {
 void initScene(){
 
   clk = Clock::getDefaultClock();
+  scene = new SolarSytemScene();
+/*
   sceneRoot = new GroupNode();
 
   sceneRoot->ref();
-/*
-//  TransformSeparator* group = new TransformSeparator();
-  SwitchNode* group = new SwitchNode();
-  for(int i=1; i<20; i++){
-    TransformSeparator* group2 = new TransformSeparator();
-    RotorNode* vRotorN = new RotorNode(10.0f, i*20.0f, 0, 1, 0);
-    clk->addListener(vRotorN);
-    group2->add(vRotorN);
-    group2->add(new TranslationNode(5, i*0.2f, 0));
-    group2->add(new SphereNode(1));
-    group->add(group2);
-
-  }
-  sceneRoot->add(group);
-  group->switchTo(0);
-  vToggle = group;
-*/
 
   Director vDirector = Director();
   sceneRoot->add(vDirector.createSolarSystem() );
   
 
-/*
-  vToggle = new ToggleNode();
-  vToggle->add(new SphereNode(1));
-  sceneRoot->add(vToggle);
-*/  
   PrintVisitor().apply(sceneRoot);
+*/
 
 }
 
 void quitScene(){
 
-  DestructorVisitor vDVisitor = DestructorVisitor();
-  vDVisitor.apply(sceneRoot);
-  sceneRoot->unref();
+//  DestructorVisitor vDVisitor = DestructorVisitor();
+//  vDVisitor.apply(sceneRoot);
+//  sceneRoot->unref();
   delete clk;
+  delete scene;
 
 }
 //------------------
