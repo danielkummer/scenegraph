@@ -3,14 +3,19 @@
 
 Clock* Clock::mDefaultClock = NULL;
 //-------------------------------------------------------//
+Clock::Clock():mTime(0), mDilatation(1.0), mListeners(), mOldNow(0){
+
+}
+//-------------------------------------------------------//
+
 void Clock::tick(){
   int now = SDL_GetTicks();
-  double dt = (now - mOldNow) * mDilatation * 0.001f;
+  double dt = (now - mOldNow) * mDilatation * 0.001f; // [seconds]
   mOldNow = now;
 
   mTime += dt;
-  if(dt > 100){
-     dt = 100.0f;
+  if(dt > 0.1f){
+     dt = 0.1f;
   }
 
   std::vector<ClockListener*>::iterator vItr;

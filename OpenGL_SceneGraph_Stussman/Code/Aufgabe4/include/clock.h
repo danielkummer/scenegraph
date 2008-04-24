@@ -16,7 +16,7 @@ public:
 class Clock{
 
 public:
-  Clock():mTime(0), mDilatation(1.0), mListeners() { }
+  Clock();
   ~Clock();
 
   void tick();
@@ -35,7 +35,7 @@ private:
   double mTime;
   long mOldNow;
   float mDilatation;
-  std::vector<ClockListener*> mListeners;;
+  std::vector<ClockListener*> mListeners;
 
 
 };
