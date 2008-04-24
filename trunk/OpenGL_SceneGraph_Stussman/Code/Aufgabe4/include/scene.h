@@ -5,6 +5,7 @@
 #include "visitors/visitors.h"
 #include "nodes/nodes.h"
 #include "factories/actionfactory.h"
+#include "factories/builder.h"
 
 
 enum EActionNames{
@@ -30,15 +31,15 @@ enum EActionNames{
 class AbstractScene{
 public:
   AbstractScene();
-  ~AbstractScene();
+  virtual ~AbstractScene();
 
   void setActionMap(unsigned aEActionName, unsigned aEAction);
   void setActionMap(unsigned* aEAcitonMap, unsigned aCount);
   void setKeyInputMap(SDLKey aKey, unsigned aEActionName);
   void setKeyInputMap(SDLKey* aKeyMap, unsigned aCount);
 
-  void setSceneGraphRoot(AbstractNode* aNode);
-  AbstractNode* getSeneGraphRoot();
+  void setSceneGraphRoot(GroupNode* aNode);
+  GroupNode* getSeneGraphRoot();
 
   void setCurrentVisitor(AbstractVisitor* aVisitor);
   AbstractVisitor* getCurrentVisitor();
@@ -46,7 +47,7 @@ public:
   // scene specific code
   void handleEvent(SDL_Event &aEvent);
   void update();
-  void init();
+  virtual void init();
 //  void quit() = 0;
 
 protected:
@@ -55,8 +56,8 @@ protected:
   unsigned mToActionMap[EActionNameCount]; // 
   unsigned mKeyInputMap[SDLK_LAST]; // mKeyInputMapt[SDL_KEY] = ActionName
 
-  AbstractNode* mSceneGraph;
-  AbstractVisitor* mCurrentVisitor;
+  GroupNode* mSceneGraph;
+  Visitor mVisitor;
 
   ActionFactory* mActionFactory;
   
@@ -65,12 +66,12 @@ protected:
 //-------------------------------------------------------//
 class SolarSytemScene: public AbstractScene{
 public: 
-//  SolarSytemScene();
+  SolarSytemScene();
 //  ~SolarSytemScene();
 
   void handleEvent(SDL_Event &aEvent);
-  void update();
-  void init();
+//  void update();
+  virtual void init();
 //  void quit();
 
 protected:

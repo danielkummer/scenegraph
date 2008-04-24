@@ -1,4 +1,5 @@
 #include "scene.h"
+#include <assert.h>
 
 
 
@@ -13,7 +14,7 @@ AbstractScene::~AbstractScene(){
     DestructorVisitor vDVisitor;
     vDVisitor.apply(mSceneGraph);
   }
-  delete mSceneGraph;
+  mSceneGraph->unref();
   delete mActionFactory;
 }
 //-------------------------------------------------------//
@@ -37,11 +38,11 @@ void AbstractScene::setKeyInputMap(SDLKey *aKeyMap, unsigned int aCount){
   }
 }
 //-------------------------------------------------------//
-inline void AbstractScene::setSceneGraphRoot(AbstractNode *aNode){
+inline void AbstractScene::setSceneGraphRoot(GroupNode *aNode){
   mSceneGraph = aNode;
 }
 //-------------------------------------------------------//
-inline AbstractNode* AbstractScene::getSeneGraphRoot(){
+inline GroupNode* AbstractScene::getSeneGraphRoot(){
   return mSceneGraph;
 }
 //-------------------------------------------------------//
@@ -49,6 +50,8 @@ void AbstractScene::init(){
 }
 //-------------------------------------------------------//
 void AbstractScene::update(){
+  assert(NULL != mSceneGraph);
+  mVisitor.apply(mSceneGraph);
 }
 //-------------------------------------------------------//
 void AbstractScene::handleEvent(SDL_Event &aEvent){
@@ -59,13 +62,17 @@ void AbstractScene::createScene(){
 //-------------------------------------------------------//
 /*********************************************************/
 //-------------------------------------------------------//
+SolarSytemScene::SolarSytemScene():AbstractScene(){
+  init();
+}
+//-------------------------------------------------------//
 void SolarSytemScene::handleEvent(SDL_Event &aEvent){
   // TODO: do something with the events
 }
 //-------------------------------------------------------//
-void SolarSytemScene::update(){
+//void SolarSytemScene::update(){
   
-}
+//}
 //-------------------------------------------------------//
 void SolarSytemScene::init(){
   // TODO: define key mapping
@@ -81,13 +88,18 @@ void SolarSytemScene::init(){
 //  mToActionMap[EShoot] = ;
 
   
-
+  createScene();
 
 }
 //-------------------------------------------------------//
 void SolarSytemScene::createScene(){
-  
 
+  Director vDirector;
+  mSceneGraph = new GroupNode();
+  mSceneGraph->ref();
+  mSceneGraph->add(vDirector.createSolarSystem());
+
+  PrintVisitor().apply(mSceneGraph);
 }
 //-------------------------------------------------------//
 //-------------------------------------------------------//
