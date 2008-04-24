@@ -4,6 +4,7 @@
 #include "main.h"
 #include "nodes/nodes.h"
 #include "planetdefs.h"
+#include "actions/actions.h"
 
 //-------------------------------------------------------//
 class Builder{

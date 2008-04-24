@@ -135,20 +135,20 @@ void DestructorVisitor::postvisit(TransformSeparator &aTransformSep){
 //-------------------------------------------------------//
 void PrintVisitor::visit(GroupNode &aGroupNode) {
   printIdent();
-  printf("%p GroupNode begin\n", &aGroupNode); 
+  printf("ID: %d GroupNode begin\n", aGroupNode.mID); 
   mIdent++;
 }
 //-------------------------------------------------------//
 void PrintVisitor::postvisit(GroupNode &aGroupNode){
   mIdent--;
   printIdent();
-  printf("%p GroupNode end\n", &aGroupNode); 
+  printf("ID: %d GroupNode end\n", aGroupNode.mID); 
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(TransformSeparator &aTransformSeparatorNode){
   glMatrixStackPos++;
   printIdent();
-  printf("%p TransformSeparator begin glMatrixStack %d\n", &aTransformSeparatorNode, glMatrixStackPos); 
+  printf("ID: %d TransformSeparator begin glMatrixStack %d\n", aTransformSeparatorNode.mID, glMatrixStackPos); 
   mIdent++;
 }
 
@@ -157,18 +157,18 @@ void PrintVisitor::postvisit(TransformSeparator &aTransformSeparatorNode){
   mIdent--;
   glMatrixStackPos--;
   printIdent();
-  printf("%p TransformSeparator end glMatrixStack %d\n", &aTransformSeparatorNode, glMatrixStackPos); 
+  printf("ID: %d TransformSeparator end glMatrixStack %d\n", aTransformSeparatorNode.mID, glMatrixStackPos); 
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(SphereNode &aSphereNode){
   printIdent();
-  printf("%p SphereNode Radius: %.2f\n", &aSphereNode, aSphereNode.mRadius); 
+  printf("ID: %d SphereNode Radius: %.2f\n", aSphereNode.mID, aSphereNode.mRadius); 
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(LineNode &aLineNode){
   printIdent();
-  printf("%p LineNode from: <%.2f, %.2f,%.2f>to <%.2f, %.2f, %.2f> width: %.2f\n", 
-    &aLineNode,
+  printf("ID: %d LineNode from: <%.2f, %.2f,%.2f>to <%.2f, %.2f, %.2f> width: %.2f\n", 
+    aLineNode.mID,
     aLineNode.mVert1X,
     aLineNode.mVert1Y,
     aLineNode.mVert1Z,
@@ -186,8 +186,8 @@ void PrintVisitor::printIdent(){
 //-------------------------------------------------------//
 void PrintVisitor::visit(TranslationNode &aTranslationNode){
   printIdent();
-  printf("%p TranslationNode Displacement: %.2f, %.2f, %.2f\n", 
-          &aTranslationNode,
+  printf("ID: %d TranslationNode Displacement: %.2f, %.2f, %.2f\n", 
+          aTranslationNode.mID,
           aTranslationNode.mX,
           aTranslationNode.mY,
           aTranslationNode.mZ); 
@@ -195,8 +195,8 @@ void PrintVisitor::visit(TranslationNode &aTranslationNode){
 //-------------------------------------------------------//
 void PrintVisitor::visit(RotationNode &aRotationNode){
   printIdent();
-  printf("%p RotationNode Angle(degrees): %.2f Axis: %.2f, %.2f, %.2f\n", 
-          &aRotationNode,
+  printf("ID: %d RotationNode Angle(degrees): %.2f Axis: %.2f, %.2f, %.2f\n", 
+          aRotationNode.mID,
           aRotationNode.getAngle(),
           aRotationNode.mAxisX,
           aRotationNode.mAxisY,
@@ -205,8 +205,8 @@ void PrintVisitor::visit(RotationNode &aRotationNode){
 //-------------------------------------------------------//
 void PrintVisitor::visit(RotorNode &aRotorNode){
   printIdent();
-  printf("%p RotorNode AngleVel: %.2f, Angle(degrees): %.2f Axis: %.2f, %.2f, %.2f\n", 
-          &aRotorNode,
+  printf("ID: %d RotorNode AngleVel: %.2f, Angle(degrees): %.2f Axis: %.2f, %.2f, %.2f\n", 
+          aRotorNode.mID,
           aRotorNode.mAngleVel,
           aRotorNode.getAngle(),
           aRotorNode.mAxisX,
@@ -216,38 +216,38 @@ void PrintVisitor::visit(RotorNode &aRotorNode){
 //-------------------------------------------------------//
 void PrintVisitor::visit(ScaleNode &aScaleNode){
   printIdent();
-  printf("%p ScaleNode scaling: %.2f, %.2f, %.2f\n", &aScaleNode, aScaleNode.mScaleX, aScaleNode.mScaleY, aScaleNode.mScaleZ);
+  printf("ID: %d ScaleNode scaling: %.2f, %.2f, %.2f\n", aScaleNode.mID, aScaleNode.mScaleX, aScaleNode.mScaleY, aScaleNode.mScaleZ);
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(LightNode &aLightNode){
   printIdent();
-  printf("%p LightNode\n", &aLightNode);
+  printf("ID: %d LightNode\n", aLightNode);
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(MaterialNode &aMaterialNode){
   printIdent();
-  printf("%p MaterialNode\n", &aMaterialNode);
+  printf("ID: %d MaterialNode\n", aMaterialNode);
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(ColorNode &aColorNode){
   printIdent();
-  printf("%p ColorNode\n", &aColorNode);
+  printf("ID: %d ColorNode\n", aColorNode.mID);
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(TextureNode &aTexNode){
   printIdent();
-  printf("%p TextureNode ID: %d\n", &aTexNode, aTexNode.mTexID);
+  printf("ID: %d TextureNode ID: %d\n", aTexNode.mID, aTexNode.mTexID);
 }
 //-------------------------------------------------------//
-void PrintVisitor::visit(ShadowNode &aShadow){
+void PrintVisitor::visit(ShadowNode &aShadowNode){
   printIdent();
-  printf("%p ShadowNode\n", &aShadow);
+  printf("ID: %d ShadowNode\n", aShadowNode.mID);
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(StarsNode &aStarsNode){
   printIdent();
-  printf("%p StarsNode min R: %.2f, delta R: %.2f, num: %d\n",
-    &aStarsNode,
+  printf("ID: %d StarsNode min R: %.2f, delta R: %.2f, num: %d\n",
+    aStarsNode.mID,
     aStarsNode.mRadiusMin,
     aStarsNode.mDeltaR,
     aStarsNode.mNumStars);
@@ -255,8 +255,8 @@ void PrintVisitor::visit(StarsNode &aStarsNode){
 //-------------------------------------------------------//
 void PrintVisitor::visit(RingNode &aRingNode){
   printIdent();
-  printf("%p RingNode minR: %.2f, maxR: %.2f, numQuads: %d",
-        &aRingNode,
+  printf("ID: %d RingNode minR: %.2f, maxR: %.2f, numQuads: %d\n",
+        aRingNode.mID,
         aRingNode.mInnerRadius,
         aRingNode.mOuterRadius,
         aRingNode.mQuadCount);

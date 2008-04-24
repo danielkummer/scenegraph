@@ -24,13 +24,18 @@ class AbstractVisitor;
 //-------------------------------------------------------//
 class AbstractNode{
 public:
-  AbstractNode():mRefCount(0){ }
-  virtual ~AbstractNode() { }
+  AbstractNode();
+  virtual ~AbstractNode();
   void ref();
   void unref();
   virtual void accept(AbstractVisitor &) = 0;
 
+  const unsigned mID;
+
 private:
+  static unsigned getID();
+  static unsigned mIDCount;
+
   int mRefCount;
 };
 //-------------------------------------------------------//
@@ -244,18 +249,6 @@ public:
 
 };
 
-//-------------------------------------------------------//
-class ActionBase:public GroupNode{
-  inline virtual void accept(AbstractVisitor &aVisitor);
-  inline void fire() { if(isEnabled()){ apply(); } }
-  virtual void apply() = 0; // action specific code goes here
-  inline void enable() { mEnabled = true; }
-  inline void disable() { mEnabled = false; }
-  inline bool isEnabled() { return mEnabled; }
-private:
-  bool mEnabled;
-};
-//-------------------------------------------------------//
 //-------------------------------------------------------//
 
 #endif
