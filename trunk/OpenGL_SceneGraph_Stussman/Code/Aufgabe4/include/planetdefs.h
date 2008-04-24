@@ -10,6 +10,8 @@
 
 #include <GL/gl.h> 
 #include <GL/glu.h> 
+#include <vector>
+
 
 
 class Material{
@@ -88,6 +90,7 @@ public:
          float aOrbitInclination, // in degrees to suns equator
          char* aTextureName,
          bool aAntiRot=true);  // name of texture to use
+  ~PlanetDef();
   // planet
   float radius;
   float rotVelocity;
@@ -106,15 +109,17 @@ public:
   Material material;
 
   bool mAntiRot;
+protected:
+  std::vector<PlanetDef*> mMoons;
 };
 
 class EarthDef:public PlanetDef{
 public:
-  EarthDef();//:PlanetDef(1.0f, 1.0f, 23.45f, 1.0f, 1.0f, 0.0f, NULL){}
+  EarthDef();
 };
 class MoonDef:public PlanetDef{
 public:
-  MoonDef();//:PlanetDef(0.546f, 27.32f, 6.6f, 2.57f, 27.32f, 5.145f, NULL, false){}
+  MoonDef();
 };
 class MarsDef:public PlanetDef{
 public:

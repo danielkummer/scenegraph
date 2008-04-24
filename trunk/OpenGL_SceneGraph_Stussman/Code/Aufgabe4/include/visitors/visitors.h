@@ -85,7 +85,7 @@ public:
   virtual void visit(MaterialNode &aMateialNode);
   virtual void visit(ColorNode &aColorNode);
   virtual void visit(TextureNode &aTexNode);
-  virtual void visit(ShadowNode &aShadow);
+  virtual void visit(ShadowNode &aShadowNode);
   virtual void visit(StarsNode &aStarNode);
   virtual void visit(RingNode &aRingNode);
 

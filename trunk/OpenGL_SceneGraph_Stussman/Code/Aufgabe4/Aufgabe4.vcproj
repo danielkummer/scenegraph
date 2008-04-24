@@ -197,16 +197,32 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\scene.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\shadow.cpp"
 				>
 			</File>
 			<Filter
 				Name="actions"
 				>
+				<File
+					RelativePath=".\src\actions\actions.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\actions\onoffaction.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="factories"
 				>
+				<File
+					RelativePath=".\src\factories\actionfactory.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\factories\builder.cpp"
 					>
@@ -255,6 +271,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\scene.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\shadow.h"
 				>
 			</File>
@@ -269,6 +289,14 @@
 			<Filter
 				Name="actions"
 				>
+				<File
+					RelativePath=".\include\actions\actions.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\actions\onoffaction.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="visitors"
@@ -281,6 +309,10 @@
 			<Filter
 				Name="factories"
 				>
+				<File
+					RelativePath=".\include\factories\actionfactory.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\factories\builder.h"
 					>
