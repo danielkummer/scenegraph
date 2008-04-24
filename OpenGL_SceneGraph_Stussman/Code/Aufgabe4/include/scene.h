@@ -67,7 +67,7 @@ protected:
 class SolarSytemScene: public AbstractScene{
 public: 
   SolarSytemScene();
-//  ~SolarSytemScene();
+  virtual ~SolarSytemScene();
 
   void handleEvent(SDL_Event &aEvent);
 //  void update();
@@ -76,9 +76,11 @@ public:
 
 protected:
   void createScene();
-
-
-
+  virtual AbstractNode* createPlanet(PlanetDef* aPlanetDef);
+  virtual AbstractNode* createPlanet(RingDef* aRingDef);
+  AbstractNode* createSolarSystem();
+  AbstractNode* createAxis(float aLength=1.0);
+  AbstractNode* createSaturnRings(PlanetDef* aPlanetDef, char* aTextureName, float aInnerFactor=1.5f, float aOuterFactor=2.5f);
 
 };
 

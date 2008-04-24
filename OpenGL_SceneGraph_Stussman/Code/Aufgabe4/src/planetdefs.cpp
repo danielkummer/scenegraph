@@ -16,9 +16,13 @@ PlanetDef::PlanetDef(float aDiameter,       // in earths
                char* aTextureName,
                bool aAntiRot){
   radius = aDiameter/2.0f * 0.50f;
+
   //rotVelocity = 360.0f/aRotationPeriod;
+
   rotVelocity = aRotVelocity;
+
   tilt = aTilt;
+
   orbitRadius = aSemiMajorAxis * 10.0f;
   orbitInclination = aOrbitInclination;
   orbitVelocity = 1.0f/aOrbitPeriod * 360.0f/365.25f;
@@ -31,7 +35,13 @@ PlanetDef::~PlanetDef(){
   }
 }
 
-
+//Rings
+RingDef::RingDef(PlanetDef* aPlanetDef, char* aTextureName, float aInnerFactor, float aOuterFactor):
+PlanetDef(0, 0, 0, 0, 0, 0, aTextureName){
+  mPlanetDef = aPlanetDef;
+  mInnerFactor = aInnerFactor;
+  mOuterFactor = aOuterFactor;
+}
 //Moons
 LunaDef::LunaDef():PlanetDef(0.546f, 0.0f, 1.54f, 0.257f, 0.0747f, 5.145f, "Textures/Moon.bmp", false){}
 TitanDef::TitanDef():PlanetDef(0.404f, 0.0f, 0.34854f, 0.832f, 211.03f, 0.0f, "Textures/Titan.bmp", false){}
@@ -41,11 +51,25 @@ VenusDef::VenusDef():PlanetDef(0.949f, -1.48f, 177.4f, 0.72f, 0.62f, 0.0f, "Text
 EarthDef::EarthDef():PlanetDef(1.0f, 360.0f, 23.45f, 1.0f, 1.0f, 0.0f, "Textures/Earth.bmp"){mMoons.push_back(new LunaDef());}
 MarsDef::MarsDef():PlanetDef(0.532f, 349.51f, 23.98f, 1.52f, 1.88f, 0.0f, "Textures/Mars.bmp"){}
 JupiterDef::JupiterDef():PlanetDef(11.209f, 878.04f, 3.08f, 5.20f, 11.86f, 0.0f, "Textures/Jupiter.bmp"){}
-SaturnDef::SaturnDef():PlanetDef(9.44f, 818.18f, 26.73f, 9.45f, 29.46f, 0.0f, "Textures/Saturn.bmp"){mMoons.push_back(new TitanDef());}
+SaturnDef::SaturnDef():PlanetDef(9.44f, 818.18f, 26.73f, 9.45f, 29.46f, 0.0f, "Textures/Saturn.bmp"){
+  mMoons.push_back(new TitanDef());
+  mMoons.push_back(new RingDef(this, "Textures/Saturnring.bmp"));
+}
 UranusDef::UranusDef():PlanetDef(4.007f, -500.0f, 97.92f, 19.18f, 84.01f, 0.0f, "Textures/Uranus.bmp"){}
 NeptuneDef::NeptuneDef():PlanetDef(3.883f, 500.0f, 28.8f, 30.06f, 164.8f, 0.0f, "Textures/Neptune.bmp"){}
-PlutoDef::PlutoDef():PlanetDef(0.180f, -56.42f, 122.0f, 39.44, 247.7f, 0.0f, "Texturs/Pluto.bmp"){}
+PlutoDef::PlutoDef():PlanetDef(0.180f, -56.42f, 122.0f, 39.44f, 247.7f, 0.0f, "Textures/Pluto.bmp"){}
 
+SunnDef::SunnDef():PlanetDef(1.0f, 11.0f, 0.0f, 0.0f, 1.0f, 0.0f, "Textures/Sun.bmp", false){
+  mMoons.push_back(new MercuryDef());
+  mMoons.push_back(new VenusDef());
+  mMoons.push_back(new EarthDef());
+  mMoons.push_back(new MarsDef());
+  mMoons.push_back(new JupiterDef());
+  mMoons.push_back(new SaturnDef());
+  mMoons.push_back(new UranusDef());
+  mMoons.push_back(new NeptuneDef());
+  mMoons.push_back(new PlutoDef());
+}
 
 
 

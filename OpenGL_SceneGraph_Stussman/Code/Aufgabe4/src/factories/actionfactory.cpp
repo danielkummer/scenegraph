@@ -8,7 +8,11 @@ ActionFactory::ActionFactory(unsigned int *aActionMapping, unsigned int aCount){
   mActionInstances = new ActionBase*[aCount];
   // copy mapping and init instances
   for(unsigned i=0; i<aCount; i++){
-    mMapping[i] = aActionMapping[i];
+    if(0 < aActionMapping[i]){
+      mMapping[i] = aActionMapping[i];
+    }else{
+      mMapping[i] = 0;
+    }
     mActionInstances[i] = NULL;
   }
   mCount = aCount;
