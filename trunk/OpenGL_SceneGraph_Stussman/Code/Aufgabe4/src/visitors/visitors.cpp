@@ -226,7 +226,7 @@ void PrintVisitor::visit(LightNode &aLightNode){
 //-------------------------------------------------------//
 void PrintVisitor::visit(MaterialNode &aMaterialNode){
   printIdent();
-  printf("ID: %d MaterialNode\n", aMaterialNode);
+  printf("ID: %d MaterialNode\n", aMaterialNode.mID);
 }
 //-------------------------------------------------------//
 void PrintVisitor::visit(ColorNode &aColorNode){
