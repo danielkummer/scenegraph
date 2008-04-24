@@ -109,7 +109,7 @@ public:
   Material material;
 
   bool mAntiRot;
-protected:
+
   std::vector<PlanetDef*> mMoons;
 };
 
@@ -159,6 +159,20 @@ public:
 };
 
 
+class RingDef:public PlanetDef{
+public:
+  RingDef(PlanetDef* aPlanetDef, char* aTextureName, float aInnerFactor=1.5f, float aOuterFactor=2.5f);
+
+  float mInnerFactor;
+  float mOuterFactor;
+  char* textureName;
+  PlanetDef* mPlanetDef;
+};
+
+class SunnDef:public PlanetDef{
+public:
+  SunnDef();
+};
 
 #endif
 

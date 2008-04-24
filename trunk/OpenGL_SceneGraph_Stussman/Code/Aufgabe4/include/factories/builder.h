@@ -9,11 +9,12 @@
 //-------------------------------------------------------//
 class Builder{
 public:
-  Builder();
+//  Builder();
+  Builder(GroupNode* aRootNode, ActionBase* aAction=NULL);
   ~Builder();
   AbstractNode* getResult();
   AbstractNode* getLast(){ return mLastAdded; }
-  void setRootNode(GroupNode* aNode);
+//  void setRootNode(GroupNode* aNode);
 
   void buildGroupNode(ActionBase* aAction=NULL);
   void buildTransformSeparator(ActionBase* aAction=NULL);
@@ -36,6 +37,8 @@ public:
   void buildColorNode(float aRed=1.0f, float aGreen=1.0f, float aBlue=1.0f, ActionBase* aAction=NULL);
   void buildTextureNode(GLint aTexID, GLenum aTarget=GL_TEXTURE_2D, ActionBase* aAction=NULL);
   void buildShadowNode(float* aLightPos, float* aNormal, float* aPointInPlane, float* aColor, ActionBase* aAction=NULL);
+  void buildToggleNode(ActionBase* aAction=NULL);
+  void buildLineNode(float aVert1X, float aVert1Y, float aVert1Z, float aVert2X, float aVert2Y, float aVert2Z, float aWidth, float ,ActionBase* aAction=NULL);
 
   void append(ActionBase* aAction, AbstractNode* aNode);
 
@@ -45,6 +48,7 @@ private:
   AbstractNode* mLastAdded;
 };
 //-------------------------------------------------------//
+/*
 class Director{
 public:
   AbstractNode* createPlanet(PlanetDef* aPlanterDef, AbstractNode** aNodelist=NULL, unsigned aNodeCount=0);
@@ -56,6 +60,7 @@ private:
   Builder mBuilder;
 
 };
+*/
 //-------------------------------------------------------//
 
 
