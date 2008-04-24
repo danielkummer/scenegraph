@@ -3,7 +3,7 @@
 
 Clock* Clock::mDefaultClock = NULL;
 //-------------------------------------------------------//
-Clock::Clock():mTime(0), mDilatation(1.0), mListeners(), mOldNow(0){
+Clock::Clock():mTime(0), mDilatation(1.0), mListeners(){
 
 }
 //-------------------------------------------------------//
