@@ -259,6 +259,10 @@ void countFrames() {
 	}
 }
 //------------------
+bool handleEvent(SDL_Event &aEvent){
+  return scene->handleEvent(aEvent);
+}
+//------------------
 void initScene(){
 
   clk = Clock::getDefaultClock();

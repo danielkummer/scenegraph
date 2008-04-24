@@ -45,7 +45,7 @@ public:
   AbstractVisitor* getCurrentVisitor();
 
   // scene specific code
-  void handleEvent(SDL_Event &aEvent);
+  bool handleEvent(SDL_Event &aEvent);
   void update();
   virtual void init();
 //  void quit() = 0;
@@ -69,7 +69,7 @@ public:
   SolarSytemScene();
   virtual ~SolarSytemScene();
 
-  void handleEvent(SDL_Event &aEvent);
+  bool handleEvent(SDL_Event &aEvent);
 //  void update();
   virtual void init();
 //  void quit();

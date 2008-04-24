@@ -53,6 +53,8 @@ void drawSun();
 void drawEarth();
 void drawMoon();
 void drawAxis(float len=1);
+bool handleEvent(SDL_Event &aEvent);
+
 
 
 #endif

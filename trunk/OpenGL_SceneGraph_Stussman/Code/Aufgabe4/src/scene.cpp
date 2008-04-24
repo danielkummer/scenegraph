@@ -137,7 +137,15 @@ void AbstractScene::update(){
   mVisitor.apply(mSceneGraph);
 }
 //-------------------------------------------------------//
-void AbstractScene::handleEvent(SDL_Event &aEvent){
+bool AbstractScene::handleEvent(SDL_Event &aEvent){
+  if(aEvent.type == SDL_KEYDOWN){
+    unsigned vKeyMapVal = mKeyInputMap[aEvent.key.keysym.sym];
+    if(0 != vKeyMapVal){
+      ActionBase* vAction = mActionFactory->getAction(vKeyMapVal);
+      vAction->fire();
+    }
+  }
+  return false;
 }
 //-------------------------------------------------------//
 void AbstractScene::createScene(){
@@ -152,8 +160,12 @@ SolarSytemScene::SolarSytemScene():AbstractScene(){
 SolarSytemScene::~SolarSytemScene(){
 }
 //-------------------------------------------------------//
-void SolarSytemScene::handleEvent(SDL_Event &aEvent){
-  // TODO: do something with the events
+bool SolarSytemScene::handleEvent(SDL_Event &aEvent){
+  if( !AbstractScene::handleEvent(aEvent)){
+    // TODO: do something with the events
+    
+  }
+  return false;
 }
 //-------------------------------------------------------//
 //void SolarSytemScene::update(){
@@ -226,13 +238,16 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
   //TODO: add textures, material, color here
   int vTexId = createTexture(aPlanetDef->textureName);
   vBuilder.buildTextureNode(vTexId);
+  if(NULL != aPlanetDef->material){
+    vBuilder.buildMaterialNode(GL_FRONT, aPlanetDef->material);
+  }
 
   vBuilder.buildSphereNode(aPlanetDef->radius, 16, 16, true);
 
   // axis
   ToggleNode* vToggleN = new ToggleNode();
   vToggleN->add(createAxis(2*aPlanetDef->radius));
-  vToggleN->on();
+  vToggleN->off();
   vBuilder.append(mActionFactory->getAction(EToggleAxis), vToggleN);
 
   return vBuilder.getResult();
@@ -257,7 +272,7 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createSolarSystem(){
-  return createPlanet(&(SunnDef()));
+  return createPlanet(&(SunDef()));
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createAxis(float aLength){

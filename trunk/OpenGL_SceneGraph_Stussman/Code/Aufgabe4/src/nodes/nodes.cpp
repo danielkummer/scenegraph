@@ -259,10 +259,19 @@ void LightNode::setPos(){
 MaterialNode::MaterialNode(GLenum aFace): mFace(aFace){
 }
 //-------------------------------------------------------//
+MaterialNode::MaterialNode(GLenum aFace, Material* aMaterial){
+    mFace = aFace;
+    setParam(GL_AMBIENT, aMaterial->ambient);
+	  setParam(GL_DIFFUSE, aMaterial->diffuse);
+    setParam(GL_SPECULAR, aMaterial->specular);
+    setParam(GL_EMISSION, aMaterial->emission);
+    setParam(GL_SHININESS, aMaterial->shininess);
+}
+//-------------------------------------------------------//
 MaterialNode::~MaterialNode(){
   std::map<GLenum, float*>::const_iterator vItr;
   for(vItr=mParams.begin(); vItr != mParams.end(); vItr++){
-    delete[] vItr->second;
+    delete[] (vItr->second);
   }
   mParams.clear();
 }
@@ -282,6 +291,11 @@ void MaterialNode::setParam(GLenum aParamName, float aV1, float aV2, float aV3, 
     delete[] vRes->second;
   }
   mParams[aParamName] = vParams;
+}
+//-------------------------------------------------------//
+void MaterialNode::setParam(GLenum aParamName, float* aValues3){
+  assert(NULL != aValues3);
+  setParam(aParamName, aValues3[0], aValues3[1], aValues3[2], 0.0f);
 }
 //-------------------------------------------------------//
 /*********************************************************/

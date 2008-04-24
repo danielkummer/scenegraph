@@ -14,7 +14,10 @@
 #include <map>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <assert.h>
+
 #include "clock.h"
+#include "material.h"
 
 class AbstractVisitor;
 
@@ -174,9 +177,11 @@ private:
 class MaterialNode:public AbstractNode{
 public:
   MaterialNode(GLenum aFace);
+  MaterialNode(GLenum aFace, Material* aMaterial);
   virtual ~MaterialNode();
   virtual void accept(AbstractVisitor &aVisitor);
   void setParam(GLenum aParamName, float aV1, float aV2, float aV3, float aV4);
+  void setParam(GLenum aParamName, float* aValues3);
 
   std::map<GLenum, float*> mParams;
   GLenum mFace;

@@ -59,6 +59,7 @@ void Visitor::visit(ColorNode &aColorNode){
 }
 //-------------------------------------------------------//
 void Visitor::visit(TextureNode &aTexNode){
+  // TODO: enable/disable texturemode??
   glBindTexture(aTexNode.mTarget, aTexNode.mTexID);
 }
 //-------------------------------------------------------//

@@ -14,15 +14,12 @@ PlanetDef::PlanetDef(float aDiameter,       // in earths
                float aOrbitPeriod,    // in earthyears
                float aOrbitInclination, // in degrees to suns equator
                char* aTextureName,
-               bool aAntiRot){
+               bool aAntiRot,
+               Material* aMaterial):material(aMaterial){
   radius = aDiameter/2.0f * 0.50f;
-
   //rotVelocity = 360.0f/aRotationPeriod;
-
   rotVelocity = aRotVelocity;
-
   tilt = aTilt;
-
   orbitRadius = aSemiMajorAxis * 10.0f;
   orbitInclination = aOrbitInclination;
   orbitVelocity = 1.0f/aOrbitPeriod * 360.0f/365.25f;
@@ -32,6 +29,10 @@ PlanetDef::PlanetDef(float aDiameter,       // in earths
 PlanetDef::~PlanetDef(){
   for(unsigned i=0; i<mMoons.size(); i++){
     delete mMoons[i];
+  }
+  if(NULL != material){
+    delete material;
+    material = NULL;
   }
 }
 
@@ -59,7 +60,7 @@ UranusDef::UranusDef():PlanetDef(4.007f, -500.0f, 97.92f, 19.18f, 84.01f, 0.0f, 
 NeptuneDef::NeptuneDef():PlanetDef(3.883f, 500.0f, 28.8f, 30.06f, 164.8f, 0.0f, "Textures/Neptune.bmp"){}
 PlutoDef::PlutoDef():PlanetDef(0.180f, -56.42f, 122.0f, 39.44f, 247.7f, 0.0f, "Textures/Pluto.bmp"){}
 
-SunnDef::SunnDef():PlanetDef(1.0f, 11.0f, 0.0f, 0.0f, 1.0f, 0.0f, "Textures/Sun.bmp", false){
+SunDef::SunDef():PlanetDef(1.0f, 11.0f, 0.0f, 0.0f, 1.0f, 0.0f, "Textures/Sun.bmp", false, new SunMaterial()){
   mMoons.push_back(new MercuryDef());
   mMoons.push_back(new VenusDef());
   mMoons.push_back(new EarthDef());
