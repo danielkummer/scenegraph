@@ -83,7 +83,7 @@ public:
 class PlanetDef{
 public:
   PlanetDef(float aDiameter,       // in earths
-         float aRotationPeriod, // in earthdays
+         float aRotVelocity, 	// in earthdays (360°/rotPeriod)
          float aTilt,           // in degrees
          float aSemiMajorAxis,  // in AU
          float aOrbitPeriod,    // in earthyears
@@ -113,18 +113,52 @@ protected:
   std::vector<PlanetDef*> mMoons;
 };
 
+class MercuryDef:public PlanetDef{
+public:
+	MercuryDef();	
+};
+class VenusDef:public PlanetDef{
+public:
+  VenusDef();
+};
 class EarthDef:public PlanetDef{
 public:
   EarthDef();
 };
-class MoonDef:public PlanetDef{
+class LunaDef:public PlanetDef{
 public:
-  MoonDef();
+  LunaDef();
 };
 class MarsDef:public PlanetDef{
 public:
   MarsDef();
 };
+class JupiterDef:public PlanetDef{
+public:
+  JupiterDef();
+};
+class SaturnDef:public PlanetDef{
+public:
+  SaturnDef();
+};
+class UranusDef:public PlanetDef{
+public:
+  UranusDef();
+};
+class NeptuneDef:public PlanetDef{
+public:
+  NeptuneDef();
+};
+class PlutoDef:public PlanetDef{
+public:
+  PlutoDef();
+};
+class TitanDef:public PlanetDef{
+public:
+  TitanDef();
+};
+
+
 
 #endif
 
