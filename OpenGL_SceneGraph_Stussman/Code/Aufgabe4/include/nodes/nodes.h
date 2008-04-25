@@ -62,11 +62,12 @@ public:
 //-------------------------------------------------------//
 class ToggleNode:public GroupNode{
 public:
-//  ToggleNode():GroupNode(), mState(true) { }
-  bool isOn() { return mState; }
+  ToggleNode();
+  virtual ~ToggleNode();
+  bool isOn();
   bool toggle(); // return new state
-  void on() { mState = true; }
-  void off() { mState = false; }
+  void on();
+  void off();
   virtual void accept(AbstractVisitor &aVisitor);
 
 private:

@@ -35,12 +35,18 @@ void OnOffAction::off(){
 void OnOffAction::toggle(){
   if(mOn){
     mOn = false;
+    for(unsigned i=0; i < mChildren.size(); i++){
+      (reinterpret_cast<ToggleNode*>(mChildren[i]))->off();
+    }
   }else{
     mOn = true;
+    for(unsigned i=0; i < mChildren.size(); i++){
+      (reinterpret_cast<ToggleNode*>(mChildren[i]))->on();
+    }
   }
-  for(unsigned i=0; i < mChildren.size(); i++){
-    (reinterpret_cast<ToggleNode*>(mChildren[i]))->toggle();
-  }
+//  for(unsigned i=0; i < mChildren.size(); i++){
+//    (reinterpret_cast<ToggleNode*>(mChildren[i]))->toggle();
+//  }
 }
 //-------------------------------------------------------//
 inline bool OnOffAction::isOn(){
