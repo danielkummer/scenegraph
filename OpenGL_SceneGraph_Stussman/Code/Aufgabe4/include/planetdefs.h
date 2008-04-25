@@ -26,7 +26,7 @@ public:
          char* aTextureName,
          bool aAntiRot=true,
          Material* aMaterial = new DefaultMaterial());  // name of texture to use
-  ~PlanetDef();
+  virtual ~PlanetDef();
   // planet
   float radius;
   float rotVelocity;
@@ -101,7 +101,7 @@ public:
 
   float mInnerFactor;
   float mOuterFactor;
-  char* textureName;
+//  char* textureName;
   PlanetDef* mPlanetDef;
 };
 
