@@ -42,11 +42,11 @@ void GroupNode::add(AbstractNode* aNode){
   mChildren.push_back(aNode);
 }
 //-------------------------------------------------------//
-void GroupNode::remove(AbstractNode* node){
+void GroupNode::remove(AbstractNode* aNode){
   std::vector<AbstractNode*>::iterator vItr;
   for(vItr = mChildren.begin(); vItr < mChildren.end(); vItr++){
-    if(*vItr == node){
-      node->unref();
+    if(*vItr == aNode){
+      aNode->unref();
       vItr = mChildren.erase(vItr);
       break;
     }

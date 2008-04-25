@@ -5,15 +5,19 @@
 #include "visitors/visitors.h"
 
 //-------------------------------------------------------//
-class ActionBase:public GroupNode{
+class ActionBase{
 public:
+  ActionBase();
   virtual ~ActionBase();
-  inline virtual void accept(AbstractVisitor &aVisitor);
-  inline void fire() { if(isEnabled()){ apply(); } }
+  void fire();
   virtual void apply() = 0; // action specific code goes here
-  inline void enable() { mEnabled = true; }
-  inline void disable() { mEnabled = false; }
-  inline bool isEnabled() { return mEnabled; }
+  void enable();
+  void disable();
+  bool isEnabled();
+  void add(AbstractNode* aNode);
+  void remove(AbstractNode* aNode);
+protected:
+  std::vector<AbstractNode*> mListeners;
 private:
   bool mEnabled;
 };
