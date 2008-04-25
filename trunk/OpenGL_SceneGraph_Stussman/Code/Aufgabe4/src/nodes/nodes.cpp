@@ -86,6 +86,27 @@ void TransformSeparator::accept(AbstractVisitor &aVisitor){
 //-------------------------------------------------------//
 /*********************************************************/
 //-------------------------------------------------------//
+ToggleNode::ToggleNode():GroupNode(), mState(false){
+}
+//-------------------------------------------------------//
+
+ToggleNode::~ToggleNode(){
+}
+//-------------------------------------------------------//
+bool ToggleNode::isOn(){
+  return mState;
+}
+//-------------------------------------------------------//
+
+void ToggleNode::on(){ 
+  mState = true; 
+}
+
+//-------------------------------------------------------//
+void ToggleNode::off(){ 
+  mState = false; 
+}
+//-------------------------------------------------------//
 bool ToggleNode::toggle(){
   if(true == mState){
     mState = false;
@@ -94,6 +115,7 @@ bool ToggleNode::toggle(){
   }
   return mState;
 }
+
 //-------------------------------------------------------//
 void ToggleNode::accept(AbstractVisitor &aVisitor){
   aVisitor.visit(*this);
@@ -102,6 +124,7 @@ void ToggleNode::accept(AbstractVisitor &aVisitor){
   }
   aVisitor.postvisit(*this);
 }
+
 //-------------------------------------------------------//
 /*********************************************************/
 //-------------------------------------------------------//

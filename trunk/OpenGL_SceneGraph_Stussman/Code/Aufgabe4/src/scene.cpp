@@ -196,6 +196,9 @@ void SolarSytemScene::createScene(){
   mSceneGraph = new GroupNode();
   mSceneGraph->ref();
 //  mSceneGraph->add(vDirector.createSolarSystem());
+  DefaultMaterial vMat;
+  mSceneGraph->add(new MaterialNode(GL_FRONT, &vMat));
+
 
   mSceneGraph->add(createSolarSystem());
   PrintVisitor().apply(mSceneGraph);
@@ -246,7 +249,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
 
   // axis
   ToggleNode* vToggleN = new ToggleNode();
-  vToggleN->add(createAxis(2*aPlanetDef->radius));
+  vToggleN->add(createAxis(4*aPlanetDef->radius));
   vToggleN->off();
   vBuilder.append(mActionFactory->getAction(EToggleAxis), vToggleN);
 
@@ -278,6 +281,9 @@ AbstractNode* SolarSytemScene::createSolarSystem(){
 AbstractNode* SolarSytemScene::createAxis(float aLength){
   Builder vBuilder(new ToggleNode(), mActionFactory->getAction(EToggleAxis));
 
+  DefaultMaterial vMat;
+  vBuilder.buildMaterialNode(GL_FRONT, &vMat);
+
   vBuilder.buildColorNode(1, 0, 0);
   vBuilder.buildLineNode(0, 0, 0, aLength, 0, 0, 3);
 
@@ -286,6 +292,9 @@ AbstractNode* SolarSytemScene::createAxis(float aLength){
 
   vBuilder.buildColorNode(0, 0, 1);
   vBuilder.buildLineNode(0, 0, 0, 0, 0, aLength, 3);
+
+  vBuilder.buildColorNode(1, 1, 1);
+  vBuilder.buildMaterialNode(GL_FRONT, new DefaultMaterial());
 
   return vBuilder.getResult();
 }
