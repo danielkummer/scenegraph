@@ -65,7 +65,7 @@ public:
   virtual ~DestructorVisitor() { }
   virtual void postvisit(GroupNode &aGroupNode);
   virtual void postvisit(TransformSeparator &aTransformSep);
-  virtual void visit(TextureNode* &aNode);
+  virtual void visit(TextureNode &aNode);
   };
 //-------------------------------------------------------//
 class PrintVisitor:public AbstractVisitor{
