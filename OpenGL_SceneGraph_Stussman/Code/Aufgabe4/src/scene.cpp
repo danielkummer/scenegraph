@@ -267,7 +267,6 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
-  printf("created ring\n");
   PlanetDef* vPlanetDef = aRingDef->mPlanetDef;
   TransformSeparator* vTSep = new TransformSeparator();
   // ring should be stable as the rotation axis of the planet
