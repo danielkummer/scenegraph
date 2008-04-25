@@ -1,0 +1,45 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.61)
+ 	
+
+AC_INIT(SceneGraph, 1.5)
+AC_CONFIG_SRCDIR(src/)
+AM_INIT_AUTOMAKE(SceneGraph, 1.5)
+
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+
+# Checks for libraries.
+# FIXME: Replace `main' with a function in `-lGL':
+AC_CHECK_LIB([GL], [glEnd])
+# FIXME: Replace `main' with a function in `-lGLU':
+AC_CHECK_LIB([GLU], [gluNewQuadric])
+
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([stdlib.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_C_INLINE
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+PKG_CHECK_MODULES(SDL,sdl)
+
+
+AC_SUBST(CFLAGS)
+AC_SUBST(CPPFLAGS)
+AC_SUBST(LDFLAGS)
+
+
+AC_OUTPUT([
+Makefile
+src/Makefile
+])
