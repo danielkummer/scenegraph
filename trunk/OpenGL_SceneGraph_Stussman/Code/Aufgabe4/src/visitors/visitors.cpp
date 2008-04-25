@@ -134,8 +134,8 @@ void DestructorVisitor::postvisit(TransformSeparator &aTransformSep){
   aTransformSep.clear();
 }
 //-------------------------------------------------------//
-void DestructorVisitor::visit(TextureNode* &aNode){
-  glDeleteTextures(1, &(aNode->mTexID));
+void DestructorVisitor::visit(TextureNode &aNode){
+  glDeleteTextures(1, &(aNode.mTexID));
 }
 //-------------------------------------------------------//
 /*********************************************************/
