@@ -294,7 +294,7 @@ AbstractNode* SolarSytemScene::createAxis(float aLength){
   vBuilder.buildLineNode(0, 0, 0, 0, 0, aLength, 3);
 
   vBuilder.buildColorNode(1, 1, 1);
-  vBuilder.buildMaterialNode(GL_FRONT, new DefaultMaterial());
+  vBuilder.buildMaterialNode(GL_FRONT, &DefaultMaterial());
 
   return vBuilder.getResult();
 }
