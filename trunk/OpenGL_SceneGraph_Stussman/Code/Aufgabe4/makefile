@@ -33,7 +33,7 @@ LIBS    = $(GLLIBS) $(SDLLIB)
 
 .PHONY: all clean build
 
-SRCFILES=src/clock.cpp src/main.cpp src/planetdefs.cpp src/nodes/nodes.cpp src/shadow.cpp src/factories/builder.cpp src/draw.cpp src/visitors/visitors.cpp src/factories/actionfactory.cpp src/actions/onoffaction.cpp src/actions/actions.cpp src/scene.cpp
+SRCFILES=src/clock.cpp src/main.cpp src/planetdefs.cpp src/nodes/nodes.cpp src/shadow.cpp src/factories/builder.cpp src/draw.cpp src/visitors/visitors.cpp src/factories/actionfactory.cpp src/actions/onoffaction.cpp src/actions/actions.cpp src/scene.cpp src/material.cpp
 
 
 OBJS=$(SRCFILES:%.cpp=%.o)
@@ -56,4 +56,6 @@ clean :
 	
 
 build : clean all
+
+# DO NOT DELETE
 
