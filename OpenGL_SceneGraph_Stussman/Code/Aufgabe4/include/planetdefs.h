@@ -23,7 +23,7 @@ public:
          float aSemiMajorAxis,  // in AU
          float aOrbitPeriod,    // in earthyears
          float aOrbitInclination, // in degrees to suns equator
-         char* aTextureName,
+         const char* aTextureName,
          bool aAntiRot=true,
          Material* aMaterial = new DefaultMaterial());  // name of texture to use
   virtual ~PlanetDef();
@@ -97,7 +97,7 @@ public:
 
 class RingDef:public PlanetDef{
 public:
-  RingDef(PlanetDef* aPlanetDef, char* aTextureName, float aInnerFactor=1.5f, float aOuterFactor=2.5f);
+  RingDef(PlanetDef* aPlanetDef, const char* aTextureName, float aInnerFactor=1.5f, float aOuterFactor=2.5f);
 
   float mInnerFactor;
   float mOuterFactor;

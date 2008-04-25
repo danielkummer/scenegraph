@@ -13,7 +13,7 @@ PlanetDef::PlanetDef(float aDiameter,       // in earths
                float aSemiMajorAxis,  // in AU
                float aOrbitPeriod,    // in earthyears
                float aOrbitInclination, // in degrees to suns equator
-               char* aTextureName,
+               const char* aTextureName,
                bool aAntiRot,
                Material* aMaterial):material(aMaterial){
   radius = aDiameter/2.0f * 0.50f;
@@ -23,10 +23,11 @@ PlanetDef::PlanetDef(float aDiameter,       // in earths
   orbitRadius = aSemiMajorAxis * 10.0f;
   orbitInclination = aOrbitInclination;
   orbitVelocity = 1.0f/aOrbitPeriod * 360.0f/365.25f;
-  textureName = aTextureName;
+  textureName = strdup(aTextureName);
   mAntiRot = aAntiRot;
 }
 PlanetDef::~PlanetDef(){
+  free(textureName);
   for(unsigned i=0; i<mMoons.size(); i++){
     delete mMoons[i];
   }
@@ -37,7 +38,7 @@ PlanetDef::~PlanetDef(){
 }
 
 //Rings
-RingDef::RingDef(PlanetDef* aPlanetDef, char* aTextureName, float aInnerFactor, float aOuterFactor):
+RingDef::RingDef(PlanetDef* aPlanetDef, const char* aTextureName, float aInnerFactor, float aOuterFactor):
 PlanetDef(0, 0, 0, 0, 0, 0, aTextureName){
   mPlanetDef = aPlanetDef;
   mInnerFactor = aInnerFactor;

@@ -6,3 +6,5 @@ SUBDIRS = src
 
 #Applicationsdir = $(datadir)/gnome/apps/Applications
 #Applications_DATA = gnome-hello.desktop
+EXTRA_DIST = \
+textures
