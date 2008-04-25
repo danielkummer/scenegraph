@@ -275,7 +275,8 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createSolarSystem(){
-  return createPlanet(&(SunDef()));
+  SunDef vSunD;
+  return createPlanet(&vSunD);
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createAxis(float aLength){
@@ -294,7 +295,8 @@ AbstractNode* SolarSytemScene::createAxis(float aLength){
   vBuilder.buildLineNode(0, 0, 0, 0, 0, aLength, 3);
 
   vBuilder.buildColorNode(1, 1, 1);
-  vBuilder.buildMaterialNode(GL_FRONT, &DefaultMaterial());
+  DefaultMaterial vDMat;
+  vBuilder.buildMaterialNode(GL_FRONT, &vDMat);
 
   return vBuilder.getResult();
 }
