@@ -205,7 +205,7 @@ public:
   virtual ~TextureNode() { }
   virtual void accept(AbstractVisitor &aVisitor);
 
-  GLint mTexID;
+  GLuint mTexID;
   GLenum mTarget;
 };
 //-------------------------------------------------------//
