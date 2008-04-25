@@ -205,6 +205,15 @@ void SolarSytemScene::createScene(){
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
+  try
+  {
+  	RingDef* ring = dynamic_cast <RingDef*> (aPlanetDef);
+  	if(ring) 
+  		return createPlanet(ring);
+  }catch (std::bad_cast)
+  { 
+  //dynamic_cast<> failed
+  }
 
   Builder vBuilder(new TransformSeparator());
 
@@ -258,6 +267,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
+  printf("created ring\n");
   PlanetDef* vPlanetDef = aRingDef->mPlanetDef;
   TransformSeparator* vTSep = new TransformSeparator();
   // ring should be stable as the rotation axis of the planet
