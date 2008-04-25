@@ -3,7 +3,7 @@
 
 
 //-------------------------------------------------------//
-AbstractNode::AbstractNode():mRefCount(0), mID(getID()){
+AbstractNode::AbstractNode():mID(getID()),mRefCount(0){
 }
 //-------------------------------------------------------//
 AbstractNode::~AbstractNode(){
