@@ -120,6 +120,8 @@ void Visitor::visit(RingNode &aRingNode){
     glVertex3fv(vertices[0]);
 
   glEnd();   
+  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+
 }
 //-------------------------------------------------------//
 /*********************************************************/
@@ -130,6 +132,10 @@ void DestructorVisitor::postvisit(GroupNode &aGroupNode){
 //-------------------------------------------------------//
 void DestructorVisitor::postvisit(TransformSeparator &aTransformSep){
   aTransformSep.clear();
+}
+//-------------------------------------------------------//
+void DestructorVisitor::visit(TextureNode* &aNode){
+  glDeleteTextures(1, &(aNode->mTexID));
 }
 //-------------------------------------------------------//
 /*********************************************************/

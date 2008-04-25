@@ -319,7 +319,7 @@ int main( int argc, char* argv[] )
 #ifdef WIN32
   #define _CRTDBG_MAP_ALLOC
   #define _CRTDBG_MAPALLOC
-  _CrtSetBreakAlloc(251);
+//  _CrtSetBreakAlloc(251);
 #endif
 
 	if(!init_SDL())					// If intialising of SDL fails -> quit the program with error code 1
