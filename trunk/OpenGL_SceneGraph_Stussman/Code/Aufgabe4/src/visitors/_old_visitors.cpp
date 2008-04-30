@@ -60,6 +60,10 @@ void Visitor::visit(ColorNode &aColorNode){
 //-------------------------------------------------------//
 void Visitor::visit(TextureNode &aTexNode){
   // TODO: enable/disable texturemode??
+  if(true == aTexNode.mBlending){
+    glEnable(GL_BLEND);
+    glBlendFunc(aTexNode.sfactor, aTexNode.dfactor);
+  }
   glBindTexture(aTexNode.mTarget, aTexNode.mTexID);
 }
 //-------------------------------------------------------//
