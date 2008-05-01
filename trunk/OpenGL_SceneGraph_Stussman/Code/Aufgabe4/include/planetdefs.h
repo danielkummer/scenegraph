@@ -110,6 +110,11 @@ public:
   SunDef();
 };
 
+class SunTransDef:public PlanetDef{
+public:
+  SunTransDef();
+};
+
 #endif
 
 // form here: http://www.windows.ucar.edu/tour/link=/our_solar_system/planets_table.html

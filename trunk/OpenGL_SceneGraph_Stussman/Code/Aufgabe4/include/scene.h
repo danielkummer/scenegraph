@@ -81,10 +81,11 @@ public:
 
 protected:
   void createScene();
-  virtual AbstractNode* createPlanet(PlanetDef* aPlanetDef);
+  virtual AbstractNode* createPlanet(PlanetDef* aPlanetDef, bool aMoonYesOrNo=true, float aAlpha=1.0f);
   virtual AbstractNode* createPlanet(RingDef* aRingDef);
   AbstractNode* createSolarSystem();
   AbstractNode* createAxis(float aLength=1.0);
+
 
 };
 
