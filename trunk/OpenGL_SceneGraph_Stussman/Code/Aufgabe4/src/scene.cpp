@@ -195,11 +195,11 @@ void SolarSytemScene::init(){
 void SolarSytemScene::createScene(){
 
 //  Director vDirector;
-  mSceneGraph = new GroupNode();
+  mSceneGraph = new Separator();
   mSceneGraph->ref();
 //  mSceneGraph->add(vDirector.createSolarSystem());
   DefaultMaterial vMat;
-  mSceneGraph->add(new MaterialNode(GL_FRONT, &vMat));
+  mSceneGraph->add(new MaterialNode(GL_FRONT_AND_BACK, &vMat));
 
 
   mSceneGraph->add(createSolarSystem());
@@ -236,9 +236,11 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
   float vColor[4] = {0.5f, 0.5f, 0.5f, 1.0f};
   ShadowNode* vShadowN = new ShadowNode(vPos, vNormal, vPoint, vColor);
   vShadowN->setNodeToShadow(new SphereNode(aPlanetDef->radius));
+  Separator* vSepNode = new Separator();
+  vSepNode->add(vShadowN);
   ToggleNode* vToggle = new ToggleNode();
   vToggle->on();
-  vToggle->add(vShadowN);
+  vToggle->add(vSepNode);
   vBuilder.append(mActionFactory->getAction(EToggleShadow), vToggle);
 
   // anti rotation for stable axis
@@ -253,7 +255,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
   int vTexId = createTexture(aPlanetDef->textureName);
   vBuilder.buildTextureNode(vTexId);
   if(NULL != aPlanetDef->material){
-    vBuilder.buildMaterialNode(GL_FRONT, aPlanetDef->material);
+    vBuilder.buildMaterialNode(GL_FRONT_AND_BACK, aPlanetDef->material);
   }
 
   vBuilder.buildSphereNode(aPlanetDef->radius, 16, 16, true);
@@ -264,7 +266,10 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
   vToggleN->off();
   vBuilder.append(mActionFactory->getAction(EToggleAxis), vToggleN);
 
-  return vBuilder.getResult();
+  Separator* vSep = new Separator();
+  vSep->add(vBuilder.getResult());
+
+  return vSep;
 
 }
 //-------------------------------------------------------//
@@ -296,7 +301,7 @@ AbstractNode* SolarSytemScene::createAxis(float aLength){
   Builder vBuilder(new ToggleNode(), mActionFactory->getAction(EToggleAxis));
 
   DefaultMaterial vMat;
-  vBuilder.buildMaterialNode(GL_FRONT, &vMat);
+  vBuilder.buildMaterialNode(GL_FRONT_AND_BACK, &vMat);
 
   vBuilder.buildColorNode(1, 0, 0);
   vBuilder.buildLineNode(0, 0, 0, aLength, 0, 0, 3);
@@ -309,9 +314,12 @@ AbstractNode* SolarSytemScene::createAxis(float aLength){
 
   vBuilder.buildColorNode(1, 1, 1);
   DefaultMaterial vDMat;
-  vBuilder.buildMaterialNode(GL_FRONT, &vDMat);
+  vBuilder.buildMaterialNode(GL_FRONT_AND_BACK, &vDMat);
 
-  return vBuilder.getResult();
+  Separator* vSep = new Separator();
+  vSep->add(vBuilder.getResult());
+
+  return vSep;
 }
 //-------------------------------------------------------//
 //-------------------------------------------------------//

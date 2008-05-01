@@ -6,6 +6,7 @@
 #include "visitors/visitor.h"
 #include "visitors/abstractvisitor.h"
 #include "visitors/destructorvisitor.h"
+#include "visitors/printvisitor.h"
 #include "nodes/allnodes.h"
 #include "factories/actionfactory.h"
 #include "factories/builder.h"

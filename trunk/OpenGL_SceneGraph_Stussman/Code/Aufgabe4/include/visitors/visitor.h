@@ -8,6 +8,10 @@ class Visitor:public AbstractVisitor{
 public:
   Visitor();
   virtual ~Visitor();
+
+  virtual void postvisit(AbstractNode &aNode){ }
+  virtual void visit(AbstractNode &aNode) { }
+
   virtual void visit(SphereNode &aSphereNode);
   virtual void visit(LineNode &aLineNode );
   virtual void visit(TranslationNode &aTranslationNode);

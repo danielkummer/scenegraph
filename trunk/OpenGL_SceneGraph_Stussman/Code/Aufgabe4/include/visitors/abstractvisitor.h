@@ -27,17 +27,15 @@ public:
   virtual ~AbstractVisitor() { }
 
   virtual void visit(AbstractNode &aNode) { }
+  virtual void postvisit(AbstractNode &aNode) { }
+
+  
   virtual void visit(GroupNode &aGroupNode ) { }
   virtual void postvisit(GroupNode &aGroupNode ) { }
-/*
+
   virtual void visit(TransformSeparator &aTransformSeparatorNode) { }
   virtual void postvisit(TransformSeparator &aTransformSeparatorNode) { }
 
-  virtual void visit(ToggleNode &aToggleNode) { }
-  virtual void postvisit(ToggleNode &aToggleNode) { }
-  virtual void visit(SwitchNode &aSwitchNode) { }
-  virtual void postvisit(SwitchNode &aSwitchNode) { }
-*/
   virtual void visit(SphereNode &aSphereNode ) { }
   virtual void visit(LineNode &aLineNode ) { }
   virtual void visit(TranslationNode &aTranslationNode) { }
@@ -51,6 +49,14 @@ public:
   virtual void visit(ShadowNode &aShadow) { }
   virtual void visit(StarsNode &aStarNode) { }
   virtual void visit(RingNode &aRingNode) { }
+  virtual void visit(Separator &aNode) { }
+  virtual void postvisit(Separator &aNode) { }
+
+  virtual void visit(SwitchNode &aNode) { }
+  virtual void postvisit(SwitchNode &aNode) { }
+
+  virtual void visit(ToggleNode &aNode) { }
+  virtual void postvisit(ToggleNode &aNode) { }
 
   void apply(AbstractNode* aAbstractNode);
 protected:
