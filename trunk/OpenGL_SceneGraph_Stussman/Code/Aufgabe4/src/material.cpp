@@ -63,7 +63,7 @@ void Material::set(GLenum aParamName, float a, float b, float c, float d){
 }
 //-------------------------------------------------------//
 SunMaterial::SunMaterial():Material(){
-  set(GL_EMISSION, 0.5, 0.5, 0.5);
+  set(GL_EMISSION, 1.0, 1.0, 1.0);
   set(GL_COLOR, 1, 1, 0);
 }
 //-------------------------------------------------------//

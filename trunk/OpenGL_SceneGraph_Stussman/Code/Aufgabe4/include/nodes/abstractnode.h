@@ -13,6 +13,8 @@ public:
   void unref();
   virtual void accept(AbstractVisitor &) = 0;
 
+  float mModelMatrix[16];
+
   const unsigned mID;
 
 private:
