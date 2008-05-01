@@ -65,7 +65,7 @@ UranusDef::UranusDef():PlanetDef(   4.007f, -500.0f,   97.92f,   19.18f,      0.
 NeptuneDef::NeptuneDef():PlanetDef( 3.883f,  500.0f,   28.8f,    30.06f,     0.006067f,   0.0f,   "Textures/Neptune.bmp"){}
 PlutoDef::PlutoDef():PlanetDef(     0.180f,  -56.42f, 122.0f,    39.44f,     0.00403714f, 0.0f,   "Textures/Pluto.bmp"){}
 
-SunDef::SunDef():PlanetDef(         1.0f,     0.00024f, 0.0f,     0.0f,        0.0f,      0.0f,   "Textures/Sun.bmp", false, new SunMaterial()){
+SunDef::SunDef():PlanetDef(         10.0f,     0.00024f, 0.0f,     0.0f,        0.0f,      0.0f,   "Textures/Sun.bmp", false, new SunMaterial()){
   mMoons.push_back(new MercuryDef());
   mMoons.push_back(new VenusDef());
   mMoons.push_back(new EarthDef());
@@ -75,8 +75,11 @@ SunDef::SunDef():PlanetDef(         1.0f,     0.00024f, 0.0f,     0.0f,        0
   mMoons.push_back(new UranusDef());
   mMoons.push_back(new NeptuneDef());
   mMoons.push_back(new PlutoDef());
+
 }
 
+SunTransDef::SunTransDef():PlanetDef(         10.01f,     -0.024f, 0.0f,     0.0f,        0.0f,      0.0f,   "Textures/Sun.bmp", false, new SunMaterial()){
+}
 
 
 

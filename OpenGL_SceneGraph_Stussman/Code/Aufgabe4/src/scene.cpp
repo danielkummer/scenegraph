@@ -206,7 +206,7 @@ void SolarSytemScene::createScene(){
   PrintVisitor().apply(mSceneGraph);
 }
 //-------------------------------------------------------//
-AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
+AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYesOrNo, float aAlpha){
   try
   {
   	RingDef* ring = dynamic_cast <RingDef*> (aPlanetDef);
@@ -224,9 +224,10 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
   vBuilder.buildTranslationNode(aPlanetDef->orbitRadius, 0, 0); // radius to sun
 
   // moons
-
-  for(unsigned i=0; i<aPlanetDef->mMoons.size(); i++){
-    vBuilder.append(NULL, createPlanet(aPlanetDef->mMoons[i]));
+  if(true == aMoonYesOrNo){
+    for(unsigned i=0; i<aPlanetDef->mMoons.size(); i++){
+      vBuilder.append(NULL, createPlanet(aPlanetDef->mMoons[i]));
+    }
   }
 
   // shadows
@@ -253,12 +254,18 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
   vBuilder.buildRotationNode(90, 1, 0, 0);
   //TODO: add textures, material, color here
   int vTexId = createTexture(aPlanetDef->textureName);
-  vBuilder.buildTextureNode(vTexId);
+  if(1.0f > aAlpha){
+    vBuilder.buildTextureNode(vTexId, GL_TEXTURE_2D, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, NULL);
+  }else{
+    vBuilder.buildTextureNode(vTexId);
+  }
   if(NULL != aPlanetDef->material){
     vBuilder.buildMaterialNode(GL_FRONT_AND_BACK, aPlanetDef->material);
   }
-
-  vBuilder.buildSphereNode(aPlanetDef->radius, 16, 16, true);
+  if(1.0f > aAlpha){
+    vBuilder.buildColorNode(1, 1, 1, aAlpha, NULL);
+  }
+  vBuilder.buildSphereNode(aPlanetDef->radius, 32, 32, true);
 
   // axis
   ToggleNode* vToggleN = new ToggleNode();
@@ -293,9 +300,17 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createSolarSystem(){
-
+  TransformSeparator* vTSep = new TransformSeparator();
+  
   SunDef vSunD;
-  return createPlanet(&vSunD);
+  SunTransDef vSunDTrans;
+  vTSep->add(createPlanet(&vSunD));
+  for(unsigned i=0; i<1; i++){
+    vSunDTrans.radius += 0.01;
+    vSunDTrans.rotVelocity += 0.01;
+    vTSep->add(createPlanet(&vSunDTrans, true, 0.5));
+  }
+  return vTSep;
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createAxis(float aLength){

@@ -160,12 +160,16 @@ void Builder::buildMaterialNode(GLenum aFace, Material* aMaterial, ActionBase* a
   append(aAction, new MaterialNode(aFace, aMaterial));
 }
 //-------------------------------------------------------//
-void Builder::buildColorNode(float aRed, float aGreen, float aBlue, ActionBase* aAction){
-  append(aAction, new ColorNode(aRed, aGreen, aBlue));
+void Builder::buildColorNode(float aRed, float aGreen, float aBlue, float aAlpha, ActionBase* aAction){
+  append(aAction, new ColorNode(aRed, aGreen, aBlue, aAlpha));
 }
 //-------------------------------------------------------//
 void Builder::buildTextureNode(GLint aTexID, GLenum aTarget, ActionBase* aAction){
   append(aAction, new TextureNode(aTexID, aTarget));
+}
+//-------------------------------------------------------//
+void Builder::buildTextureNode(GLint aTexID, GLenum aTarget, GLenum aSFactor, GLenum aDFactor, ActionBase* aAction){
+  append(aAction, new TextureNode(aTexID, aSFactor, aDFactor, aTarget));
 }
 //-------------------------------------------------------//
 void Builder::buildShadowNode(float* aLightPos, float* aNormal, float* aPointInPlane, float* aColor, ActionBase* aAction){

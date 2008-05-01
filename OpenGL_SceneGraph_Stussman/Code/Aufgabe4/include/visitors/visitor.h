@@ -22,6 +22,12 @@ public:
   virtual void visit(ShadowNode &aShadow);
   virtual void visit(StarsNode &aStarNode);
   virtual void visit(RingNode &aRingNode);
+  virtual void visit(Separator &aNode);
+  virtual void postvisit(Separator &aNode);
+  virtual void visit(TransformSeparator &aNode);
+  virtual void postvisit(TransformSeparator &aNode);
+
+
 };
 
 #endif // _H_VISITOR

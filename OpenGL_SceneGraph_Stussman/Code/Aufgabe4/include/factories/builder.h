@@ -35,8 +35,9 @@ public:
   void buildLightNode(GLenum aLightNr, ActionBase* aAction=NULL);
   void buildMaterialNode(GLenum aFace, ActionBase* aAction=NULL);
   void buildMaterialNode(GLenum aFace, Material* aMaterial, ActionBase* aAction=NULL);
-  void buildColorNode(float aRed=1.0f, float aGreen=1.0f, float aBlue=1.0f, ActionBase* aAction=NULL);
+  void buildColorNode(float aRed, float aGreen, float aBlue, float aAlpha=1.0f, ActionBase* aAction=NULL);
   void buildTextureNode(GLint aTexID, GLenum aTarget=GL_TEXTURE_2D, ActionBase* aAction=NULL);
+  void buildTextureNode(GLint aTexID, GLenum aTarget, GLenum aSFactor, GLenum aDFactor, ActionBase* aAction=NULL);
   void buildShadowNode(float* aLightPos, float* aNormal, float* aPointInPlane, float* aColor, ActionBase* aAction=NULL);
   void buildToggleNode(ActionBase* aAction=NULL);
   void buildLineNode(float aVert1X, float aVert1Y, float aVert1Z, float aVert2X, float aVert2Y, float aVert2Z, float aWidth, float ,ActionBase* aAction=NULL);
