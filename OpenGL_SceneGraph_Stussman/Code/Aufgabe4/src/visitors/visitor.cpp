@@ -9,6 +9,7 @@ Visitor::~Visitor(){
 }
 //----------------------------------------------------------//
 void Visitor::visit(SphereNode &aSphereNode){
+  glGetFloatv(GL_MODELVIEW_MATRIX, aSphereNode.mModelMatrix);
   gluQuadricNormals(aSphereNode.mQuadric, GLU_SMOOTH);
   gluQuadricTexture(aSphereNode.mQuadric, aSphereNode.mUseTexCoord);
   glEnable(GL_CULL_FACE);

@@ -200,6 +200,7 @@ void SolarSytemScene::createScene(){
 //  mSceneGraph->add(vDirector.createSolarSystem());
   DefaultMaterial vMat;
   mSceneGraph->add(new MaterialNode(GL_FRONT_AND_BACK, &vMat));
+  mSceneGraph->add(new ColorNode(1, 1, 1, 1));
 
 
   mSceneGraph->add(createSolarSystem());
@@ -305,9 +306,12 @@ AbstractNode* SolarSytemScene::createSolarSystem(){
   SunDef vSunD;
   SunTransDef vSunDTrans;
   vTSep->add(createPlanet(&vSunD));
-  for(unsigned i=0; i<1; i++){
-    vSunDTrans.radius += 0.01;
-    vSunDTrans.rotVelocity += 0.01;
+  float vDeltaV = 0.01f;
+  for(unsigned i=0; i<3; i++){
+    vSunDTrans.radius += vDeltaV;
+    vSunDTrans.rotVelocity += 0.01f;
+    vDeltaV = -vDeltaV;
+    vSunDTrans.rotVelocity = -vSunDTrans.rotVelocity;
     vTSep->add(createPlanet(&vSunDTrans, true, 0.5));
   }
   return vTSep;
