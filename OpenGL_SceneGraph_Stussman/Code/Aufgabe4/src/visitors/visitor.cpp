@@ -2,6 +2,12 @@
 
 
 //----------------------------------------------------------//
+Visitor::Visitor(){
+}
+//----------------------------------------------------------//
+Visitor::~Visitor(){
+}
+//----------------------------------------------------------//
 void Visitor::visit(SphereNode &aSphereNode){
   gluQuadricTexture(aSphereNode.mQuadric, aSphereNode.mUseTexCoord);
   gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);

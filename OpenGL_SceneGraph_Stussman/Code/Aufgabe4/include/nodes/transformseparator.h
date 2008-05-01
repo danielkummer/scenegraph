@@ -12,7 +12,6 @@
 #include <GL/glu.h> 
 
 #include "nodes/groupnode.h"
-#include "visitors/abstractvisitor.h"
 
 class TransformSeparator:public GroupNode{
 public:

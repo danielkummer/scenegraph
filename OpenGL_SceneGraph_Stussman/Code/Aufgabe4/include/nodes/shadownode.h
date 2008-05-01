@@ -12,7 +12,6 @@
 #include <GL/glu.h> 
 
 #include "nodes/abstractnode.h"
-#include "visitors/abstractvisitor.h"
 
 class ShadowNode:public AbstractNode{
 public:

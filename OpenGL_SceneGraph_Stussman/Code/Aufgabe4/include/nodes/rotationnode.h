@@ -5,7 +5,6 @@
 #include <math.h>
 
 #include "nodes/abstractnode.h"
-#include "visitors/abstractvisitor.h"
 
 class RotationNode:public AbstractNode{
 public:

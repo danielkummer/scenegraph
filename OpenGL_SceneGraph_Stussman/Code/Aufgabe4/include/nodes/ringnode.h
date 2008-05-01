@@ -5,7 +5,6 @@
 #include <math.h>
 
 #include "nodes/abstractnode.h"
-#include "visitors/abstractvisitor.h"
 
 
 class RingNode:public AbstractNode{

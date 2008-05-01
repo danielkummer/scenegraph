@@ -2,6 +2,8 @@
 #define _H_PRINTVISITOR
 
 #include "nodes/allnodes.h"
+#include "visitors/abstractvisitor.h"
+
 
 class PrintVisitor:public AbstractVisitor{
 public:
