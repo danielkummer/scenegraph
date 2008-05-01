@@ -86,6 +86,13 @@ private:
   int mCurrent;
 };
 //-------------------------------------------------------//
+class Separator:public GroupNode{
+public:
+  Separator();
+  virtual ~Separator();
+  virtual void accept(AbstractVisitor &aVisitor);
+};
+//-------------------------------------------------------//
 /**** Shapes *****/
 class SphereNode:public AbstractNode{
 public:
@@ -201,12 +208,16 @@ public:
 //-------------------------------------------------------//
 class TextureNode:public AbstractNode{
 public:
-  TextureNode(GLint aTexID, GLenum aTarget=GL_TEXTURE_2D);
+  TextureNode(GLint aTexID, GLenum aTarget=GL_TEXTURE_2D, bool aBlend=false);
   virtual ~TextureNode() { }
   virtual void accept(AbstractVisitor &aVisitor);
 
+  GLenum sfactor;
+  GLenum dfactor;
+    
   GLuint mTexID;
   GLenum mTarget;
+  bool mBlending;
 };
 //-------------------------------------------------------//
 class ShadowNode:public AbstractNode{

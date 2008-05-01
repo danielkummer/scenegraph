@@ -1,13 +1,20 @@
 #ifndef _H_ABSTRACTVISITOR
 #define _H_ABSTRACTVISITOR
 
+//#include "nodes/allnodes.h"
+class AbstractNode;
+class GroupNode;
+
 class AbstractVisitor{
 public:
   AbstractVisitor() { }
   virtual ~AbstractVisitor() { }
 
+  virtual void visit(AbstractNode &aNode) { }
   virtual void visit(GroupNode &aGroupNode ) { }
   virtual void postvisit(GroupNode &aGroupNode ) { }
+
+  /*
   virtual void visit(TransformSeparator &aTransformSeparatorNode) { }
   virtual void postvisit(TransformSeparator &aTransformSeparatorNode) { }
 
@@ -30,7 +37,7 @@ public:
   virtual void visit(ShadowNode &aShadow) { }
   virtual void visit(StarsNode &aStarNode) { }
   virtual void visit(RingNode &aRingNode) { }
-
+*/
   void apply(AbstractNode* aAbstractNode);
 protected:
   AbstractNode* mRootNode;

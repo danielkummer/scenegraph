@@ -136,6 +136,12 @@ void SwitchNode::accept(AbstractVisitor &aVisitor){
   aVisitor.postvisit(*this);
 }
 //-------------------------------------------------------//
+Separator::Separator() { }
+Separator::~Separator() { }
+void Separator::accept(AbstractVisitor &aVisitor){
+  aVisitor.visit(*this);
+}
+//-------------------------------------------------------//
 void SwitchNode::switchTo(unsigned int aChildNr){
   if(aChildNr >= 0 && aChildNr <(unsigned)mChildren.size()){
     mCurrent = aChildNr;
@@ -334,8 +340,8 @@ inline void ColorNode::accept(AbstractVisitor &aVisitor){
 //-------------------------------------------------------//
 /*********************************************************/
 //-------------------------------------------------------//
-TextureNode::TextureNode(GLint aTexID, GLenum aTarget):
-mTexID(aTexID), mTarget(aTarget){
+TextureNode::TextureNode(GLint aTexID, GLenum aTarget, bool aBlend):
+mTexID(aTexID), mTarget(aTarget), mBlending(aBlend){
 }
 //-------------------------------------------------------//
 inline void TextureNode::accept(AbstractVisitor &aVisitor){
