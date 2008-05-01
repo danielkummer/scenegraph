@@ -2,9 +2,9 @@
 #define _BUILDER_H
 
 #include "main.h"
-#include "nodes/nodes.h"
+#include "nodes/allnodes.h"
 #include "planetdefs.h"
-#include "actions/actions.h"
+#include "actions/actionbase.h"
 
 //-------------------------------------------------------//
 class Builder{

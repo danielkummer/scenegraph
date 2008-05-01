@@ -2,10 +2,14 @@
 #define _SCENE_H
 
 #include <SDL.h> 
-#include "visitors/visitors.h"
-#include "nodes/nodes.h"
+
+#include "visitors/visitor.h"
+#include "visitors/abstractvisitor.h"
+#include "visitors/destructorvisitor.h"
+#include "nodes/allnodes.h"
 #include "factories/actionfactory.h"
 #include "factories/builder.h"
+#include "material.h"
 
 
 enum EActionNames{

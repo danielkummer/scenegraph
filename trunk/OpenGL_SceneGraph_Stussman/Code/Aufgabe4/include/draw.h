@@ -22,8 +22,9 @@
 #include <math.h>
 #include "main.h"
 //#include "shadow.h"
-#include "nodes/nodes.h"
-#include "visitors/visitors.h"
+//#include "nodes/nodes.h"
+//#include "visitors/visitors.h"
+#include "nodes/groupnode.h"
 #include "factories/builder.h"
 
 

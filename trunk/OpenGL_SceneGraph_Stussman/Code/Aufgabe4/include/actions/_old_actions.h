@@ -1,8 +1,8 @@
 #ifndef _ACTIONS_H
 #define _ACTIONS_H
 
-#include "nodes/nodes.h"
-#include "visitors/visitors.h"
+#include "nodes/abstractnode.h"
+#include "visitors/abstractvisitor.h"
 
 //-------------------------------------------------------//
 class ActionBase{
