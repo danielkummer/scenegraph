@@ -1,6 +1,8 @@
 #ifndef _H_VISITOR
 #define _H_VISITOR
 
+#include "nodes/allnodes.h"
+
 class Visitor:public AbstractVisitor{
 public:
   Visitor(): AbstractVisitor() { }

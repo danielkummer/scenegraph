@@ -236,7 +236,23 @@
 				Name="visitors"
 				>
 				<File
-					RelativePath=".\src\visitors\visitors.cpp"
+					RelativePath=".\src\visitors\abstractvisitor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\visitors\destructorvisitor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\visitors\eventvisitor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\visitors\printvisitor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\visitors\visitor.cpp"
 					>
 				</File>
 			</Filter>
@@ -290,7 +306,83 @@
 				Name="nodes"
 				>
 				<File
-					RelativePath=".\include\nodes\nodes.h"
+					RelativePath=".\include\nodes\abstractnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\allnodes.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\colornode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\groupnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\lightnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\linenode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\materialnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\ringnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\rotationnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\rotornode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\scalenode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\separator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\shadownode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\spherenode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\starsnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\switchnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\texturenode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\togglenode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\transformseparator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\translationnode.h"
 					>
 				</File>
 			</Filter>
@@ -310,7 +402,23 @@
 				Name="visitors"
 				>
 				<File
-					RelativePath=".\include\visitors\visitors.h"
+					RelativePath=".\include\visitors\abstractvisitor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\visitors\destructorvisitor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\visitors\eventvisitor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\visitors\printvisitor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\visitors\visitor.h"
 					>
 				</File>
 			</Filter>

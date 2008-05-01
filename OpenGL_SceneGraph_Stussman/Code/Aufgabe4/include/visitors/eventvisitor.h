@@ -1,6 +1,10 @@
 #ifndef _H_EVENTVISITOR
 #define _H_EVENTVISITOR
 
+#include <SDL.h> 
+
+#include "visitors/abstractvisitor.h"
+
 class EventVisitor:public AbstractVisitor{
 public:
   EventVisitor():AbstractVisitor() { }

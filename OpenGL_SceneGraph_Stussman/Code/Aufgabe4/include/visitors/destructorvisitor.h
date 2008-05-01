@@ -1,6 +1,9 @@
 #ifndef _H_DESTRUCTORVISITOR
 #define _H_DESTRUCTORVISITOR
 
+#include "visitors/abstractvisitor.h"
+#include "nodes/allnodes.h"
+
 class DestructorVisitor:public AbstractVisitor{
 public:
   DestructorVisitor(): AbstractVisitor() { }
