@@ -1,29 +1,6 @@
 #ifndef _H_ABSTRACTVISITOR
 #define _H_ABSTRACTVISITOR
 
-//#include "nodes/allnodes.h"
-//class AbstractNode;
-//class GroupNode;
-//#include "nodes/abstractnode.h"
-//#include "nodes/colornode.h"
-//#include "nodes/groupnode.h"
-//#include "nodes/lightnode.h"
-//#include "nodes/linenode.h"
-//#include "nodes/materialnode.h"
-//#include "nodes/ringnode.h"
-//#include "nodes/rotationnode.h"
-//#include "nodes/rotornode.h"
-//#include "nodes/scalenode.h"
-//#include "nodes/separator.h"
-//#include "nodes/shadownode.h"
-//#include "nodes/spherenode.h"
-//#include "nodes/starsnode.h"
-//#include "nodes/switchnode.h"
-//#include "nodes/texturenode.h"
-//#include "nodes/togglenode.h"
-//#include "nodes/transformseparator.h"
-//#include "nodes/translationnode.h"
-
 class AbstractNode;
 class GroupNode;
 class ColorNode;
@@ -52,10 +29,7 @@ public:
   virtual void visit(AbstractNode &aNode) { }
   virtual void visit(GroupNode &aGroupNode ) { }
   virtual void postvisit(GroupNode &aGroupNode ) { }
-
-
-
-  
+/*
   virtual void visit(TransformSeparator &aTransformSeparatorNode) { }
   virtual void postvisit(TransformSeparator &aTransformSeparatorNode) { }
 
@@ -63,8 +37,7 @@ public:
   virtual void postvisit(ToggleNode &aToggleNode) { }
   virtual void visit(SwitchNode &aSwitchNode) { }
   virtual void postvisit(SwitchNode &aSwitchNode) { }
-
-
+*/
   virtual void visit(SphereNode &aSphereNode ) { }
   virtual void visit(LineNode &aLineNode ) { }
   virtual void visit(TranslationNode &aTranslationNode) { }

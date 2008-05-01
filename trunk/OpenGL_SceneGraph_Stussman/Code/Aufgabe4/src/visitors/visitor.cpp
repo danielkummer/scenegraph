@@ -89,8 +89,8 @@ void Visitor::visit(RingNode &aRingNode){
   float** vertices = aRingNode.mVertices;
   int quadCount = aRingNode.mQuadCount;
 
-  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-
+//  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+//  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
   glBegin(GL_QUADS);
     glNormal3fv(fNormalVec);
 
@@ -119,7 +119,7 @@ void Visitor::visit(RingNode &aRingNode){
     glVertex3fv(vertices[0]);
 
   glEnd();   
-  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+//  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 
 }
 //----------------------------------------------------------//

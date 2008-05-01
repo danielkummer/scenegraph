@@ -260,7 +260,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef){
 
   // axis
   ToggleNode* vToggleN = new ToggleNode();
-  vToggleN->add(createAxis(4*aPlanetDef->radius));
+  vToggleN->add(createAxis(20*aPlanetDef->radius));
   vToggleN->off();
   vBuilder.append(mActionFactory->getAction(EToggleAxis), vToggleN);
 
@@ -281,6 +281,8 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
   float vInner = vPlanetDef->radius * aRingDef->mInnerFactor;
   float vOuter = vPlanetDef->radius * aRingDef->mOuterFactor;
   vTSep->add( new RingNode(vInner, vOuter, 64) );
+//  vTSep->add( new RotationNode(180, 1, 0, 0) );
+//  vTSep->add( new RingNode(vInner, vOuter, 64) );
 
   return vTSep;
 }
@@ -312,9 +314,6 @@ AbstractNode* SolarSytemScene::createAxis(float aLength){
   return vBuilder.getResult();
 }
 //-------------------------------------------------------//
-AbstractNode* SolarSytemScene::createSaturnRings(PlanetDef* aPlanetDef, char* aTextureName, float aInnerFactor, float aOuterFactor){
-  return NULL;
-}
 //-------------------------------------------------------//
 //-------------------------------------------------------//
 

@@ -359,10 +359,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\planets.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\scene.h"
 				>
 			</File>

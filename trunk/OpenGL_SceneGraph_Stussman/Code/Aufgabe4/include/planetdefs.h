@@ -18,7 +18,7 @@
 class PlanetDef{
 public:
   PlanetDef(float aDiameter,       // in earths
-         float aRotVelocity, 	// in earthdays (360Â°/rotPeriod)
+         float aRotVelocity, 	// in earthdays (360°/rotPeriod)
          float aTilt,           // in degrees
          float aSemiMajorAxis,  // in AU
          float aOrbitPeriod,    // in earthyears

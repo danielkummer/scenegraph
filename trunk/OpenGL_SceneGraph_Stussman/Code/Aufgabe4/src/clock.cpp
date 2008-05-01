@@ -10,13 +10,14 @@ Clock::Clock():mTime(0), mDilatation(1.0), mListeners(){
 
 void Clock::tick(){
   int now = SDL_GetTicks();
-  double dt = (now - mOldNow) * mDilatation * 0.001f; // [seconds]
+  int tickDt = now - mOldNow; 
+  if( tickDt > 1000){
+    tickDt = 1000;
+  }
+  double dt = tickDt * mDilatation * 0.001f; // [seconds]
   mOldNow = now;
 
   mTime += dt;
-  if(dt > 0.1f){
-     dt = 0.1f;
-  }
 
   std::vector<ClockListener*>::iterator vItr;
   for(vItr = mListeners.begin(); vItr < mListeners.end(); vItr++){
