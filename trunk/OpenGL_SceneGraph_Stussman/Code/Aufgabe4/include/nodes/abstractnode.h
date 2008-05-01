@@ -1,9 +1,9 @@
 #ifndef _H_ABSTRACTNODE
 #define _H_ABSTRACTNODE
 
-#include "visitors/abstractvisitor.h"
 
-class AbstractVisitor;
+//class AbstractVisitor;
+#include "visitors/abstractvisitor.h"
 
 class AbstractNode{
 public:

@@ -1,7 +1,6 @@
 #ifndef _H_SCALENODE
 #define _H_SCALENODE
 
-#include "visitors/abstractvisitor.h"
 #include "nodes/abstractnode.h"
 
 class ScaleNode:public AbstractNode{

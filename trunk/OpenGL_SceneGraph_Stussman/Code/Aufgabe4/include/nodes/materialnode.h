@@ -16,7 +16,6 @@
 
 #include "material.h"
 #include "nodes/abstractnode.h"
-#include "visitors/abstractvisitor.h"
 
 
 class MaterialNode:public AbstractNode{

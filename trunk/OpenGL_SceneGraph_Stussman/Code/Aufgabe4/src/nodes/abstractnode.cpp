@@ -1,4 +1,5 @@
 #include "nodes/abstractnode.h"
+#include "visitors/abstractvisitor.h"
 
 
 //----------------------------------------------------------//

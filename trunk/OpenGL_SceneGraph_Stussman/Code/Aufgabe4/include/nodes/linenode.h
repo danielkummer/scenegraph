@@ -1,7 +1,6 @@
 #ifndef _H_LINENODE
 #define _H_LINENODE
 
-#include "visitors/abstractvisitor.h"
 #include "nodes/abstractnode.h"
 
 class LineNode:public AbstractNode{

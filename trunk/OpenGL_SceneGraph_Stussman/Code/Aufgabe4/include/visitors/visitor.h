@@ -2,11 +2,12 @@
 #define _H_VISITOR
 
 #include "nodes/allnodes.h"
+#include "visitors/abstractvisitor.h"
 
 class Visitor:public AbstractVisitor{
 public:
-  Visitor(): AbstractVisitor() { }
-  virtual ~Visitor() { }
+  Visitor();
+  virtual ~Visitor();
   virtual void visit(SphereNode &aSphereNode);
   virtual void visit(LineNode &aLineNode );
   virtual void visit(TranslationNode &aTranslationNode);

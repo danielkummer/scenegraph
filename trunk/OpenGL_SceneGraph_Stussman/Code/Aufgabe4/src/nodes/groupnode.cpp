@@ -41,8 +41,10 @@ void GroupNode::visitChildren(AbstractVisitor &aVisitor){
   }
 }
 //----------------------------------------------------------//
-void GroupNode::accept(AbstractVisitor &aVisitor){
+inline void GroupNode::accept(AbstractVisitor &aVisitor){
   aVisitor.visit(*this);
+  visitChildren(aVisitor);
+  aVisitor.postvisit(*this);
 }
 //----------------------------------------------------------//
 

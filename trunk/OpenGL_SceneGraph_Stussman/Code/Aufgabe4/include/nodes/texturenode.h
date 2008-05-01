@@ -12,7 +12,6 @@
 #include <GL/gl.h> 
 #include <GL/glu.h> 
 
-#include "visitors/abstractvisitor.h"
 #include "nodes/abstractnode.h"
 
 class TextureNode:public AbstractNode{
