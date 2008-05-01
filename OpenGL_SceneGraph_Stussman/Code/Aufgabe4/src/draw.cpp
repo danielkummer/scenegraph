@@ -30,7 +30,7 @@ float posx;
 float posy;
 float posz = -10;
 float mousetune = 0.1f;
-float speed = 1.0f;
+float speed = 300.0f;
 
 GLUquadricObj* quadric = gluNewQuadric();
 //GroupNode* sceneRoot;
@@ -83,11 +83,11 @@ void camera() {
   yangle += (keyFlag.relMouseX * mousetune);
   xangle += (keyFlag.relMouseY * mousetune);
   if(4 == keyFlag.rollButton){
-    speed += 0.101f;
+    speed += 10.0f;
     printf("speed: %f\n", speed);
   }
   if(5 == keyFlag.rollButton){
-    speed -= 0.101f;
+    speed -= 10.0f;
     printf("speed: %f\n", speed);
   }
   keyFlag.rollButton = -1;

@@ -33,7 +33,7 @@ protected:
 
 private:
   double mTime;
-  long mOldNow;
+  int mOldNow;
   float mDilatation;
   std::vector<ClockListener*> mListeners;
 
