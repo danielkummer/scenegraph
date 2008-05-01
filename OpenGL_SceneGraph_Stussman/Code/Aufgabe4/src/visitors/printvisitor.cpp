@@ -130,4 +130,35 @@ void PrintVisitor::visit(RingNode &aRingNode){
         aRingNode.mQuadCount);
 }
 //----------------------------------------------------------//
-
+void PrintVisitor::visit(Separator &aNode){
+  printIdent();
+  printf("ID: %d Separator enter\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::postvisit(Separator &aNode){
+  printIdent();
+  printf("ID: %d Separator end\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::visit(SwitchNode &aNode){
+  printIdent();
+  printf("ID: %d SwitchNode enter\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::postvisit(SwitchNode &aNode){
+  printIdent();
+  printf("ID: %d SwitchNode end\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::visit(ToggleNode &aNode){
+  printIdent();
+  printf("ID: %d ToggleNode enter\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::postvisit(ToggleNode &aNode){
+  printIdent();
+  printf("ID: %d ToggleNode end\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::visit(AbstractNode &aNode) { }
+void PrintVisitor::postvisit(AbstractNode &aNode){ }
