@@ -293,6 +293,7 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createSolarSystem(){
+
   SunDef vSunD;
   return createPlanet(&vSunD);
 }

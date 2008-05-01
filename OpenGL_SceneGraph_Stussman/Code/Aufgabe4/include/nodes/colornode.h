@@ -5,13 +5,14 @@
 
 class ColorNode:public AbstractNode{
 public: 
-  ColorNode(float aRed=1.0f, float aGreen=1.0f, float aBlue=1.0f);
+  ColorNode(float aRed=1.0f, float aGreen=1.0f, float aBlue=1.0f, float aAlpha=1.0f);
   virtual ~ColorNode();
   virtual void accept(AbstractVisitor &aVisitor);
 
   float mRed;
   float mGreen;
   float mBlue;
+  float mAlpha;
 };
 
 #endif // _H_COLORNODE

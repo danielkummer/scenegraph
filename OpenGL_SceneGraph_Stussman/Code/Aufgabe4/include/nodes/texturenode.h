@@ -17,11 +17,12 @@
 class TextureNode:public AbstractNode{
 public:
   TextureNode(GLint aTexID, GLenum aTarget=GL_TEXTURE_2D, bool aBlend=false);
+  TextureNode(GLint aTexID, GLenum aSFactor, GLenum aDFactor, GLenum aTarget=GL_TEXTURE_2D);
   virtual ~TextureNode() { }
   virtual void accept(AbstractVisitor &aVisitor);
 
-  GLenum sfactor;
-  GLenum dfactor;
+  GLenum mSFactor;
+  GLenum mDFactor;
     
   GLuint mTexID;
   GLenum mTarget;

@@ -54,14 +54,14 @@ void Visitor::visit(MaterialNode &aMaterialNode){
 }
 //----------------------------------------------------------//
 void Visitor::visit(ColorNode &aColorNode){
-  glColor3f(aColorNode.mRed, aColorNode.mGreen, aColorNode.mBlue);
+  glColor4f(aColorNode.mRed, aColorNode.mGreen, aColorNode.mBlue, aColorNode.mAlpha);
 }
 //----------------------------------------------------------//
 void Visitor::visit(TextureNode &aTexNode){
   // TODO: enable/disable texturemode??
   if(true == aTexNode.mBlending){
     glEnable(GL_BLEND);
-    glBlendFunc(aTexNode.sfactor, aTexNode.dfactor);
+    glBlendFunc(aTexNode.mSFactor, aTexNode.mDFactor);
   }
   glBindTexture(aTexNode.mTarget, aTexNode.mTexID);
 }
@@ -116,8 +116,7 @@ void Visitor::visit(RingNode &aRingNode){
     glTexCoord2f(1.0f, 0.0f);
     glVertex3fv(vertices[quadCount]);
     glTexCoord2f(1.0f, 1.0f);       
-    glVertex3fv(vertices[0]);
-
+    glVertex3fv(vertices[0]);    
   glEnd();   
 //  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 

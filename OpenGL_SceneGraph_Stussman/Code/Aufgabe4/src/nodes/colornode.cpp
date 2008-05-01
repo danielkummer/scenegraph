@@ -1,8 +1,8 @@
 #include "nodes/colornode.h"
 
 //-------------------------------------------------------//
-ColorNode::ColorNode(float aRed, float aGreen, float aBlue):
-mRed(aRed), mGreen(aGreen), mBlue(aBlue){
+ColorNode::ColorNode(float aRed, float aGreen, float aBlue, float aAlpha):
+mRed(aRed), mGreen(aGreen), mBlue(aBlue), mAlpha(aAlpha){
 }
 //-------------------------------------------------------//
 ColorNode::~ColorNode(){
