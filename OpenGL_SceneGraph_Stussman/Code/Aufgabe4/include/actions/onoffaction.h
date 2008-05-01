@@ -1,8 +1,10 @@
 #ifndef _ONOFF_ACTION_H
 #define _ONOFF_ACTION_H
 
-#include "actions/actions.h"
-#include "visitors/visitors.h"
+#include "actions/actionbase.h"
+#include "visitors/abstractvisitor.h"
+#include "nodes/togglenode.h"
+#include "nodes/abstractnode.h"
 
 //-------------------------------------------------------//
 class OnOffAction:public ActionBase{

@@ -212,7 +212,7 @@
 				Name="actions"
 				>
 				<File
-					RelativePath=".\src\actions\actions.cpp"
+					RelativePath=".\src\actions\actionbase.cpp"
 					>
 				</File>
 				<File
@@ -260,7 +260,75 @@
 				Name="nodes"
 				>
 				<File
-					RelativePath=".\src\nodes\nodes.cpp"
+					RelativePath=".\src\nodes\abstractnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\colornode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\groupnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\lightnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\linenode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\materialnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\ringnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\rotationnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\rotornode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\scalenode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\separator.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\shadownode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\spherenode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\switchnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\texturenode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\togglenode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\transformseparator.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\translationnode.cpp"
 					>
 				</File>
 			</Filter>
@@ -390,7 +458,7 @@
 				Name="actions"
 				>
 				<File
-					RelativePath=".\include\actions\actions.h"
+					RelativePath=".\include\actions\actionbase.h"
 					>
 				</File>
 				<File

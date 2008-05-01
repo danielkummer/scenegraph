@@ -1,5 +1,7 @@
-#include "scene.h"
 #include <assert.h>
+
+#include "scene.h"
+#include "nodes/materialnode.h"
 
 
 

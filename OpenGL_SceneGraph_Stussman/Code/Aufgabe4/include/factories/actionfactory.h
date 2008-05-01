@@ -2,7 +2,7 @@
 #define _ACTION_FACTORY_H
 
 
-#include "actions/actions.h"
+#include "actions/actionbase.h"
 #include "actions/onoffaction.h"
 
 // TODO: add all action classes
