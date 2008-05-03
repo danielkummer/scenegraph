@@ -88,12 +88,12 @@ void Visitor::visit(StarsNode &aStarNode){
 //  glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
   glColor3f(1, 1, 1);
 //  glMaterialf(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, 1);
-  glPointSize(1.5);
-  glBegin(GL_POINTS);
   for(unsigned i=0; i<aStarNode.mNumStars; i++){
-      glVertex3fv(&aStarNode.mVertices[3*i]);
-  }
+    glPointSize(aStarNode.mSizes[i]);
+  glBegin(GL_POINTS);
+    glVertex3fv(&aStarNode.mVertices[3*i]);
   glEnd();
+  }
 //  glDisable(GL_COLOR_MATERIAL);
 }
 //----------------------------------------------------------//

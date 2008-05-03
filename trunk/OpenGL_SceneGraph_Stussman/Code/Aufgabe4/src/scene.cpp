@@ -202,6 +202,10 @@ void SolarSytemScene::createScene(){
   mSceneGraph->add(new MaterialNode(GL_FRONT_AND_BACK, &vMat));
   mSceneGraph->add(new ColorNode(1, 1, 1, 1));
 
+  ToggleNode* vAxisToggle = new ToggleNode();
+  mActionFactory->getAction(EToggleAxis)->add(vAxisToggle);
+  vAxisToggle->add(createAxis(20));
+  mSceneGraph->add(vAxisToggle);
 
   mSceneGraph->add(createSolarSystem());
   PrintVisitor().apply(mSceneGraph);
@@ -241,7 +245,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYes
   Separator* vSepNode = new Separator();
   vSepNode->add(vShadowN);
   ToggleNode* vToggle = new ToggleNode();
-  vToggle->on();
+  vToggle->off();
   vToggle->add(vSepNode);
   vBuilder.append(mActionFactory->getAction(EToggleShadow), vToggle);
 
@@ -257,6 +261,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYes
   int vTexId = createTexture(aPlanetDef->textureName);
   if(1.0f > aAlpha){
     vBuilder.buildTextureNode(vTexId, GL_TEXTURE_2D, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, NULL);
+//    vBuilder.buildTextureNode(vTexId, GL_TEXTURE_2D, GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA , NULL);
   }else{
     vBuilder.buildTextureNode(vTexId);
   }
@@ -270,7 +275,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYes
 
   // axis
   ToggleNode* vToggleN = new ToggleNode();
-  vToggleN->add(createAxis(20*aPlanetDef->radius));
+  vToggleN->add(createAxis(4*aPlanetDef->radius));
   vToggleN->off();
   vBuilder.append(mActionFactory->getAction(EToggleAxis), vToggleN);
 
@@ -302,18 +307,28 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createSolarSystem(){
   TransformSeparator* vTSep = new TransformSeparator();
-  
+
   SunDef vSunD;
   SunTransDef vSunDTrans;
   vTSep->add(createPlanet(&vSunD));
-  float vDeltaV = 0.01f;
-  for(unsigned i=0; i<3; i++){
-    vSunDTrans.radius += vDeltaV;
+  int vDir = 1;
+  float vAlpha = 0.9f;
+  for(unsigned i=0; i<2; i++){
+    vSunDTrans.radius += 0.01f;
     vSunDTrans.rotVelocity += 0.01f;
-    vDeltaV = -vDeltaV;
-    vSunDTrans.rotVelocity = -vSunDTrans.rotVelocity;
-    vTSep->add(createPlanet(&vSunDTrans, true, 0.5));
+    vDir = -vDir;
+    vSunDTrans.rotVelocity = vDir * vSunDTrans.rotVelocity;
+    vTSep->add(createPlanet(&vSunDTrans, true, vAlpha));
+    vAlpha -= 0.2f;
+    vSunDTrans.rotVelocity = vDir * vSunDTrans.rotVelocity;
   }
+  Separator* vStarsSep = new Separator();
+  Material* vEmitMat = new DefaultMaterial();
+  vEmitMat->set(GL_EMISSION, 1, 1, 1);
+  vEmitMat->set(GL_COLOR, 1, 1, 1);
+  vStarsSep->add(new MaterialNode(GL_FRONT_AND_BACK, vEmitMat));
+  vStarsSep->add(new StarsNode(500, 400, 10000));
+  vTSep->add(vStarsSep);
   return vTSep;
 }
 //-------------------------------------------------------//

@@ -312,6 +312,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\nodes\starsnode.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\nodes\switchnode.cpp"
 					>
 				</File>
