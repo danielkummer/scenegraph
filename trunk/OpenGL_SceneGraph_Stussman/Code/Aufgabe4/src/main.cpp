@@ -213,33 +213,12 @@ bool init_OpenGL( ) {
   glShadeModel(GL_SMOOTH);
 //  glShadeModel(GL_NONE);
 
-
-  // Define positional light (somewhere out of draw()
-  /*
-  float* light_pos = new float[4];
-  light_pos[0] = 0.0f;
-  light_pos[1] = 0.0f;
-  light_pos[2] = 0.0f;
-  light_pos[3] = 0.0f;
-  */
-
-  float light_pos[] =    {0.0f, 0.0f, 0.0f, 0.0f};
-  float lightAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
-  float lightDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
-  float lightSpecular[]= {1.0f, 1.0f, 1.0f, 1.0f};
-  glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
-  glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
-  glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
-//  glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
-
   //GLfloat amb_light[] = { 0.1f, 0.1f, 0.1f, 1.0f };
   //glLightModelfv( GL_LIGHT_MODEL_AMBIENT, amb_light );
   //glLightModelfv(GL_LIGHT_MODEL_LOCAL_VIEWER, amb_light);
   //glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lightDiffuse);
 
   glEnable(GL_COLOR_MATERIAL);
-  glEnable(GL_LIGHT0);
-  glEnable(GL_LIGHTING);
   glEnable(GL_TEXTURE_2D);
   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 

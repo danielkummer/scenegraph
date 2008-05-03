@@ -20,6 +20,7 @@ class ToggleNode;
 class TransformSeparator;
 class TranslationNode;
 class TextureNode;
+class MoveNode;
 
 class AbstractVisitor{
 public:
@@ -57,6 +58,9 @@ public:
 
   virtual void visit(ToggleNode &aNode) { }
   virtual void postvisit(ToggleNode &aNode) { }
+
+  virtual void visit(MoveNode &aNode) { }
+
 
   void apply(AbstractNode* aAbstractNode);
 protected:

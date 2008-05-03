@@ -202,10 +202,18 @@ void SolarSytemScene::createScene(){
   mSceneGraph->add(new MaterialNode(GL_FRONT_AND_BACK, &vMat));
   mSceneGraph->add(new ColorNode(1, 1, 1, 1));
 
+  // scene axis
   ToggleNode* vAxisToggle = new ToggleNode();
   mActionFactory->getAction(EToggleAxis)->add(vAxisToggle);
   vAxisToggle->add(createAxis(20));
   mSceneGraph->add(vAxisToggle);
+
+  // light
+  LightNode* vLight = new LightNode(GL_LIGHT0);
+  vLight->setParam(GL_AMBIENT, 0, 0, 0, 1);
+  vLight->setParam(GL_DIFFUSE, 1, 1, 1, 1);
+  vLight->setParam(GL_POSITION, 0, 0, 0, 1);
+  mSceneGraph->add(vLight);
 
   mSceneGraph->add(createSolarSystem());
   PrintVisitor().apply(mSceneGraph);

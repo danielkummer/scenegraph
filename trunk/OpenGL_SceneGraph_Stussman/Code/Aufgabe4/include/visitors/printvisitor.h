@@ -42,6 +42,7 @@ public:
 
   virtual void visit(ToggleNode &aNode);
   virtual void postvisit(ToggleNode &aNode);
+  virtual void visit(MoveNode &aNode);
 
 private:
   void printIdent();

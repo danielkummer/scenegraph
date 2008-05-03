@@ -20,6 +20,9 @@ public:
   void setParam(GLenum aParamType, float aA, float aB, float aC, float aD);
   virtual void accept(AbstractVisitor &aVisitor);
   void setPos();
+  void on();
+  void off();
+  void toggle();
 private:
   GLenum mLightNr;
   float* mPos;

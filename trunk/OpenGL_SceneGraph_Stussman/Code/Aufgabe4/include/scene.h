@@ -19,9 +19,34 @@ enum EActionNames{
   EToggleAxis,
   EToggleFar, // Scheinwerfer Ship
   EToggleTrace, // Planetenbahnen
-  EShoot,
+
+  EShipShoot,
+  EShipMoveFwd,
+  EShipMoveBack,
+  EShipStrafeLeft,
+  EShipStraveRight,
+  EShipMoveUp,
+  EShipMoveDown,
+  EShipRollClk,
+  EShipRollCClk,
+  EShipPitchClk,
+  EShipPitchCClk,
+  EShipYawClk,
+  EShipYawCClk,
   
-  ESwitchCamType,
+  ECamSwitchType,
+  ECamMoveFwd,
+  ECamMoveBack,
+  ECamStrafeRight,
+  ECamStrafeLeft,
+  ECamMoveUp,
+  ECamMoveDown,
+  ECamRollClockwise,
+  ECamRollCClockwise,
+  ECamPitchClockwise,
+  ECamPitchCClockwise,
+  ECamYawClockwise,
+  ECamYawCClockwise,
 
 
   EToggleGrab,
