@@ -284,6 +284,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\nodes\movenode.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\nodes\ringnode.cpp"
 					>
 				</File>
@@ -399,6 +403,10 @@
 				</File>
 				<File
 					RelativePath=".\include\nodes\materialnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\movenode.h"
 					>
 				</File>
 				<File

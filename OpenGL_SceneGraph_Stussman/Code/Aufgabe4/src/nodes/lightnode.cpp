@@ -5,6 +5,12 @@
 LightNode::LightNode(GLenum aLightNr){
   mLightNr = aLightNr;
   mPos = new float[4];
+  if(false == glIsEnabled(GL_LIGHTING)){
+    glEnable(GL_LIGHTING);
+  }
+  if(false == glIsEnabled(aLightNr)){
+    on();
+  }
 }
 //----------------------------------------------------------//
 LightNode::~LightNode(){
@@ -28,6 +34,22 @@ void LightNode::setPos(){
 //----------------------------------------------------------//
 inline void LightNode::accept(AbstractVisitor &aVisitor){
   aVisitor.visit(*this);
+}
+//-------------------------------------------------------//
+void LightNode::on(){
+  glEnable(mLightNr);
+}
+//-------------------------------------------------------//
+void LightNode::off(){
+  glDisable(mLightNr);
+}
+//-------------------------------------------------------//
+void LightNode::toggle(){
+  if(glIsEnabled(mLightNr)){
+    glDisable(mLightNr);
+  }else{
+    glEnable(mLightNr);
+  }
 }
 //-------------------------------------------------------//
 

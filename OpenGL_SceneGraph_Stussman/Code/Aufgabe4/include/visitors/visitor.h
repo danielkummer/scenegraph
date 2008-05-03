@@ -26,6 +26,7 @@ public:
   virtual void postvisit(Separator &aNode);
   virtual void visit(TransformSeparator &aNode);
   virtual void postvisit(TransformSeparator &aNode);
+  virtual void visit(MoveNode &aNode);
 
 
 };

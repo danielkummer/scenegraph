@@ -49,9 +49,6 @@ void draw3D() {
 
 	camera();										// Calculate and set cameraview and cameraposition
 	
-  float light_pos[] =    {0.0f, 0.0f, 0.0f, 1.0f};
-  glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
-
 	incAnimationVars();											
 
   gluQuadricNormals(quadric, GL_SMOOTH);

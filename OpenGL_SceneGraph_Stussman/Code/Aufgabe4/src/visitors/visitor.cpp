@@ -9,7 +9,7 @@ Visitor::~Visitor(){
 }
 //----------------------------------------------------------//
 void Visitor::visit(SphereNode &aSphereNode){
-  glGetFloatv(GL_MODELVIEW_MATRIX, aSphereNode.mModelMatrix);
+//  glGetFloatv(GL_MODELVIEW_MATRIX, aSphereNode.mModelMatrix);
   gluQuadricNormals(aSphereNode.mQuadric, GLU_SMOOTH);
   gluQuadricTexture(aSphereNode.mQuadric, aSphereNode.mUseTexCoord);
   glEnable(GL_CULL_FACE);
@@ -161,5 +161,29 @@ void Visitor::visit(TransformSeparator &aNode){
 void Visitor::postvisit(TransformSeparator &aNode){
   glPopMatrix();
 }
+//----------------------------------------------------------//
+void Visitor::visit(MoveNode &aNode){
+  if(aNode.getChanged()){
+    // construct movement
+    glPushMatrix();
+      glLoadIdentity();
+      float* vM = aNode.mModelMatrix;
+      glLoadMatrixf(vM);
+      glTranslatef(aNode.getX() + vM[12], 
+                   aNode.getY() + vM[13], 
+                   aNode.getZ() + vM[14]);
+      glRotatef(aNode.getRoll(),  vM[8], vM[9], vM[10]);
+      glRotatef(aNode.getPitch(), vM[4], vM[5], vM[6]);
+      glRotatef(aNode.getYaw(),   vM[0], vM[1], vM[2]);
+      glGetFloatv(GL_MODELVIEW_MATRIX, aNode.mModelMatrix);
+    glPopMatrix();
+
+    // reset delta values
+    aNode.reset();
+  }
+  // apply transformation matrix
+  glMultMatrixf(aNode.mModelMatrix);
+}
+                    
 //----------------------------------------------------------//
 

@@ -160,5 +160,17 @@ void PrintVisitor::postvisit(ToggleNode &aNode){
   printf("ID: %d ToggleNode end\n", aNode.mID);
 }
 //----------------------------------------------------------//
-void PrintVisitor::visit(AbstractNode &aNode) { }
-void PrintVisitor::postvisit(AbstractNode &aNode){ }
+void PrintVisitor::visit(MoveNode &aNode){
+  printIdent();
+  printf("ID: %d MoveNode\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::visit(AbstractNode &aNode){
+  printIdent();
+  printf("!!! ID: %d AbstractNode!!!\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::postvisit(AbstractNode &aNode){
+  printIdent();
+  printf("!!! ID: %d AbstractNode postvisit!!!\n", aNode.mID);
+}
