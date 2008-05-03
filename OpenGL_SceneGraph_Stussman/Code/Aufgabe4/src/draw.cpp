@@ -100,22 +100,22 @@ void camera() {
   float dz = 0;
 
   if(keyFlag.left){
-    dx = 0.1f;
+    dx = 10.1f;
   }
   if(keyFlag.right){
-    dx = -0.1f;
+    dx = -10.1f;
   }
   if(keyFlag.up){
-    dz = 0.1f;
+    dz = 10.1f;
   }
   if(keyFlag.down){
-    dz = -0.1f;
+    dz = -10.1f;
   }
   if(keyFlag.pageUp){
-    dy = 0.1f;
+    dy = 10.1f;
   }
   if(keyFlag.pageDown){
-    dy = -0.1f;
+    dy = -10.1f;
   }
   /*
   // shooter
@@ -223,7 +223,7 @@ void drawGrid()
     }
   glPopMatrix();
 
-  drawAxis(10);
+//  drawAxis(10);
 }
 
 /**************************************************/

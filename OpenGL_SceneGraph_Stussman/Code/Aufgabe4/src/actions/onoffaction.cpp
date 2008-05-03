@@ -16,6 +16,12 @@ inline void OnOffAction::apply(){
 //-------------------------------------------------------//
 inline void OnOffAction::add(ToggleNode* aToggle){
   ActionBase::add(aToggle);
+  // keep children syncronized
+  if(mOn){
+    aToggle->on();
+  }else{
+    aToggle->off();
+  }
 }
 //-------------------------------------------------------//
 void OnOffAction::on(){
@@ -33,20 +39,9 @@ void OnOffAction::off(){
 } 
 //-------------------------------------------------------//
 void OnOffAction::toggle(){
-  if(mOn){
-    mOn = false;
-    for(unsigned i=0; i < mListeners.size(); i++){
-      (reinterpret_cast<ToggleNode*>(mListeners[i]))->off();
-    }
-  }else{
-    mOn = true;
-    for(unsigned i=0; i < mListeners.size(); i++){
-      (reinterpret_cast<ToggleNode*>(mListeners[i]))->on();
-    }
+  for(unsigned i=0; i < mListeners.size(); i++){
+    (reinterpret_cast<ToggleNode*>(mListeners[i]))->toggle();
   }
-//  for(unsigned i=0; i < mChildren.size(); i++){
-//    (reinterpret_cast<ToggleNode*>(mChildren[i]))->toggle();
-//  }
 }
 //-------------------------------------------------------//
 inline bool OnOffAction::isOn(){
