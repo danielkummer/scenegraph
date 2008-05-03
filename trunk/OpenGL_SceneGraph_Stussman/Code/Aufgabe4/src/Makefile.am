@@ -3,5 +3,46 @@ INCLUDES = -I$(top_srcdir)/include $(SDL_CFLAGS) \
 
 
 bin_PROGRAMS=SceneGraph
-SceneGraph_SOURCES=clock.cpp main.cpp planetdefs.cpp material.cpp nodes/nodes.cpp actions/onoffaction.cpp actions/actions.cpp scene.cpp shadow.cpp factories/actionfactory.cpp factories/builder.cpp draw.cpp visitors/visitors.cpp
 SceneGraph_LDADD = $(SDL_LIBS) $(GL_LIBS)
+
+SceneGraph_SOURCES= \
+actions/onoffaction.cpp \
+actions/actionbase.cpp \
+clock.cpp \
+draw.cpp \
+factories/actionfactory.cpp \
+factories/builder.cpp \
+main.cpp \
+material.cpp \
+nodes/togglenode.cpp \
+nodes/lightnode.cpp \
+nodes/linenode.cpp \
+nodes/scalenode.cpp \
+nodes/transformseparator.cpp \
+nodes/translationnode.cpp \
+nodes/groupnode.cpp \
+nodes/materialnode.cpp \
+nodes/rotationnode.cpp \
+nodes/rotornode.cpp \
+nodes/shadownode.cpp \
+nodes/spherenode.cpp \
+nodes/switchnode.cpp \
+nodes/ringnode.cpp \
+nodes/texturenode.cpp \
+nodes/colornode.cpp \
+nodes/abstractnode.cpp \
+nodes/separator.cpp \
+nodes/starsnode.cpp \
+planetdefs.cpp \
+scene.cpp \
+shadow.cpp \
+visitors/destructorvisitor.cpp \
+visitors/eventvisitor.cpp \
+visitors/printvisitor.cpp \
+visitors/abstractvisitor.cpp \
+visitors/visitor.cpp
+
+#nodes/_old_nodes.cpp 
+
+#visitors/_old_visitors.cpp
+#actions/_old_actions.cpp 
