@@ -327,6 +327,7 @@ AbstractNode* SolarSytemScene::createSolarSystem(){
   vEmitMat->set(GL_EMISSION, 1, 1, 1);
   vEmitMat->set(GL_COLOR, 1, 1, 1);
   vStarsSep->add(new MaterialNode(GL_FRONT_AND_BACK, vEmitMat));
+  delete vEmitMat; // MaterialNode copies the values
   vStarsSep->add(new StarsNode(500, 400, 10000));
   vTSep->add(vStarsSep);
   return vTSep;
