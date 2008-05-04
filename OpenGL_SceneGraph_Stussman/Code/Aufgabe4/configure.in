@@ -12,6 +12,15 @@ AM_INIT_AUTOMAKE(SceneGraph, 1.5)
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+# AC_PROG_LIBTOOL
+
+
+#          # Turn off shared libraries during beta-testing, since they
+#          # make the build process take too long.
+#	
+#          LT_INIT([disable-shared])
+
+
 
 # Checks for libraries.
 # FIXME: Replace `main' with a function in `-lGL':
@@ -43,3 +52,5 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 ])
+
+

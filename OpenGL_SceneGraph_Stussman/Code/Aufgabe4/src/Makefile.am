@@ -1,9 +1,9 @@
 INCLUDES = -I$(top_srcdir)/include $(SDL_CFLAGS) \
-			$(GL_INCLUDEDIR)
+			$(GL_INCLUDEDIR) $(GLU_INCLUDEDIR)
 
 
 bin_PROGRAMS=SceneGraph
-SceneGraph_LDADD = $(SDL_LIBS) $(GL_LIBS)
+SceneGraph_LDADD = $(SDL_LIBS) $(GL_LIBS) $(GLU_LIBS)
 
 SceneGraph_SOURCES= \
 actions/onoffaction.cpp \
@@ -33,6 +33,7 @@ nodes/colornode.cpp \
 nodes/abstractnode.cpp \
 nodes/separator.cpp \
 nodes/starsnode.cpp \
+nodes/movenode.cpp \
 planetdefs.cpp \
 scene.cpp \
 shadow.cpp \
