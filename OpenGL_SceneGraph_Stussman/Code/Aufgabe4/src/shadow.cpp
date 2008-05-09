@@ -56,8 +56,10 @@ void drawShadow(float modelMatrix[],					// The model matrix of the sphere whose
     
 //    glDisable(GL_DEPTH_TEST);							// Disable depth test to see the shadow also from below
     glDisable(GL_LIGHTING);								// Disable light effects
+    glEnable(GL_COLOR_MATERIAL);
     glColor3f(0.5f, 0.5f, 0.5f);						// Shadow's color
 	glPolygonMode(GL_FRONT, GL_FILL);
+	glDisable(GL_COLOR_MATERIAL);
 
 	// TO DO 3.4:										// Draw the shadow
 	// //////////

@@ -171,6 +171,7 @@ void drawShip() {
     unsigned char green[] = {0, 0, 255, 255};
 	  // ...
 
+	glEnable(GL_COLOR_MATERIAL);
   	glBegin( GL_TRIANGLES );		// Tell OpenGL to draw triangles using the following vertexes
 
 		  glColor4ubv( red );			// Change color to red
@@ -193,8 +194,8 @@ void drawShip() {
 		  glVertex3fv( v2 );			// Set point 0
 
   	glEnd();
-
-    drawAxis();
+	glDisable(GL_COLOR_MATERIAL);
+    //drawAxis();
   glPopMatrix();
 }
 
@@ -206,18 +207,18 @@ void drawGrid()
 {
   glPushMatrix();
   	glTranslatef( 0.0f, -3.0f, 0.0f);				// Translate grid in the y-axis
+  	glEnable(GL_COLOR_MATERIAL);
     for(float i = -50; i <= 50; i += 1)	{			// Draw a 1x1 grid along the X and Z axis
-        glLineWidth(1);
+        glLineWidth(1);        
         glBegin(GL_LINES);							// Start drawing some lines	
             glColor3ub(0, 255, 0);							// Turn the lines green
             glVertex3f(-50, 0, i);					// Do the horizontal lines (along the X)
             glVertex3f(50, 0, i);
-
             glVertex3f(i, 0, -50);					// Do the vertical lines (along the Z)
             glVertex3f(i, 0, 50);
-
-        glEnd();
+        glEnd();        
     }
+    glDisable(GL_COLOR_MATERIAL);
   glPopMatrix();
 
 //  drawAxis(10);
@@ -289,114 +290,3 @@ void quitScene(){
   delete scene;
 
 }
-//------------------
-void drawSun(){
-  glPushMatrix();
-//  glPolygonMode(GL_FRONT, GL_LINE);
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-//  gluQuadricNormals(quadric, GL_NONE);
-  glRotatef(-90, 0, 1, 0);
-  glColor3f(1.0f, 1.0f, 0.0f);
-
-//  glColorMaterial(GL_FRONT_AND_BACK, GL_EMISSION);    
-  GLfloat sun_emission[] = { 1.0, 1.0, 0.0, 1.0 };
-  glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, sun_emission );
-
-  float radius = 5;
-    if(showShadow){
-      float modelMatrix[16];
-      glGetFloatv(GL_MODELVIEW_MATRIX, modelMatrix);
-//      drawShadow( modelMatrix, radius);
-    }
-
-
-    gluSphere(quadric, radius, 20, 10);
-//  glDisable(GL_COLOR_MATERIAL);
-  GLfloat default_emission[] = { 0.0, 0.0, 0.0, 1 };
-  glMaterialfv( GL_FRONT_AND_BACK, GL_EMISSION, default_emission );
-
-  drawAxis();
-  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-  glPopMatrix();
-}
-
-
-void drawEarth(){
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-//  gluQuadricNormals(quadric, GL_SMOOTH);
-      float radius = 1.0f;
-
-  glColor3f(0.0f, 0.0f, 1.0f);
-  glPushMatrix();
-    glRotatef(-angle, 0, 1, 0); // Rotation um Sonne
-    glTranslatef(10, 0, 0); // Radius zur Sonne
-
-    if(showShadow){
-      float modelMatrix[16];
-      glGetFloatv(GL_MODELVIEW_MATRIX, modelMatrix);
-//      drawShadow( modelMatrix, radius);
-    }
-
-    drawMoon();
-
-    glRotatef(angle, 0, 1, 0); // gegen Rotation um die Achse fix im Raum zu lassen
-    glRotatef(90-23, 1, 0, 0); // shiefe der Erdachse
-    glRotatef(-angle*365.25f, 0, 0, 1); // Eigendrehung
-//    glEnable(GL_COLOR_MATERIAL);
-      glColor3f(0,0,1);
-      gluSphere(quadric, radius, 20, 10);
-//    glDisable(GL_COLOR_MATERIAL);
-    drawAxis(5.0f);
-  glPopMatrix();
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-}
-
-void drawMoon(){
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-//  gluQuadricNormals(quadric, GL_SMOOTH);
-
-  glColor3f(0.8f, 0.8f, 0.8f);
-  glPushMatrix();
-//    glRotatef(-angle, 0, 1, 0); // Rotation um Sonne
-//    glTranslatef(10, 0, 0); // Radius zur Sonne
-
-    glRotatef(angle*365.25f/4, 0, 1, 0); // Drehung um Erde
-    glTranslatef(2, 0 , 0);
-
-    float radius = 0.6f;
-    if(showShadow){
-      float modelMatrix[16];
-      glGetFloatv(GL_MODELVIEW_MATRIX, modelMatrix);
-//      drawShadow( modelMatrix, radius);
-    }
-
-
-    glRotatef(90, 1, 0, 0);
-//    glRotatef(-angle*365.25f/8, 0, 0, 1); // Eigendrehung
-
-    gluSphere(quadric, radius, 20, 10);
-    drawAxis();
-  glPopMatrix();
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-}
-
-void drawAxis(float len){
-  if(isAxisDrawn){
-      glLineWidth(3);
-      glBegin(GL_LINES);
-          glColor3f(1, 0, 0);
-          glVertex3f(0, 0, 0);
-          glVertex3f(len, 0, 0);
-
-          glColor3f(1, 1, 0);
-          glVertex3f(0, 0, 0);
-          glVertex3f(0, len, 0);
-
-          glColor3f(0, 0, 1);
-          glVertex3f(0, 0, 0);
-          glVertex3f(0, 0, len);
-      glEnd();
-      glLineWidth(1);
-  }
-}
-

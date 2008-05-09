@@ -1,5 +1,14 @@
-#include "visitors/visitor.h"
+#ifdef WIN32 
+#include <windows.h> 
+#else 
+#include <GL/glx.h> 
+#include <stdarg.h> 
+#endif 
 
+#include <GL/gl.h> 
+#include <GL/glu.h>
+
+#include "visitors/visitor.h"
 
 //----------------------------------------------------------//
 Visitor::Visitor():AbstractVisitor(){
@@ -29,7 +38,6 @@ void Visitor::visit(SphereNode &aSphereNode){
 void Visitor::visit(LineNode &aLineNode){
   glLineWidth(aLineNode.mWidth);
   glBegin(GL_LINES);
-//    glColor3f(1.0f, 0.0f, 0.0f);
     glVertex3f(aLineNode.mVert1X, aLineNode.mVert1Y, aLineNode.mVert1Z);
     glVertex3f(aLineNode.mVert2X, aLineNode.mVert2Y, aLineNode.mVert2Z);
   glEnd();
@@ -67,7 +75,9 @@ void Visitor::visit(MaterialNode &aMaterialNode){
 }
 //----------------------------------------------------------//
 void Visitor::visit(ColorNode &aColorNode){
+  glEnable(GL_COLOR_MATERIAL);	
   glColor4f(aColorNode.mRed, aColorNode.mGreen, aColorNode.mBlue, aColorNode.mAlpha);
+  glDisable(GL_COLOR_MATERIAL);
 }
 //----------------------------------------------------------//
 void Visitor::visit(TextureNode &aTexNode){
@@ -86,6 +96,7 @@ void Visitor::visit(ShadowNode &aShadow){
 void Visitor::visit(StarsNode &aStarNode){
 //  glEnable(GL_COLOR_MATERIAL);
 //  glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+glEnable(GL_COLOR_MATERIAL);
   glColor3f(1, 1, 1);
 //  glMaterialf(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, 1);
   for(unsigned i=0; i<aStarNode.mNumStars; i++){
@@ -94,6 +105,7 @@ void Visitor::visit(StarsNode &aStarNode){
     glVertex3fv(&aStarNode.mVertices[3*i]);
   glEnd();
   }
+glDisable(GL_COLOR_MATERIAL);
 //  glDisable(GL_COLOR_MATERIAL);
 }
 //----------------------------------------------------------//
@@ -104,8 +116,9 @@ void Visitor::visit(RingNode &aRingNode){
 
 //  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 //  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);  
   glDisable(GL_CULL_FACE);
-  glColor4f(1, 1, 1, 1);
   glBegin(GL_QUADS);
     glNormal3fv(fNormalVec);
 
@@ -134,7 +147,7 @@ void Visitor::visit(RingNode &aRingNode){
     glVertex3fv(vertices[0]);    
   glEnd();   
   glEnable(GL_CULL_FACE);
-//  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 
 }
 //----------------------------------------------------------//
@@ -145,7 +158,7 @@ void Visitor::visit(Separator &aNode){
 
 void Visitor::postvisit(Separator &aNode){
 //  glPopClientAttrib();
-  glColor4f(1, 1, 1, 1);
+  //glColor4f(1, 1, 1, 1);
   DefaultMaterial vDMat;
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, vDMat.ambient);
   glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, vDMat.diffuse);
@@ -189,48 +202,25 @@ void Visitor::visit(MoveNode &aNode){
                     
 //----------------------------------------------------------//
 void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
-    	
-	// offset variable for the arrays
-	////////////////////////////////////////////////
-	//int arrayOffset = 0;
-	
-	// draw all object groups
-	////////////////////////////////////////////////																								// for each group of the object do the following.																							// (An object contains one or more groups which
 	for(int ig=0; ig < aPolygonObjectNode.groupcount; ig++)	{						// contains material definitions, textures 																						// and of course the triangles)
-
-		// set the material values
-		////////////////////////////////
 		if(aPolygonObjectNode.groups[ig].textureName != 0)	{						// if the material has a texture (texureName contains not only 0)
-
-			// TO DO:
-			// /////
-			// enable texturing
-			// and bind the materials texture (g_Texture[ig])
 			glEnable( GL_TEXTURE_2D );
 			glBindTexture( GL_TEXTURE_2D, aPolygonObjectNode.groups[ig].textureID );	
 
 		}							
-
-		// TO DO:
-		// /////
 		// Set material values for group[ig].material
+			
+		glDisable(GL_COLOR_MATERIAL);
+		
  		glMaterialfv(GL_FRONT, GL_AMBIENT, aPolygonObjectNode.groups[ig].material.matAmbient);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, aPolygonObjectNode.groups[ig].material.matDiffuse);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, aPolygonObjectNode.groups[ig].material.matSpecular);
 		float shine[1] = {aPolygonObjectNode.groups[ig].material.matShininess};
 		glMaterialfv(GL_FRONT, GL_SHININESS, shine);
 		
-
-
-		// draw triangles
-		////////////////////////////////
+		// draw triangles	
 		for(int it=0; it < aPolygonObjectNode.groups[ig].size; it++)	{				// for each triangle of this group 
 			glBegin ( GL_TRIANGLES );							// tell OpenGL to draw triangles using the following vertices
-			
-			// TO DO:
-			// /////
-			// For the 3 vertices of this triangle define tex coordinates, normal and coordinates
-			// All this information is contained in groups[ig].triangle[it]
 				glNormal3f(aPolygonObjectNode.groups[ig].triangle[it].normal1.x, aPolygonObjectNode.groups[ig].triangle[it].normal1.y, aPolygonObjectNode.groups[ig].triangle[it].normal1.z);
 				glTexCoord2f(aPolygonObjectNode.groups[ig].triangle[it].tCoord1.x, aPolygonObjectNode.groups[ig].triangle[it].tCoord1.y);
 				glVertex3f(aPolygonObjectNode.groups[ig].triangle[it].vertex1.x, aPolygonObjectNode.groups[ig].triangle[it].vertex1.y, aPolygonObjectNode.groups[ig].triangle[it].vertex1.z);
@@ -241,10 +231,8 @@ void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 				
 				glNormal3f(aPolygonObjectNode.groups[ig].triangle[it].normal3.x, aPolygonObjectNode.groups[ig].triangle[it].normal3.y, aPolygonObjectNode.groups[ig].triangle[it].normal3.z);
 				glTexCoord2f(aPolygonObjectNode.groups[ig].triangle[it].tCoord3.x, aPolygonObjectNode.groups[ig].triangle[it].tCoord3.y);
-				glVertex3f(aPolygonObjectNode.groups[ig].triangle[it].vertex3.x, aPolygonObjectNode.groups[ig].triangle[it].vertex3.y, aPolygonObjectNode.groups[ig].triangle[it].vertex3.z);
-				
+				glVertex3f(aPolygonObjectNode.groups[ig].triangle[it].vertex3.x, aPolygonObjectNode.groups[ig].triangle[it].vertex3.y, aPolygonObjectNode.groups[ig].triangle[it].vertex3.z);				
 			glEnd();											// end drawing triangles
 		}
-		//glDisable(GL_TEXTURE_2D);								// disable texturing to avoid having this texture on the next drawn object
-	}	
+	}
 }
