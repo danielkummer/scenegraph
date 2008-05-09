@@ -15,6 +15,7 @@ public:
   virtual void visit(RotationNode &aRotationNode);
   virtual void visit(ScaleNode &aScaleNode);
   virtual void visit(RotorNode &aRotorNode);
+  virtual void visit(TranslatorNode &aTranslatorNode);
   virtual void visit(LightNode &aLightNode);
   virtual void visit(MaterialNode &aMaterialNode);
   virtual void visit(ColorNode &aColorNode);

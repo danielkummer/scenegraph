@@ -21,6 +21,7 @@
 #include "nodes/togglenode.h"
 #include "nodes/transformseparator.h"
 #include "nodes/translationnode.h"
+#include "nodes/translatornode.h"
 #include "nodes/movenode.h"
 #include "nodes/polygonObjectNode.h"
 

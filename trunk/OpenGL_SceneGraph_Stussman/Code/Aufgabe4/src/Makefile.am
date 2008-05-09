@@ -24,6 +24,7 @@ nodes/linenode.cpp \
 nodes/scalenode.cpp \
 nodes/transformseparator.cpp \
 nodes/translationnode.cpp \
+nodes/translatornode.cpp \
 nodes/groupnode.cpp \
 nodes/materialnode.cpp \
 nodes/rotationnode.cpp \
