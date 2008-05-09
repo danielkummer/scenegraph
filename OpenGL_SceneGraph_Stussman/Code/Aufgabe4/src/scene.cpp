@@ -179,12 +179,28 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_F2] = EToggleAxis;
   mKeyInputMap[SDLK_F3] = EToggleShadow;
 
+  mKeyInputMap[SDLK_w] = EShipMoveFwd;
+  mKeyInputMap[SDLK_s] = EShipMoveBack;
+  mKeyInputMap[SDLK_a] = EShipStrafeLeft;
+  mKeyInputMap[SDLK_d] = EShipStraveRight;
+  mKeyInputMap[SDLK_q] = EShipMoveUp;
+  mKeyInputMap[SDLK_e] = EShipMoveDown;
+
+
+
   // action map
   // TODO: map all acitons
   mToActionMap[EToggleAxis] = EToggleAction;
   mToActionMap[EToggleShadow] = EToggleAction;
   mToActionMap[EToggleFar] = EToggleAction;
   mToActionMap[EToggleTrace] = EToggleAction;
+
+  mToActionMap[EShipMoveFwd] = EShipMoveFwdAction;
+  mToActionMap[EShipMoveBack] = EShipMoveBackAction;
+  mToActionMap[EShipMoveUp] = EShipMoveUpAction;
+  mToActionMap[EShipMoveDown] = EShipMoveDownAction;
+  mToActionMap[EShipStrafeLeft] = EShipStrafeLeftAction;
+  mToActionMap[EShipStraveRight] = EShipStraveRightAction;
 //  mToActionMap[EShoot] = ;
 
   
