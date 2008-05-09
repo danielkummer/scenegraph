@@ -94,10 +94,6 @@ AbstractScene::AbstractScene(){
 }
 //-------------------------------------------------------//
 AbstractScene::~AbstractScene(){
-  if(NULL != mSceneGraph){
-    DestructorVisitor vDVisitor;
-    vDVisitor.apply(mSceneGraph);
-  }
   mSceneGraph->unref();
   delete mActionFactory;
   TextureManager::getReference()->deleteRef();
