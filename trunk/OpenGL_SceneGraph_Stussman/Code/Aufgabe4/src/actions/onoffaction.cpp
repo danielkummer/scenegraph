@@ -5,18 +5,25 @@
 OnOffAction::~OnOffAction(){
 
 }
+//----------------------------------------------------------//
+
+OnOffAction::OnOffAction(){
+  mOn = true;
+}
+
 //-------------------------------------------------------//
 inline void OnOffAction::apply(){
   toggle();
 }
 //-------------------------------------------------------//
-inline void OnOffAction::add(ToggleNode* aToggle){
+inline void OnOffAction::add(AbstractNode* aToggle){
+	
   ActionBase::add(aToggle);
   // keep children syncronized
   if(mOn){
-    aToggle->on();
+    reinterpret_cast<ToggleNode*>(aToggle)->on();
   }else{
-    aToggle->off();
+    reinterpret_cast<ToggleNode*>(aToggle)->off();
   }
 }
 //-------------------------------------------------------//
