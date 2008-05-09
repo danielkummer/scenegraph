@@ -24,6 +24,14 @@ inline bool ActionBase::isEnabled(){
   return mEnabled; 
 }
 //-------------------------------------------------------//
+inline void ActionBase::toggle(){
+  if(mEnabled){
+    mEnabled = false;
+  }else{
+    mEnabled = true;
+  }
+}
+//-------------------------------------------------------//
 void ActionBase::add(AbstractNode* aNode){
   mListeners.push_back(aNode);
 }

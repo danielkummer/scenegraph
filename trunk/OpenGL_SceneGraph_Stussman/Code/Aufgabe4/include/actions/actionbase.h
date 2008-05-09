@@ -15,6 +15,7 @@ public:
   void enable();
   void disable();
   bool isEnabled();
+  void toggle();
   virtual void add(AbstractNode* aNode);
   void remove(AbstractNode* aNode);
 protected:

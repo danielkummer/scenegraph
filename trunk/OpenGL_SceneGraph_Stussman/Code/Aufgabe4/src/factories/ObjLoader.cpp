@@ -30,8 +30,6 @@ ObjLoader::ObjLoader() {
 /**************************************************/
 
 ObjLoader::~ObjLoader() {
-//	delete[] filename_geo;
-//	delete[] filename_mat;
   for(unsigned i=0; i<v_normal.size(); i++){
     delete v_normal[i];
   }
