@@ -39,7 +39,7 @@ ActionBase* ActionFactory::createAction(unsigned int aActionName){
   assert(mCount > aActionName);
   unsigned vActionNr = mMapping[aActionName];
   ActionBase* vInstance = NULL;
-  float vDist = 1.0f;
+  float vDist = 0.05f;
   float vAngle = 1.0f;
   switch(vActionNr){
     // TODO: insert all new actions

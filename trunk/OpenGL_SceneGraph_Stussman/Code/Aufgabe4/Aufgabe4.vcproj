@@ -359,6 +359,10 @@
 					RelativePath=".\src\nodes\translationnode.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\nodes\translatornode.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -483,6 +487,10 @@
 				</File>
 				<File
 					RelativePath=".\include\nodes\translationnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\translatornode.h"
 					>
 				</File>
 			</Filter>
