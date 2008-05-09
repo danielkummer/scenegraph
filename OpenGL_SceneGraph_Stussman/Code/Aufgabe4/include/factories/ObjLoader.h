@@ -91,7 +91,7 @@ public:
 		ObjLoader();
 		~ObjLoader();
 
-		void open(char* fn_geo, char* fn_mat);
+		void open(const char* fn_geo, const char* fn_mat);
 		void groupsizes(int* sizeofgroup);
 		void close();
 
