@@ -16,10 +16,4 @@ private:
   float mDist;
 };
 
-
-
-
-
 #endif // _H_MOVEACTION
-
-
