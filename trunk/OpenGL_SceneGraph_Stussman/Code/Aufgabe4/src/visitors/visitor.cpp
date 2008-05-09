@@ -198,48 +198,48 @@ void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 
 		// set the material values
 		////////////////////////////////
-		if(aPolygonObjectNode->groups[ig].textureName != 0)	{						// if the material has a texture (texureName contains not only 0)
+		if(aPolygonObjectNode.groups[ig].textureName != 0)	{						// if the material has a texture (texureName contains not only 0)
 
 			// TO DO:
 			// /////
 			// enable texturing
 			// and bind the materials texture (g_Texture[ig])
 			glEnable( GL_TEXTURE_2D );
-			glBindTexture( GL_TEXTURE_2D, aPolygonObjectNode->groups[ig].textureID );	
+			glBindTexture( GL_TEXTURE_2D, aPolygonObjectNode.groups[ig].textureID );	
 
 		}							
 
 		// TO DO:
 		// /////
 		// Set material values for group[ig].material
- 		glMaterialfv(GL_FRONT, GL_AMBIENT, aPolygonObjectNode->groups[ig].material.matAmbient);
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, aPolygonObjectNode->groups[ig].material.matDiffuse);
-		glMaterialfv(GL_FRONT, GL_SPECULAR, aPolygonObjectNode->groups[ig].material.matSpecular);
-		float shine[1] = {aPolygonObjectNode->groups[ig].material.matShininess};
+ 		glMaterialfv(GL_FRONT, GL_AMBIENT, aPolygonObjectNode.groups[ig].material.matAmbient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, aPolygonObjectNode.groups[ig].material.matDiffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, aPolygonObjectNode.groups[ig].material.matSpecular);
+		float shine[1] = {aPolygonObjectNode.groups[ig].material.matShininess};
 		glMaterialfv(GL_FRONT, GL_SHININESS, shine);
 		
 
 
 		// draw triangles
 		////////////////////////////////
-		for(int it=0; it < aPolygonObjectNode->groups[ig].size; it++)	{				// for each triangle of this group 
+		for(int it=0; it < aPolygonObjectNode.groups[ig].size; it++)	{				// for each triangle of this group 
 			glBegin ( GL_TRIANGLES );							// tell OpenGL to draw triangles using the following vertices
 			
 			// TO DO:
 			// /////
 			// For the 3 vertices of this triangle define tex coordinates, normal and coordinates
 			// All this information is contained in groups[ig].triangle[it]
-				glNormal3f(aPolygonObjectNode->groups[ig].triangle[it].normal1.x, aPolygonObjectNode->groups[ig].triangle[it].normal1.y, aPolygonObjectNode->groups[ig].triangle[it].normal1.z);
-				glTexCoord2f(aPolygonObjectNode->groups[ig].triangle[it].tCoord1.x, aPolygonObjectNode->groups[ig].triangle[it].tCoord1.y);
-				glVertex3f(aPolygonObjectNode->groups[ig].triangle[it].vertex1.x, aPolygonObjectNode->groups[ig].triangle[it].vertex1.y, aPolygonObjectNode->groups[ig].triangle[it].vertex1.z);
+				glNormal3f(aPolygonObjectNode.groups[ig].triangle[it].normal1.x, aPolygonObjectNode.groups[ig].triangle[it].normal1.y, aPolygonObjectNode.groups[ig].triangle[it].normal1.z);
+				glTexCoord2f(aPolygonObjectNode.groups[ig].triangle[it].tCoord1.x, aPolygonObjectNode.groups[ig].triangle[it].tCoord1.y);
+				glVertex3f(aPolygonObjectNode.groups[ig].triangle[it].vertex1.x, aPolygonObjectNode.groups[ig].triangle[it].vertex1.y, aPolygonObjectNode.groups[ig].triangle[it].vertex1.z);
 				
-				glNormal3f(aPolygonObjectNode->groups[ig].triangle[it].normal2.x, aPolygonObjectNode->groups[ig].triangle[it].normal2.y, aPolygonObjectNode->groups[ig].triangle[it].normal2.z);
-				glTexCoord2f(aPolygonObjectNode->groups[ig].triangle[it].tCoord2.x, aPolygonObjectNode->groups[ig].triangle[it].tCoord2.y);
-				glVertex3f(aPolygonObjectNode->groups[ig].triangle[it].vertex2.x, aPolygonObjectNode->groups[ig].triangle[it].vertex2.y, aPolygonObjectNode->groups[ig].triangle[it].vertex2.z);
+				glNormal3f(aPolygonObjectNode.groups[ig].triangle[it].normal2.x, aPolygonObjectNode.groups[ig].triangle[it].normal2.y, aPolygonObjectNode.groups[ig].triangle[it].normal2.z);
+				glTexCoord2f(aPolygonObjectNode.groups[ig].triangle[it].tCoord2.x, aPolygonObjectNode.groups[ig].triangle[it].tCoord2.y);
+				glVertex3f(aPolygonObjectNode.groups[ig].triangle[it].vertex2.x, aPolygonObjectNode.groups[ig].triangle[it].vertex2.y, aPolygonObjectNode.groups[ig].triangle[it].vertex2.z);
 				
-				glNormal3f(aPolygonObjectNode->groups[ig].triangle[it].normal3.x, aPolygonObjectNode->groups[ig].triangle[it].normal3.y, aPolygonObjectNode->groups[ig].triangle[it].normal3.z);
-				glTexCoord2f(aPolygonObjectNode->groups[ig].triangle[it].tCoord3.x, aPolygonObjectNode->groups[ig].triangle[it].tCoord3.y);
-				glVertex3f(aPolygonObjectNode->groups[ig].triangle[it].vertex3.x, aPolygonObjectNode->groups[ig].triangle[it].vertex3.y, aPolygonObjectNode->groups[ig].triangle[it].vertex3.z);
+				glNormal3f(aPolygonObjectNode.groups[ig].triangle[it].normal3.x, aPolygonObjectNode.groups[ig].triangle[it].normal3.y, aPolygonObjectNode.groups[ig].triangle[it].normal3.z);
+				glTexCoord2f(aPolygonObjectNode.groups[ig].triangle[it].tCoord3.x, aPolygonObjectNode.groups[ig].triangle[it].tCoord3.y);
+				glVertex3f(aPolygonObjectNode.groups[ig].triangle[it].vertex3.x, aPolygonObjectNode.groups[ig].triangle[it].vertex3.y, aPolygonObjectNode.groups[ig].triangle[it].vertex3.z);
 				
 			glEnd();											// end drawing triangles
 		}

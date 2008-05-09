@@ -18,6 +18,8 @@
 #include <vector>
 #include <fstream>
 
+using namespace std;
+
 struct vertex3D										// Struct for a 3D vertex
 {
 	float x;
@@ -77,7 +79,7 @@ private:
 	char* filename_geo;
 	char* filename_mat;
 	
-	vector<vertex3D*> v_vertex;
+  vector<vertex3D*> v_vertex;
 	vector<vertex3D*> v_normal;
 	vector<vertex2D*> v_texcoord;
 	vector<vertex3D*>::iterator k;

@@ -8,6 +8,8 @@ SceneGraph_LDADD = $(SDL_LIBS) $(GL_LIBS) $(GLU_LIBS)
 SceneGraph_SOURCES= \
 actions/onoffaction.cpp \
 actions/actionbase.cpp \
+actions/moveaction.cpp \
+actions/rotationaction.cpp \
 clock.cpp \
 draw.cpp \
 factories/actionfactory.cpp \
