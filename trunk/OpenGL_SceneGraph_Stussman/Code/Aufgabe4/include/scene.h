@@ -77,11 +77,11 @@ public:
   // scene specific code
   bool handleEvent(SDL_Event &aEvent);
   void update();
-  virtual void init();
+  virtual void init() = 0;
 //  void quit() = 0;
+  virtual void createScene();
 
 protected:
-  void createScene();
 
   unsigned mToActionMap[EActionNameCount]; // 
   unsigned mKeyInputMap[SDLK_LAST]; // mKeyInputMapt[SDL_KEY] = ActionName
@@ -103,9 +103,9 @@ public:
 //  void update();
   virtual void init();
 //  void quit();
+  void createScene();
 
 protected:
-  void createScene();
   virtual AbstractNode* createPlanet(PlanetDef* aPlanetDef, bool aMoonYesOrNo=true, float aAlpha=1.0f);
   virtual AbstractNode* createPlanet(RingDef* aRingDef);
   AbstractNode* createSolarSystem();

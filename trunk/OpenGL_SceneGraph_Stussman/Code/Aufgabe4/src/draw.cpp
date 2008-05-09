@@ -264,6 +264,8 @@ void initScene(){
 
   clk = Clock::getDefaultClock();
   scene = new SolarSytemScene();
+  scene->init();
+  scene->createScene();
 /*
   sceneRoot = new GroupNode();
 
