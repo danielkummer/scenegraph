@@ -234,7 +234,7 @@ void SolarSytemScene::createScene(){
   
   
   // spaceship
-  MoveNode* vMoveShip = new MoveNode();  
+  //MoveNode* vMoveShip = new MoveNode();  
   Builder vSpaceShipBuilder(new TransformSeparator());
   
   std::vector<ActionBase*> vShipActions;
@@ -246,8 +246,8 @@ void SolarSytemScene::createScene(){
   vShipActions.push_back(mActionFactory->getAction(EShipStrafeLeft));
   vShipActions.push_back(mActionFactory->getAction(EShipStrafeRight));
   
-  vSpaceShipBuilder.buildPolygonObjectNode("objects/ship.obj", "objects/ship.mtl", vShipActions);
-  mSceneGraph->add(vMoveShip);    
+  vSpaceShipBuilder.buildMoveNode(vShipActions);
+  vSpaceShipBuilder.buildPolygonObjectNode("objects/ship.obj", "objects/ship.mtl");
   mSceneGraph->add(vSpaceShipBuilder.getResult());
   PrintVisitor().apply(mSceneGraph);
 }

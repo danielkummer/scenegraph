@@ -180,18 +180,22 @@ void Builder::buildToggleNode(ActionBase* aAction){
   append(aAction, new ToggleNode());
 }
 //-------------------------------------------------------//
-void Builder::buildPolygonObjectNode(char* objFileName, char* matFileName, std::vector<ActionBase*> aActions){
+void Builder::buildPolygonObjectNode(char* objFileName, char* matFileName, ActionBase* aAction){
   PolygonObjectNode* polygonObject = new PolygonObjectNode(objFileName, matFileName);
+  append(aAction, polygonObject);  
+}
+//-------------------------------------------------------//
+void Builder::buildMoveNode(std::vector<ActionBase*> aActions){
+  MoveNode* moveNode = new MoveNode();
   
-  mCurrent->add(polygonObject);
+  mCurrent->add(moveNode);
   
   std::vector<ActionBase*>::iterator vItr;
   for(vItr = aActions.begin(); vItr < aActions.end(); vItr++){  
-    (*vItr)->add(polygonObject);
+    (*vItr)->add(moveNode);
   }
-  mLastAdded = polygonObject;  
+  mLastAdded = moveNode;  	
 }
-
 //-------------------------------------------------------//
 void Builder::append(ActionBase* aAction, AbstractNode* aNode){
   mCurrent->add(aNode);
