@@ -12,6 +12,7 @@ clock.cpp \
 draw.cpp \
 factories/actionfactory.cpp \
 factories/builder.cpp \
+factories/ObjLoader.cpp \
 main.cpp \
 material.cpp \
 nodes/togglenode.cpp \
@@ -34,6 +35,7 @@ nodes/abstractnode.cpp \
 nodes/separator.cpp \
 nodes/starsnode.cpp \
 nodes/movenode.cpp \
+nodes/polygonObjectNode.cpp \
 planetdefs.cpp \
 scene.cpp \
 shadow.cpp \
