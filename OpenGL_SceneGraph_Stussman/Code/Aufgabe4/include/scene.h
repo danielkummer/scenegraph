@@ -90,6 +90,8 @@ protected:
   Visitor mVisitor;
 
   ActionFactory* mActionFactory;
+
+  bool mKeyFlags[SDLK_LAST];
   
 };
 

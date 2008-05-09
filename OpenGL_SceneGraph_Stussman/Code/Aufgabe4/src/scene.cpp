@@ -89,6 +89,7 @@ AbstractScene::AbstractScene(){
   }
   for(unsigned i=0; i<SDLK_LAST; i++){
     mKeyInputMap[i] = 0;
+    mKeyFlags[i] = 0;
   }
 }
 //-------------------------------------------------------//
@@ -133,17 +134,25 @@ void AbstractScene::init(){
 }
 //-------------------------------------------------------//
 void AbstractScene::update(){
+  for(unsigned i=0; i<SDLK_LAST; i++){
+    if(true==mKeyFlags[i]){
+      unsigned vKeyMapVal = mKeyInputMap[i];
+      if(0 != vKeyMapVal){
+        ActionBase* vAction = mActionFactory->getAction(vKeyMapVal);
+        vAction->fire();
+      }
+    }
+  }
   assert(NULL != mSceneGraph);
   mVisitor.apply(mSceneGraph);
 }
 //-------------------------------------------------------//
 bool AbstractScene::handleEvent(SDL_Event &aEvent){
   if(aEvent.type == SDL_KEYDOWN){
-    unsigned vKeyMapVal = mKeyInputMap[aEvent.key.keysym.sym];
-    if(0 != vKeyMapVal){
-      ActionBase* vAction = mActionFactory->getAction(vKeyMapVal);
-      vAction->fire();
-    }
+    mKeyFlags[aEvent.key.keysym.sym] = true;
+  }
+  if(aEvent.type == SDL_KEYUP){
+    mKeyFlags[aEvent.key.keysym.sym] = false;
   }
   return false;
 }
@@ -178,10 +187,10 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_F2] = EToggleAxis;
   mKeyInputMap[SDLK_F3] = EToggleShadow;
 
-  mKeyInputMap[SDLK_w] = EShipMoveFwd;
-  mKeyInputMap[SDLK_s] = EShipMoveBack;
-  mKeyInputMap[SDLK_a] = EShipStrafeLeft;
-  mKeyInputMap[SDLK_d] = EShipStrafeRight;
+  mKeyInputMap[SDLK_a] = EShipMoveFwd;
+  mKeyInputMap[SDLK_d] = EShipMoveBack;
+  mKeyInputMap[SDLK_w] = EShipStrafeLeft;
+  mKeyInputMap[SDLK_s] = EShipStrafeRight;
   mKeyInputMap[SDLK_q] = EShipMoveUp;
   mKeyInputMap[SDLK_e] = EShipMoveDown;
 
@@ -270,6 +279,8 @@ void SolarSytemScene::createScene(){
   
   vSpaceShipBuilder.buildMoveNode(vShipActions);
   vSpaceShipBuilder.buildPolygonObjectNode("objects/ship.obj", "objects/ship.mtl");
+  vSpaceShipBuilder.append(mActionFactory->getAction(EToggleAxis), createAxis(5));
+
   mSceneGraph->add(vSpaceShipBuilder.getResult());
   PrintVisitor().apply(mSceneGraph);
 }
