@@ -9,12 +9,17 @@ TextureManager *TextureManager::getReference() {
 	return texMan;
 }
 
+void TextureManager::deleteRef(){
+  delete texMan;
+  texMan = NULL;
+}
+
 TextureManager::TextureManager() {
 	textures = new unsigned int[30];			//init texture array
 	currTexIndex = 1;				//0 is pre-used by opengl
 }
 TextureManager::~TextureManager() {
-	delete texMan;
+//	delete texMan;
 	glDeleteTextures(30, textures);
 	delete[] textures;	
 }	

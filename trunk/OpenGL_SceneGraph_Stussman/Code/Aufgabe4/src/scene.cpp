@@ -100,6 +100,7 @@ AbstractScene::~AbstractScene(){
   }
   mSceneGraph->unref();
   delete mActionFactory;
+  TextureManager::getReference()->deleteRef();
 }
 //-------------------------------------------------------//
 void AbstractScene::setActionMap(unsigned int aEActionName, unsigned int aEAction){

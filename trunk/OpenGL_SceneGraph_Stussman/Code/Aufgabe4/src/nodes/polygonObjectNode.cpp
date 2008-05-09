@@ -2,15 +2,19 @@
 
 
 PolygonObjectNode::PolygonObjectNode(char* objFileName, char* matFileName):AbstractNode(){
-    groupcount		=0;										// Number of groups in ".obj"-file							
+  groupcount		=0;										// Number of groups in ".obj"-file							
 	triangleCount	=0;									// Number of Triangles
 	groupcounter	=0;										// A counter to go trough the groups
-	groups 			=0;
+	groups 			  =0;
 	PolygonObjectNode::loadObjFile( objFileName, matFileName );		
 }
 //-------------------------------------------------------//
 PolygonObjectNode::~PolygonObjectNode() {
-	
+  for(unsigned i=0; i<groupcount; i++){
+    delete[] groups->triangle;
+  }
+  delete[] groups;
+  delete[] gsize;
 }
 //-------------------------------------------------------//
 inline void PolygonObjectNode::accept(AbstractVisitor &aVisitor){
@@ -35,7 +39,7 @@ void PolygonObjectNode::loadObjFile( char* objFileName, char* matFileName )// ob
 	triangleCount = obj->numTriangles;					// get the number of triangles used for the object		
 	groupcount = obj->numGeom;							// get the number of groups
 	
-	g_Texture = new GLuint[groupcount];					// create a texture-array for the materials
+//	g_Texture = new GLuint[groupcount];					// create a texture-array for the materials
 	
 	for (int g=0; g<groupcount; g++)					
 	{
@@ -53,7 +57,7 @@ void PolygonObjectNode::loadObjFile( char* objFileName, char* matFileName )// ob
 		// (re-)setting variables						//
 		///////////////////////////////////////////		//
 														//
-		g_Texture[groupcounter]=0;						// initialize the texture for this group to zero
+//		g_Texture[groupcounter]=0;						// initialize the texture for this group to zero
 														//
 		// load all values of a group					//
 		///////////////////////////////////////////     //
@@ -79,6 +83,7 @@ void PolygonObjectNode::loadObjFile( char* objFileName, char* matFileName )// ob
 	///////////////////////////////////////////////
 
 	obj->close();										// After all data is loaded close the files
+  delete obj;
 
 }
 //-------------------------------------------------------//

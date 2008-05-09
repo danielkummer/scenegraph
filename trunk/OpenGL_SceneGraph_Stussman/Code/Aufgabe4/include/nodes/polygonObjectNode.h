@@ -26,7 +26,7 @@ public:
   int groupcount;
   int groupcounter;
   int* gsize;									// Number of triangles in a group
-  GLuint *g_Texture;							// Pointer to a texture array
+//  GLuint *g_Texture;							// Pointer to a texture array
   group* groups;								// Pointer to an array of groups
   int triangleCount;
 };

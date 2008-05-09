@@ -30,8 +30,19 @@ ObjLoader::ObjLoader() {
 /**************************************************/
 
 ObjLoader::~ObjLoader() {
-	delete[] filename_geo;
-	delete[] filename_mat;
+//	delete[] filename_geo;
+//	delete[] filename_mat;
+  for(unsigned i=0; i<v_normal.size(); i++){
+    delete v_normal[i];
+  }
+  for(unsigned i=0; i<v_vertex.size(); i++){
+    delete v_vertex[i];
+  }
+  for(unsigned i=0; i<v_texcoord.size(); i++){
+    delete v_texcoord[i];
+  }
+  free(filename_geo);
+  free(filename_mat);
 }
 
 /**************************************************/
@@ -39,15 +50,15 @@ ObjLoader::~ObjLoader() {
 /* about the object (trianglecount / groupcount)  */
 /**************************************************/
 
-void ObjLoader::open(char* fn_geo, char* fn_mat) {					//".obj"-filename, ".mtl"-filname
+void ObjLoader::open(const char* fn_geo, const char* fn_mat) {					//".obj"-filename, ".mtl"-filname
 	
 	// Variables
 	////////////////////////////////////////////////
 	
 	int sizeT=0;
 	int sizeG=0;
-	filename_geo = fn_geo;
-	filename_mat = fn_mat;
+	filename_geo = strdup(fn_geo);
+	filename_mat = strdup(fn_mat);
 	
 	// Open the ".obj"-file (where the groups
 	// and geometries are defined)
@@ -133,7 +144,7 @@ void ObjLoader::close() {
 void ObjLoader::load(int groupIndex, group *Gruppe) {	
 	char ch;
 	char str[20];
-    float x, y, z;
+  float x, y, z;
 
 	vertex3D* vertex_3d;
 	vertex2D* vertex_2d;
@@ -143,7 +154,7 @@ void ObjLoader::load(int groupIndex, group *Gruppe) {
 	vertex3D *vert0;
 	vertex3D *vert1;
 	vertex3D *vert2;
-    vertex3D *norm0;
+  vertex3D *norm0;
 	vertex3D *norm1;
 	vertex3D *norm2;
 	vertex2D *tcoordinate0;
@@ -208,7 +219,7 @@ void ObjLoader::load(int groupIndex, group *Gruppe) {
 	
 	// create and initialize normal vector
 	////////////////////////////////////////////////
-	for (unsigned int i=0; i<v_vertex.size(); i++){
+  for (unsigned int i=0; i<v_vertex.size(); i++){
 		v_normal.push_back(new vertex3D());
 	}
 	

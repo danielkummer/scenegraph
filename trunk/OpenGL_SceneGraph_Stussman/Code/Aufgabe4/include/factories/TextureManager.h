@@ -16,6 +16,7 @@
 class TextureManager {
 	public:
 		static TextureManager* getReference();
+    static void deleteRef();
 		~TextureManager();	
 		unsigned int createTexture(char *strFileName);
 		unsigned int getId();
