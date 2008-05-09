@@ -42,18 +42,12 @@ void countFrames( );
 
 void camera( );
 
-void incAnimationVars( );
-
-void drawShip( );
+//void incAnimationVars( );
 
 void drawGrid( );
 
 void initScene();
 void quitScene();
-void drawSun();
-void drawEarth();
-void drawMoon();
-void drawAxis(float len=1);
 bool handleEvent(SDL_Event &aEvent);
 
 

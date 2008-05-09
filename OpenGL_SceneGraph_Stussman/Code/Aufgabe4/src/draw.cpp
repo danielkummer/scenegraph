@@ -6,7 +6,7 @@
 /*  Authors:                Reto Bollinger        */
 /*                          bolliret@zhwin.ch     */
 /*                                                */
-/*                          Hanspeter Brï¿½hlmann   */
+/*                          Hanspeter Brühlmann   */
 /*                          bruehhan@zhwin.ch     */
 /*                                                */
 /**************************************************/
@@ -32,13 +32,8 @@ float posz = -10;
 float mousetune = 0.1f;
 float speed = 300.0f;
 
-GLUquadricObj* quadric = gluNewQuadric();
-//GroupNode* sceneRoot;
 SolarSytemScene* scene;
 Clock* clk;
-// TODO: remove testcode
-SwitchNode* vToggle;
-long counter = 0;
 
 /**************************************************/
 /* Draw 3D Objects                                */
@@ -49,25 +44,10 @@ void draw3D() {
 
 	camera();										// Calculate and set cameraview and cameraposition
 	
-	incAnimationVars();											
-
-  gluQuadricNormals(quadric, GL_SMOOTH);
-
   clk->tick();
   scene->update();
 
-	drawShip();										// Draw ship
-
-	// TODO: 2.2, 2.3, 2.5
-	// ////////////////////
-
-
-	
-	// Draw grid
-	////////////////////
-	//glPushMatrix();									// Save matrix
 	drawGrid();										// Draw a grid on the ground
-	//glPopMatrix();									// Restore matrix
 }
 
 /**************************************************/
@@ -140,64 +120,19 @@ void camera() {
 /* Increment Animation Variables                  */
 /**************************************************/
 
-void incAnimationVars() {
-	angle = angle + speed * 60.0f/fps ;						// deltaAngle = 60/fps; 60 degrees per second
-	dist = dist + 20.0f/fps;						// 20 units per second
-
-	if (angle >= 360){angle = 0;}					// reset angle, 360 degrees = 0 degrees
-	if (dist > 100){dist = -50;}					// reset distance to set a loop
-}
+//void incAnimationVars() {
+//	angle = angle + speed * 60.0f/fps ;						// deltaAngle = 60/fps; 60 degrees per second
+//	dist = dist + 20.0f/fps;						// 20 units per second
+//
+//	if (angle >= 360){angle = 0;}					// reset angle, 360 degrees = 0 degrees
+//	if (dist > 100){dist = -50;}					// reset distance to set a loop
+//}
 
 /**************************************************/
 /* Draw The Ship                                  */
 /**************************************************/
 
-void drawShip() {
-	// TODO 2.1
-	////////////////////////////////////////////////
-  glPushMatrix();
-    glTranslatef(dist, 0.0, 0.0);
-    glRotatef(180, 0, 1, 0);
-    glRotatef(3*angle, 1, 0, 0);
 
-
-	  float v0[] = {  0.0f,  0.0f,  0.0f };		// Vertices
-	  float v1[] = {  4.0f,  -1.0f,  0.0f };		// Vertices
-	  float v2[] = {  4.0f,  0.0f,  -1.0f };		// Vertices
-	  float v3[] = {  4.0f,  1.0f,  0.0f };		// Vertices
-	  // ...
-	  unsigned char red[]    = { 255,   0,   0, 255 };		// Colors
-    unsigned char blue[] = {0, 255, 0, 255};
-    unsigned char green[] = {0, 0, 255, 255};
-	  // ...
-
-	glEnable(GL_COLOR_MATERIAL);
-  	glBegin( GL_TRIANGLES );		// Tell OpenGL to draw triangles using the following vertexes
-
-		  glColor4ubv( red );			// Change color to red
-		  glVertex3fv( v0 );			// Set point 0
-		  glVertex3fv( v1 );			// Set point 0
-		  glVertex3fv( v2 );			// Set point 0
-
-		  glColor4ubv( blue );			// Change color to red
-		  glVertex3fv( v0 );			// Set point 0
-		  glVertex3fv( v2 );			// Set point 0
-		  glVertex3fv( v3 );			// Set point 0
-
-		  glColor4ubv( green );			// Change color to red
-		  glVertex3fv( v0 );			// Set point 0
-		  glVertex3fv( v1 );			// Set point 0
-		  glVertex3fv( v3 );			// Set point 0
-
-		  glVertex3fv( v1 );			// Set point 0
-		  glVertex3fv( v3 );			// Set point 0
-		  glVertex3fv( v2 );			// Set point 0
-
-  	glEnd();
-	glDisable(GL_COLOR_MATERIAL);
-    //drawAxis();
-  glPopMatrix();
-}
 
 /**************************************************/
 /* Draw Grid                                      */
@@ -221,7 +156,6 @@ void drawGrid()
     glDisable(GL_COLOR_MATERIAL);
   glPopMatrix();
 
-//  drawAxis(10);
 }
 
 /**************************************************/
@@ -267,26 +201,13 @@ void initScene(){
   scene = new SolarSytemScene();
   scene->init();
   scene->createScene();
-/*
-  sceneRoot = new GroupNode();
-
-  sceneRoot->ref();
-
-  Director vDirector = Director();
-  sceneRoot->add(vDirector.createSolarSystem() );
-  
-
-  PrintVisitor().apply(sceneRoot);
-*/
-
 }
-
+//------------------
 void quitScene(){
 
-//  DestructorVisitor vDVisitor = DestructorVisitor();
-//  vDVisitor.apply(sceneRoot);
-//  sceneRoot->unref();
   delete clk;
   delete scene;
 
 }
+//------------------
+
