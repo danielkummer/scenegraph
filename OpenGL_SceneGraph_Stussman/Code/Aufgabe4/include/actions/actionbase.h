@@ -10,7 +10,7 @@ class ActionBase{
 public:
   ActionBase();
   virtual ~ActionBase();
-  void fire();
+  virtual void fire();
   virtual void apply() = 0; // action specific code goes here
   void enable();
   void disable();
