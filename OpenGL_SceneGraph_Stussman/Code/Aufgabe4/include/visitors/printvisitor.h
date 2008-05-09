@@ -23,6 +23,7 @@ public:
   virtual void visit(SphereNode &aSphereNode);
   virtual void visit(LineNode &aLineNode);
   virtual void visit(TranslationNode &aTranslationNode);
+  virtual void visit(TranslatorNode &aTranslatorNode);
   virtual void visit(RotationNode &aRotationNode);
   virtual void visit(ScaleNode &aScaleNode);
   virtual void visit(RotorNode &aRotorNode);

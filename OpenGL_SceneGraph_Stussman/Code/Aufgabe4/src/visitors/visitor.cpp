@@ -47,6 +47,11 @@ void Visitor::visit(TranslationNode &aTranslationNode){
   glTranslatef(aTranslationNode.mX, aTranslationNode.mY, aTranslationNode.mZ);
 }
 //----------------------------------------------------------//
+void Visitor::visit(TranslatorNode &aTranslatorNode){
+  TranslationNode vTmp = aTranslatorNode;
+  Visitor::visit(vTmp);
+}
+//----------------------------------------------------------//
 void Visitor::visit(RotationNode &aRotationNode){
   glRotatef(aRotationNode.mGradAngle, 
             aRotationNode.mAxisX,

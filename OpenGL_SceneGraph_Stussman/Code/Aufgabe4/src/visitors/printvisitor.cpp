@@ -61,6 +61,17 @@ void PrintVisitor::visit(TranslationNode &aTranslationNode){
           aTranslationNode.mZ); 
 }
 //----------------------------------------------------------//
+void PrintVisitor::visit(TranslatorNode &aTranslatorNode){
+  printIdent();
+  printf("ID: %d TranslationNode Velocity: %.2f, %.2f, %.2f Displacement: %.2f, %.2f, %.2f\n", 
+	aTranslatorNode.mXVel,
+	aTranslatorNode.mYVel,
+	aTranslatorNode.mZVel,
+	aTranslatorNode.mX,
+	aTranslatorNode.mY,
+	aTranslatorNode.mZ); 
+}
+//----------------------------------------------------------//
 void PrintVisitor::visit(RotationNode &aRotationNode){
   printIdent();
   printf("ID: %d RotationNode Angle(degrees): %.2f Axis: %.2f, %.2f, %.2f\n", 
