@@ -1,7 +1,7 @@
 #include "nodes/polygonObjectNode.h"
 
 
-PolygonObjectNode::PolygonObjectNode(char* objFileName, char* matFileName){
+PolygonObjectNode::PolygonObjectNode(char* objFileName, char* matFileName):AbstractNode(){
     groupcount		=0;										// Number of groups in ".obj"-file							
 	triangleCount	=0;									// Number of Triangles
 	groupcounter	=0;										// A counter to go trough the groups

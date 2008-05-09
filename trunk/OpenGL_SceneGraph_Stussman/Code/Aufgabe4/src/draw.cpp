@@ -6,7 +6,7 @@
 /*  Authors:                Reto Bollinger        */
 /*                          bolliret@zhwin.ch     */
 /*                                                */
-/*                          Hanspeter Brühlmann   */
+/*                          Hanspeter Brï¿½hlmann   */
 /*                          bruehhan@zhwin.ch     */
 /*                                                */
 /**************************************************/
@@ -65,9 +65,9 @@ void draw3D() {
 	
 	// Draw grid
 	////////////////////
-	glPushMatrix();									// Save matrix
+	//glPushMatrix();									// Save matrix
 	drawGrid();										// Draw a grid on the ground
-	glPopMatrix();									// Restore matrix
+	//glPopMatrix();									// Restore matrix
 }
 
 /**************************************************/
@@ -97,22 +97,22 @@ void camera() {
   float dz = 0;
 
   if(keyFlag.left){
-    dx = 10.1f;
+    dx = 1.1f;
   }
   if(keyFlag.right){
-    dx = -10.1f;
+    dx = -1.1f;
   }
   if(keyFlag.up){
-    dz = 10.1f;
+    dz = 1.1f;
   }
   if(keyFlag.down){
-    dz = -10.1f;
+    dz = -1.1f;
   }
   if(keyFlag.pageUp){
-    dy = 10.1f;
+    dy = 1.1f;
   }
   if(keyFlag.pageDown){
-    dy = -10.1f;
+    dy = -1.1f;
   }
   /*
   // shooter
