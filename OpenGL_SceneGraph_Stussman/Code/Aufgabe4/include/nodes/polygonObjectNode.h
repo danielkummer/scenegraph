@@ -14,6 +14,7 @@
 
 #include "nodes/abstractnode.h"
 #include "factories/ObjLoader.h"
+#include "factories/TextureManager.h"
 
 class PolygonObjectNode:public AbstractNode {
 public:
