@@ -135,7 +135,7 @@ void AbstractScene::init(){
 //-------------------------------------------------------//
 void AbstractScene::update(){
   for(unsigned i=0; i<SDLK_LAST; i++){
-    if(true==mKeyFlags[i]){
+    if(1==mKeyFlags[i]){
       unsigned vKeyMapVal = mKeyInputMap[i];
       if(0 != vKeyMapVal){
         ActionBase* vAction = mActionFactory->getAction(vKeyMapVal);
@@ -149,9 +149,17 @@ void AbstractScene::update(){
 //-------------------------------------------------------//
 bool AbstractScene::handleEvent(SDL_Event &aEvent){
   if(aEvent.type == SDL_KEYDOWN){
-    mKeyFlags[aEvent.key.keysym.sym] = true;
+    if(2 > mKeyFlags[aEvent.key.keysym.sym]){
+      mKeyFlags[aEvent.key.keysym.sym] = true;
+    }else{
+      unsigned vKeyMapVal = mKeyInputMap[aEvent.key.keysym.sym];
+      if(0 != vKeyMapVal){
+        ActionBase* vAction = mActionFactory->getAction(vKeyMapVal);
+        vAction->fire();
+      }
+    }
   }
-  if(aEvent.type == SDL_KEYUP){
+  if(aEvent.type == SDL_KEYUP &&  2 > mKeyFlags[aEvent.key.keysym.sym]){
     mKeyFlags[aEvent.key.keysym.sym] = false;
   }
   return false;
@@ -186,6 +194,9 @@ void SolarSytemScene::init(){
   // TODO: define key mapping
   mKeyInputMap[SDLK_F2] = EToggleAxis;
   mKeyInputMap[SDLK_F3] = EToggleShadow;
+  // prevent contious action firing
+  mKeyFlags[SDLK_F2] = 2;
+  mKeyFlags[SDLK_F3] = 2;
 
   mKeyInputMap[SDLK_a] = EShipMoveFwd;
   mKeyInputMap[SDLK_d] = EShipMoveBack;

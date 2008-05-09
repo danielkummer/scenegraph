@@ -91,7 +91,7 @@ protected:
 
   ActionFactory* mActionFactory;
 
-  bool mKeyFlags[SDLK_LAST];
+  unsigned mKeyFlags[SDLK_LAST];
   
 };
 
