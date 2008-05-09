@@ -243,6 +243,10 @@
 					RelativePath=".\src\factories\ObjLoader.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\factories\TextureManager.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="visitors"
@@ -539,6 +543,10 @@
 				</File>
 				<File
 					RelativePath=".\include\factories\ObjLoader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\factories\TextureManager.h"
 					>
 				</File>
 			</Filter>

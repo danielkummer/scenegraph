@@ -1,4 +1,4 @@
-#include "TextureManager.h"
+#include "factories/TextureManager.h"
 
 TextureManager* TextureManager::texMan = NULL;
 

@@ -1,8 +1,13 @@
 #ifndef TEXTUREMANAGER_H_
 #define TEXTUREMANAGER_H_
 
-#include <GL/gl.h> 
-#include <GL/glu.h> 
+
+
+
+
+
+#include "main.h"
+
 #include <stdio.h> 
 #include <iostream> 
 #include <stdlib.h>
