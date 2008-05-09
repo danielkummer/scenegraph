@@ -15,7 +15,6 @@
 #ifndef _OBJLOADER_H_
 #define _OBJLOADER_H_
 
-#include "main.h"
 #include <vector>
 #include <fstream>
 
