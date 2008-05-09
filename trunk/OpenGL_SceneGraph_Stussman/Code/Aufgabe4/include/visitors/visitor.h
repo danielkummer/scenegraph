@@ -27,8 +27,7 @@ public:
   virtual void visit(TransformSeparator &aNode);
   virtual void postvisit(TransformSeparator &aNode);
   virtual void visit(MoveNode &aNode);
-
-
+  virtual void visit(PolygonObjectNode &aPolygonObjectNode);
 };
 
 #endif // _H_VISITOR
