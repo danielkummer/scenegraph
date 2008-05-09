@@ -240,9 +240,9 @@ void SolarSytemScene::createScene(){
 
   // light
   LightNode* vLight = new LightNode(GL_LIGHT0);
-  vLight->setParam(GL_AMBIENT, 0, 0, 0, 1);
-  vLight->setParam(GL_DIFFUSE, 1, 1, 1, 1);
-  vLight->setParam(GL_POSITION, 0, 0, 0, 1);
+  vLight->setParam(GL_AMBIENT, 0.2f, 0.2f, 0.2f, 1.0f);
+  vLight->setParam(GL_DIFFUSE, 0.8f, 0.8f, 0.8f, 1.0f);
+  vLight->setParam(GL_POSITION, 1.0f, 1.0f, 1.0f, 1.0f);
   mSceneGraph->add(vLight);
 
   mSceneGraph->add(createSolarSystem());  

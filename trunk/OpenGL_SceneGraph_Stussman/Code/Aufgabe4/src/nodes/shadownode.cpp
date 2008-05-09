@@ -58,6 +58,7 @@ void ShadowNode::draw(AbstractVisitor &aVisitor){
     float shadowMatrix[16];
     buildShadowMatrix(shadowMatrix, mLightPos, mNormal, mPointInPlane);
 
+	glEnable(GL_COLOR_MATERIAL);
   //    glDisable(GL_DEPTH_TEST);							// Disable depth test to see the shadow also from below
     glDisable(GL_LIGHTING);								// Disable light effects
     glColor3fv(mColor);						// Shadow's color
@@ -69,6 +70,7 @@ void ShadowNode::draw(AbstractVisitor &aVisitor){
 	  glEnable(GL_DEPTH_TEST);							// Enable depth test to sea the shadow also from below
     glEnable(GL_LIGHTING);								// Enable light effects
 	  glDisable(GL_BLEND);								// Disable blending
+	  glDisable(GL_COLOR_MATERIAL);
   }
 }
 //----------------------------------------------------------//

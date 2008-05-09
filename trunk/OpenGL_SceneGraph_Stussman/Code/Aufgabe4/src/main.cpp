@@ -6,7 +6,7 @@
 /*  Authors:                Reto Bollinger        */
 /*                          bolliret@zhwin.ch     */
 /*                                                */
-/*                          Hanspeter Brühlmann   */
+/*                          Hanspeter Brï¿½hlmann   */
 /*                          bruehhan@zhwin.ch     */
 /*                                                */
 /**************************************************/
@@ -218,7 +218,7 @@ bool init_OpenGL( ) {
   //glLightModelfv(GL_LIGHT_MODEL_LOCAL_VIEWER, amb_light);
   //glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lightDiffuse);
 
-  glEnable(GL_COLOR_MATERIAL);
+  //glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_TEXTURE_2D);
   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 

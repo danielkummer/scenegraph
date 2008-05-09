@@ -68,7 +68,8 @@ SunMaterial::SunMaterial():Material(){
 }
 //-------------------------------------------------------//
 DefaultMaterial::DefaultMaterial():Material(){
-  set(GL_COLOR, 1, 1, 1);
+  set(GL_AMBIENT, 1, 1, 1);
+  set(GL_DIFFUSE, 1, 1, 1);
 }
 
 
