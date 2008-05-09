@@ -2,18 +2,14 @@
 
 
 PolygonObjectNode::PolygonObjectNode(char* objFileName, char* matFileName){
-	
-}
-//-------------------------------------------------------//
-virtual void PolygonObjectNode::accept(AbstractVisitor &aVisitor){
     groupcount		=0;										// Number of groups in ".obj"-file							
 	triangleCount	=0;									// Number of Triangles
 	groupcounter	=0;										// A counter to go trough the groups
 	groups 			=0;
-	PolygonObject::loadObjFile( objFileName, matFileName );		
+	PolygonObjectNode::loadObjFile( objFileName, matFileName );		
 }
 //-------------------------------------------------------//
-virtual PolygonObjectNode::~PolygonObject() {
+PolygonObjectNode::~PolygonObjectNode() {
 	
 }
 //-------------------------------------------------------//

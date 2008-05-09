@@ -216,7 +216,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\actions\moveaction.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\actions\onoffaction.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\actions\rotationaction.cpp"
 					>
 				</File>
 			</Filter>
@@ -229,6 +237,10 @@
 				</File>
 				<File
 					RelativePath=".\src\factories\builder.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\factories\ObjLoader.cpp"
 					>
 				</File>
 			</Filter>
@@ -285,6 +297,10 @@
 				</File>
 				<File
 					RelativePath=".\src\nodes\movenode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\polygonObjectNode.cpp"
 					>
 				</File>
 				<File
@@ -410,6 +426,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\nodes\polygonObjectNode.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\nodes\ringnode.h"
 					>
 				</File>
@@ -470,7 +490,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\actions\moveaction.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\actions\onoffaction.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\actions\rotationaction.h"
 					>
 				</File>
 			</Filter>
@@ -507,6 +535,10 @@
 				</File>
 				<File
 					RelativePath=".\include\factories\builder.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\factories\ObjLoader.h"
 					>
 				</File>
 			</Filter>

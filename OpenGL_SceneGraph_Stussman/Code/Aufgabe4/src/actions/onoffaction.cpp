@@ -10,10 +10,6 @@ inline void OnOffAction::apply(){
   toggle();
 }
 //-------------------------------------------------------//
-//inline void OnOffAction::accept(AbstractVisitor &aVisitor){
-//  aVisitor.visit(*this);
-//}
-//-------------------------------------------------------//
 inline void OnOffAction::add(ToggleNode* aToggle){
   ActionBase::add(aToggle);
   // keep children syncronized
