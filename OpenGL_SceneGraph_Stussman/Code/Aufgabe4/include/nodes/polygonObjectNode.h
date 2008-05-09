@@ -15,12 +15,11 @@
 #include "nodes/abstractnode.h"
 #include "factories/ObjLoader.h"
 
-class PolygonObjectNode:public AbstractNode{
+class PolygonObjectNode:public AbstractNode {
 public:
   PolygonObjectNode(char* objFileName, char* matFileName);
   virtual void accept(AbstractVisitor &aVisitor);
-  virtual ~PolygonObject();
-
+  virtual ~PolygonObjectNode();
 private:
 	void loadObjFile(char* objFileName, char* matFileName);	
 	int groupcount;
