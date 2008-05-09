@@ -243,6 +243,6 @@ void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 				
 			glEnd();											// end drawing triangles
 		}
-		glDisable(GL_TEXTURE_2D);								// disable texturing to avoid having this texture on the next drawn object
+		//glDisable(GL_TEXTURE_2D);								// disable texturing to avoid having this texture on the next drawn object
 	}	
 }

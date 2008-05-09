@@ -43,6 +43,7 @@ public:
   virtual void visit(ToggleNode &aNode);
   virtual void postvisit(ToggleNode &aNode);
   virtual void visit(MoveNode &aNode);
+  virtual void visit(PolygonObjectNode &aPolygonObjectNode);
 
 private:
   void printIdent();

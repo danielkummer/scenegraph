@@ -21,6 +21,7 @@ class TransformSeparator;
 class TranslationNode;
 class TextureNode;
 class MoveNode;
+class PolygonObjectNode;
 
 class AbstractVisitor{
 public:
@@ -60,6 +61,7 @@ public:
   virtual void postvisit(ToggleNode &aNode) { }
 
   virtual void visit(MoveNode &aNode) { }
+  virtual void visit(PolygonObjectNode &aPolygonObjectNode) { }
 
 
   void apply(AbstractNode* aAbstractNode);

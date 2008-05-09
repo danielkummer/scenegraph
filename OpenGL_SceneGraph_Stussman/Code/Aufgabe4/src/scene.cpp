@@ -215,9 +215,15 @@ void SolarSytemScene::createScene(){
   vLight->setParam(GL_POSITION, 0, 0, 0, 1);
   mSceneGraph->add(vLight);
 
-  mSceneGraph->add(createSolarSystem());
+  mSceneGraph->add(createSolarSystem());  
   PrintVisitor().apply(mSceneGraph);
+  
+  // spaceship
+  PolygonObjectNode* vSpaceShip = new PolygonObjectNode("objects/ship.obj", "objects/ship.mtl");
+  mSceneGraph->add(vSpaceShip);
+  PrintVisitor().apply(vSpaceShip);
 }
+
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYesOrNo, float aAlpha){
   try
