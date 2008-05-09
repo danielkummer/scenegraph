@@ -180,7 +180,7 @@ void Builder::buildToggleNode(ActionBase* aAction){
   append(aAction, new ToggleNode());
 }
 //-------------------------------------------------------//
-void Builder::buildPolygonObjectNode(char* objFileName, char* matFileName, ActionBase* aAction=NULL){
+void Builder::buildPolygonObjectNode(char* objFileName, char* matFileName, ActionBase* aAction){
   append(aAction, new PolygonObjectNode(objFileName, matFileName));
 }
 
