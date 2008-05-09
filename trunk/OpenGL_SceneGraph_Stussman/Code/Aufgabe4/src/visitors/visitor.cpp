@@ -169,22 +169,22 @@ void Visitor::visit(MoveNode &aNode){
       glLoadIdentity();
       float* vM = aNode.mModelMatrix;
       glLoadMatrixf(vM);
-      glTranslatef(aNode.getX() + vM[12], 
-                   aNode.getY() + vM[13], 
-                   aNode.getZ() + vM[14]);
+      glTranslatef(aNode.getX(), 
+                   aNode.getY(), 
+                   aNode.getZ());
       glRotatef(aNode.getRoll(),  vM[8], vM[9], vM[10]);
       glRotatef(aNode.getPitch(), vM[4], vM[5], vM[6]);
       glRotatef(aNode.getYaw(),   vM[0], vM[1], vM[2]);
-      glGetFloatv(GL_MODELVIEW_MATRIX, aNode.mModelMatrix);
+      glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
     glPopMatrix();
 
     // reset delta values
     aNode.reset();
   }
   // apply transformation matrix
-  glPushMatrix();
-  glMultMatrixf(aNode.mModelMatrix);
-  glPopMatrix();
+//  glPushMatrix();
+  glMultMatrixf(&aNode.mModelMatrix[0]);
+//  glPopMatrix();
 }
                     
 //----------------------------------------------------------//
