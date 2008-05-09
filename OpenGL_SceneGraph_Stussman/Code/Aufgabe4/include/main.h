@@ -6,7 +6,7 @@
 /*  Authors:                Reto Bollinger        */
 /*                          bolliret@zhwin.ch     */
 /*                                                */
-/*                          Hanspeter Brühlmann   */
+/*                          Hanspeter Brï¿½hlmann   */
 /*                          bruehhan@zhwin.ch     */
 /*                                                */
 /**************************************************/
@@ -67,6 +67,53 @@ struct KeyFlag {
   int relMouseX;
   int rollButton;
 } ;
+
+
+struct vertex3D										// Struct for a 3D vertex
+{
+	float x;
+	float y;
+	float z;
+};
+
+struct vertex2D										// Struct for a 2D vertex (texture coordinates)
+{
+	float x;
+	float y;
+};
+
+struct triang										// Struct for all values for a triangle
+{
+	vertex3D vertex1;
+	vertex3D vertex2;
+	vertex3D vertex3;
+
+	vertex3D normal1;
+	vertex3D normal2;
+	vertex3D normal3;
+
+	vertex2D tCoord1;
+	vertex2D tCoord2;
+	vertex2D tCoord3;
+
+};
+
+struct mat											// Material definitions
+{
+	float matAmbient[4];
+	float matDiffuse[4];
+	float matSpecular[4];
+	float matShininess;
+};
+
+struct group										// Definition for an object group
+{
+	triang* triangle;									// Pointer to an array of triangles
+	mat material;
+	char* textureName;
+	int textureID;
+	int size;
+};
 
 /**************************************************/
 /* Variable definition                            */
