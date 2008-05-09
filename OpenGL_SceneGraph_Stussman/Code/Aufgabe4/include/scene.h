@@ -11,6 +11,7 @@
 #include "factories/actionfactory.h"
 #include "factories/builder.h"
 #include "material.h"
+#include "factories/TextureManager.h"
 
 
 enum EActionNames{
@@ -91,7 +92,8 @@ protected:
 
   ActionFactory* mActionFactory;
 
-  unsigned mKeyFlags[SDLK_LAST];
+  unsigned mKeyFlags[SDLK_LAST]; // 0/1 not set/ set
+                                 // 2 action is fired only once
   
 };
 
