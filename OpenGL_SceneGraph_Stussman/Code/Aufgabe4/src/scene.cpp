@@ -90,8 +90,6 @@ AbstractScene::AbstractScene(){
   for(unsigned i=0; i<SDLK_LAST; i++){
     mKeyInputMap[i] = 0;
   }
-  init();
-  mActionFactory = new ActionFactory(mToActionMap, EActionNameCount);
 }
 //-------------------------------------------------------//
 AbstractScene::~AbstractScene(){
@@ -151,12 +149,13 @@ bool AbstractScene::handleEvent(SDL_Event &aEvent){
 }
 //-------------------------------------------------------//
 void AbstractScene::createScene(){
+  mActionFactory = new ActionFactory(mToActionMap, EActionNameCount);
 }
 //-------------------------------------------------------//
 /*********************************************************/
 //-------------------------------------------------------//
 SolarSytemScene::SolarSytemScene():AbstractScene(){
-  init();
+
 }
 //-------------------------------------------------------//
 SolarSytemScene::~SolarSytemScene(){
@@ -204,12 +203,12 @@ void SolarSytemScene::init(){
 //  mToActionMap[EShoot] = ;
 
   
-  createScene();
 
 }
 //-------------------------------------------------------//
 void SolarSytemScene::createScene(){
 
+  AbstractScene::createScene();
 //  Director vDirector;
   mSceneGraph = new Separator();
   mSceneGraph->ref();
