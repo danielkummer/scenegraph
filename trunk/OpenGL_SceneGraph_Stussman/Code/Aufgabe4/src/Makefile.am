@@ -15,6 +15,7 @@ draw.cpp \
 factories/actionfactory.cpp \
 factories/builder.cpp \
 factories/ObjLoader.cpp \
+factories/TextureManager.cpp \
 main.cpp \
 material.cpp \
 nodes/togglenode.cpp \
