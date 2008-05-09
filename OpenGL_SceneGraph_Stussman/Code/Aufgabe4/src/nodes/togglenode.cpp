@@ -2,7 +2,7 @@
 
 
 //----------------------------------------------------------//
-ToggleNode::ToggleNode():GroupNode(){
+ToggleNode::ToggleNode():GroupNode(), mState(true){
 		on();
 }
 

@@ -10,7 +10,7 @@ PolygonObjectNode::PolygonObjectNode(char* objFileName, char* matFileName):Abstr
 }
 //-------------------------------------------------------//
 PolygonObjectNode::~PolygonObjectNode() {
-  for(unsigned i=0; i<groupcount; i++){
+  for(int i=0; i<groupcount; i++){
     delete[] groups->triangle;
   }
   delete[] groups;

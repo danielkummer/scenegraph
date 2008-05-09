@@ -210,7 +210,7 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_f] = EShipRollCClk;
   mKeyInputMap[SDLK_t] = EShipPitchClk;
   mKeyInputMap[SDLK_g] = EShipPitchCClk;
-  mKeyInputMap[SDLK_z] = EShipYawClk;
+  mKeyInputMap[SDLK_y] = EShipYawClk;
   mKeyInputMap[SDLK_h] = EShipYawCClk;
 
 
@@ -291,7 +291,7 @@ void SolarSytemScene::createScene(){
   
   vSpaceShipBuilder.buildMoveNode(vShipActions);
   vSpaceShipBuilder.buildPolygonObjectNode("objects/ship.obj", "objects/ship.mtl");
-  vSpaceShipBuilder.append(mActionFactory->getAction(EToggleAxis), createAxis(5));
+  vSpaceShipBuilder.append(0, createAxis(5));
 
   mSceneGraph->add(vSpaceShipBuilder.getResult());
   PrintVisitor().apply(mSceneGraph);

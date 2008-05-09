@@ -144,9 +144,11 @@ void PrintVisitor::visit(RingNode &aRingNode){
 void PrintVisitor::visit(Separator &aNode){
   printIdent();
   printf("ID: %d Separator enter\n", aNode.mID);
+  mIdent++;
 }
 //----------------------------------------------------------//
 void PrintVisitor::postvisit(Separator &aNode){
+  mIdent--;
   printIdent();
   printf("ID: %d Separator end\n", aNode.mID);
 }
