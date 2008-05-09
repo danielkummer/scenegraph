@@ -182,7 +182,9 @@ void Visitor::visit(MoveNode &aNode){
     aNode.reset();
   }
   // apply transformation matrix
+  glPushMatrix();
   glMultMatrixf(aNode.mModelMatrix);
+  glPopMatrix();
 }
                     
 //----------------------------------------------------------//

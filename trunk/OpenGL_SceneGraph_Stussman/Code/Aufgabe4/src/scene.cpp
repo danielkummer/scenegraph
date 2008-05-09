@@ -182,7 +182,7 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_w] = EShipMoveFwd;
   mKeyInputMap[SDLK_s] = EShipMoveBack;
   mKeyInputMap[SDLK_a] = EShipStrafeLeft;
-  mKeyInputMap[SDLK_d] = EShipStraveRight;
+  mKeyInputMap[SDLK_d] = EShipStrafeRight;
   mKeyInputMap[SDLK_q] = EShipMoveUp;
   mKeyInputMap[SDLK_e] = EShipMoveDown;
 
@@ -200,7 +200,7 @@ void SolarSytemScene::init(){
   mToActionMap[EShipMoveUp] = EShipMoveUpAction;
   mToActionMap[EShipMoveDown] = EShipMoveDownAction;
   mToActionMap[EShipStrafeLeft] = EShipStrafeLeftAction;
-  mToActionMap[EShipStraveRight] = EShipStraveRightAction;
+  mToActionMap[EShipStrafeRight] = EShipStrafeRightAction;
 //  mToActionMap[EShoot] = ;
 
   
@@ -232,12 +232,25 @@ void SolarSytemScene::createScene(){
   mSceneGraph->add(vLight);
 
   mSceneGraph->add(createSolarSystem());  
-  PrintVisitor().apply(mSceneGraph);
+  
   
   // spaceship
-  PolygonObjectNode* vSpaceShip = new PolygonObjectNode("objects/ship.obj", "objects/ship.mtl");
-  mSceneGraph->add(vSpaceShip);
-  PrintVisitor().apply(vSpaceShip);
+  MoveNode* vMoveShip = new MoveNode();  
+  Builder vSpaceShipBuilder(new TransformSeparator());
+  
+  std::vector<ActionBase*> vShipActions;
+  
+  vShipActions.push_back(mActionFactory->getAction(EShipMoveBack));
+  vShipActions.push_back(mActionFactory->getAction(EShipMoveDown));
+  vShipActions.push_back(mActionFactory->getAction(EShipMoveFwd));
+  vShipActions.push_back(mActionFactory->getAction(EShipMoveUp));
+  vShipActions.push_back(mActionFactory->getAction(EShipStrafeLeft));
+  vShipActions.push_back(mActionFactory->getAction(EShipStrafeRight));
+  
+  vSpaceShipBuilder.buildPolygonObjectNode("objects/ship.obj", "objects/ship.mtl", vShipActions);
+  mSceneGraph->add(vMoveShip);    
+  mSceneGraph->add(vSpaceShipBuilder.getResult());
+  PrintVisitor().apply(mSceneGraph);
 }
 
 //-------------------------------------------------------//

@@ -180,8 +180,16 @@ void Builder::buildToggleNode(ActionBase* aAction){
   append(aAction, new ToggleNode());
 }
 //-------------------------------------------------------//
-void Builder::buildPolygonObjectNode(char* objFileName, char* matFileName, ActionBase* aAction){
-  append(aAction, new PolygonObjectNode(objFileName, matFileName));
+void Builder::buildPolygonObjectNode(char* objFileName, char* matFileName, std::vector<ActionBase*> aActions){
+  PolygonObjectNode* polygonObject = new PolygonObjectNode(objFileName, matFileName);
+  
+  mCurrent->add(polygonObject);
+  
+  std::vector<ActionBase*>::iterator vItr;
+  for(vItr = aActions.begin(); vItr < aActions.end(); vItr++){  
+    (*vItr)->add(polygonObject);
+  }
+  mLastAdded = polygonObject;  
 }
 
 //-------------------------------------------------------//

@@ -167,7 +167,7 @@ void PrintVisitor::visit(MoveNode &aNode){
 //----------------------------------------------------------//
 void PrintVisitor::visit(PolygonObjectNode &aPolygonObjectNode){
 	printIdent();
-	printf("ID: %d PolygonObjectNode triangleCount: %i\n", aPolygonObjectNode.mID, aPolygonObjectNode.triangleCount);	
+	printf("ID: %d PolygonObjectNode ", aPolygonObjectNode.mID);	
 }
 //----------------------------------------------------------//
 void PrintVisitor::visit(AbstractNode &aNode){
