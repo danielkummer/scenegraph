@@ -195,7 +195,7 @@ void SolarSytemScene::init(){
   // TODO: define key mapping
   mKeyInputMap[SDLK_F2] = EToggleAxis;
   mKeyInputMap[SDLK_F3] = EToggleShadow;
-  // prevent contious action firing
+  // prevent contious action firing (fire only at keypress once)
   mKeyFlags[SDLK_F2] = 2;
   mKeyFlags[SDLK_F3] = 2;
 
