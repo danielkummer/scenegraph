@@ -22,6 +22,7 @@
 #include "nodes/transformseparator.h"
 #include "nodes/translationnode.h"
 #include "nodes/movenode.h"
+#include "nodes/polygonObjectNode.h"
 
 
 #endif // _H_ALLNODES
