@@ -13,7 +13,9 @@
 /**************************************************/
 
 //#include "main.h"
+#include  <iostream>
 #include "factories/ObjLoader.h"
+using namespace std;
 
 /**************************************************/
 /* Constructor                                    */
