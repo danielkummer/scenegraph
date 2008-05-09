@@ -10,6 +10,7 @@
 class OnOffAction:public ActionBase{
 public:
   virtual ~OnOffAction();
+  OnOffAction();
   virtual void apply();
 //  virtual void accept(AbstractVisitor &aVisitor);
   virtual void add(ToggleNode* aToggle);

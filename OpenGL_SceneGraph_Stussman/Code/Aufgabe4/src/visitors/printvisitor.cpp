@@ -163,10 +163,12 @@ void PrintVisitor::postvisit(SwitchNode &aNode){
 //----------------------------------------------------------//
 void PrintVisitor::visit(ToggleNode &aNode){
   printIdent();
+  mIdent++;
   printf("ID: %d ToggleNode enter\n", aNode.mID);
 }
 //----------------------------------------------------------//
 void PrintVisitor::postvisit(ToggleNode &aNode){
+  mIdent--;
   printIdent();
   printf("ID: %d ToggleNode end\n", aNode.mID);
 }
