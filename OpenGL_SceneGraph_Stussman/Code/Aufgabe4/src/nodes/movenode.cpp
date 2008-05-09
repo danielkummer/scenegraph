@@ -2,7 +2,24 @@
 
 
 //----------------------------------------------------------//
-MoveNode::MoveNode():AbstractNode(){
+MoveNode::MoveNode():
+  AbstractNode(), 
+  mChanged(true), 
+  mActive(true), 
+  mDeltaPitch(0),
+  mDeltaRoll(0),
+  mDeltaX(0),
+  mDeltaY(0),
+  mDeltaYaw(0),
+  mDeltaZ(0)
+{
+  for(unsigned i=0; i<16; i++){
+    mModelMatrix[i] = 0.0f;
+  }
+  mModelMatrix[0] = 1.0f;
+  mModelMatrix[5] = 1.0f;
+  mModelMatrix[10] = 1.0f;
+  mModelMatrix[15] = 1.0f;
 }
 //----------------------------------------------------------//
 MoveNode::~MoveNode(){
@@ -14,13 +31,13 @@ void MoveNode::accept(AbstractVisitor &aVisitor){
 //----------------------------------------------------------//
 void MoveNode::move(EDirection aDir, float aDist){
   unsigned vIdx;
-  int vDirSign = 1;
+  float vDirSign = 1.0f;
   switch(aDir){
     case UP:       vIdx = 4; break;     
-    case DOWN:     vIdx = 4; vDirSign = -1; break;
+    case DOWN:     vIdx = 4; vDirSign = -1.0f; break;
     case LEFT:     vIdx = 0; break;     
-    case RIGHT:    vIdx = 0; vDirSign = -1; break;
-    case FORWARD:  vIdx = 8; vDirSign = -1; break;  
+    case RIGHT:    vIdx = 0; vDirSign = -1.0f; break;
+    case FORWARD:  vIdx = 8; vDirSign = -1.0f; break;  
     case BACKWARD: vIdx = 8; break;
   }
   mDeltaX += vDirSign * aDist * mModelMatrix[vIdx];

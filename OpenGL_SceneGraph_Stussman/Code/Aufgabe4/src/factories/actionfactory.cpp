@@ -39,8 +39,8 @@ ActionBase* ActionFactory::createAction(unsigned int aActionName){
   assert(mCount > aActionName);
   unsigned vActionNr = mMapping[aActionName];
   ActionBase* vInstance = NULL;
-  float vDist = 0.1f;
-  float vAngle = 0.2f;
+  float vDist = 1.0f;
+  float vAngle = 1.0f;
   switch(vActionNr){
     // TODO: insert all new actions
     case EToggleAction:
