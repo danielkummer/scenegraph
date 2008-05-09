@@ -172,9 +172,9 @@ void Visitor::visit(MoveNode &aNode){
       glTranslatef(aNode.getX(), 
                    aNode.getY(), 
                    aNode.getZ());
-      glRotatef(aNode.getRoll(),  vM[8], vM[9], vM[10]);
-      glRotatef(aNode.getPitch(), vM[4], vM[5], vM[6]);
-      glRotatef(aNode.getYaw(),   vM[0], vM[1], vM[2]);
+      glRotatef(aNode.getRoll(), 1, 0, 0 );//vM[8], vM[9], vM[10]);
+      glRotatef(aNode.getPitch(), 0, 1, 0);//vM[4], vM[5], vM[6]);
+      glRotatef(aNode.getYaw(),   0, 0, 1);//vM[0], vM[1], vM[2]);
       glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
     glPopMatrix();
 

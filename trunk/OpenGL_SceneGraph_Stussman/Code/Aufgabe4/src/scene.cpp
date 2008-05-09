@@ -185,6 +185,14 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_q] = EShipMoveUp;
   mKeyInputMap[SDLK_e] = EShipMoveDown;
 
+  mKeyInputMap[SDLK_r] = EShipRollClk;
+  mKeyInputMap[SDLK_f] = EShipRollCClk;
+  mKeyInputMap[SDLK_t] = EShipPitchClk;
+  mKeyInputMap[SDLK_g] = EShipPitchCClk;
+  mKeyInputMap[SDLK_z] = EShipYawClk;
+  mKeyInputMap[SDLK_h] = EShipYawCClk;
+
+
 
 
   // action map
@@ -200,6 +208,13 @@ void SolarSytemScene::init(){
   mToActionMap[EShipMoveDown] = EShipMoveDownAction;
   mToActionMap[EShipStrafeLeft] = EShipStrafeLeftAction;
   mToActionMap[EShipStrafeRight] = EShipStrafeRightAction;
+
+  mToActionMap[EShipRollClk] = EShipRollClkAction;
+  mToActionMap[EShipRollCClk] = EShipRollCClkAction;
+  mToActionMap[EShipPitchClk] = EShipPitchClkAction;
+  mToActionMap[EShipPitchCClk] = EShipPitchCClkAction;
+  mToActionMap[EShipYawClk] = EShipYawClkAction;
+  mToActionMap[EShipYawCClk] = EShipYawCClkAction;
 //  mToActionMap[EShoot] = ;
 
   
@@ -245,6 +260,13 @@ void SolarSytemScene::createScene(){
   vShipActions.push_back(mActionFactory->getAction(EShipMoveUp));
   vShipActions.push_back(mActionFactory->getAction(EShipStrafeLeft));
   vShipActions.push_back(mActionFactory->getAction(EShipStrafeRight));
+
+  vShipActions.push_back(mActionFactory->getAction(EShipRollClk));
+  vShipActions.push_back(mActionFactory->getAction(EShipRollCClk));
+  vShipActions.push_back(mActionFactory->getAction(EShipPitchClk));
+  vShipActions.push_back(mActionFactory->getAction(EShipPitchCClk));
+  vShipActions.push_back(mActionFactory->getAction(EShipYawClk));
+  vShipActions.push_back(mActionFactory->getAction(EShipYawCClk));
   
   vSpaceShipBuilder.buildMoveNode(vShipActions);
   vSpaceShipBuilder.buildPolygonObjectNode("objects/ship.obj", "objects/ship.mtl");
