@@ -59,7 +59,7 @@ ActionBase* ActionFactory::createAction(unsigned int aActionName){
       {
         vInstance = new MoveAction(LEFT, vDist);
       }break;
-    case EShipStraveRightAction:
+    case EShipStrafeRightAction:
       {
         vInstance = new MoveAction(RIGHT, vDist);
       }break;

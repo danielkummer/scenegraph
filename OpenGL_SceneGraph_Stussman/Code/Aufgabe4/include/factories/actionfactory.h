@@ -16,7 +16,7 @@ enum EActions{
   EShipMoveFwdAction,
   EShipMoveBackAction,
   EShipStrafeLeftAction,
-  EShipStraveRightAction,
+  EShipStrafeRightAction,
   EShipMoveUpAction,
   EShipMoveDownAction,
   EShipRollClkAction,
