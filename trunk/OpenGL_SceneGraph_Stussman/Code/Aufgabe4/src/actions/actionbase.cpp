@@ -2,7 +2,7 @@
 
 
 //----------------------------------------------------------//
-ActionBase::ActionBase(){
+ActionBase::ActionBase():mEnabled(true){
 }
 //----------------------------------------------------------//
 ActionBase::~ActionBase(){
