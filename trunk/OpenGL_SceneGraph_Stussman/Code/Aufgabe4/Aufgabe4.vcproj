@@ -256,10 +256,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\visitors\destructorvisitor.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\visitors\eventvisitor.cpp"
 					>
 				</File>
@@ -519,10 +515,6 @@
 				>
 				<File
 					RelativePath=".\include\visitors\abstractvisitor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\visitors\destructorvisitor.h"
 					>
 				</File>
 				<File

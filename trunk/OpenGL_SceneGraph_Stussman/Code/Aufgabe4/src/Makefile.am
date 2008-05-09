@@ -43,7 +43,6 @@ nodes/separator.cpp \
 planetdefs.cpp \
 scene.cpp \
 shadow.cpp \
-visitors/destructorvisitor.cpp \
 visitors/eventvisitor.cpp \
 visitors/printvisitor.cpp \
 visitors/abstractvisitor.cpp \
