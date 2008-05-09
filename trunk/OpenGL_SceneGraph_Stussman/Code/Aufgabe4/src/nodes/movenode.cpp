@@ -30,19 +30,26 @@ void MoveNode::accept(AbstractVisitor &aVisitor){
 }
 //----------------------------------------------------------//
 void MoveNode::move(EDirection aDir, float aDist){
-  unsigned vIdx;
-  float vDirSign = 1.0f;
+  //unsigned vIdx;
+  //float vDirSign = 1.0f;
   switch(aDir){
-    case UP:       vIdx = 4; break;     
-    case DOWN:     vIdx = 4; vDirSign = -1.0f; break;
-    case LEFT:     vIdx = 0; break;     
-    case RIGHT:    vIdx = 0; vDirSign = -1.0f; break;
-    case FORWARD:  vIdx = 8; vDirSign = -1.0f; break;  
-    case BACKWARD: vIdx = 8; break;
+    //case UP:       vIdx = 4; break;     
+    //case DOWN:     vIdx = 4; vDirSign = -1.0f; break;
+    //case LEFT:     vIdx = 0; break;     
+    //case RIGHT:    vIdx = 0; vDirSign = -1.0f; break;
+    //case FORWARD:  vIdx = 8; vDirSign = -1.0f; break;  
+    //case BACKWARD: vIdx = 8; break;
+    case UP:       mDeltaY += aDist; break;     
+    case DOWN:     mDeltaY -= aDist; break;
+    case LEFT:     mDeltaX += aDist; break;     
+    case RIGHT:    mDeltaX -= aDist; break;
+    case FORWARD:  mDeltaZ -= aDist; break;  
+    case BACKWARD: mDeltaZ += aDist; break;
   }
-  mDeltaX += vDirSign * aDist * mModelMatrix[vIdx];
-  mDeltaY += vDirSign * aDist * mModelMatrix[vIdx + 1];
-  mDeltaZ += vDirSign * aDist * mModelMatrix[vIdx + 2];
+
+  //mDeltaX += vDirSign * aDist * mModelMatrix[vIdx];
+  //mDeltaY += vDirSign * aDist * mModelMatrix[vIdx + 1];
+  //mDeltaZ += vDirSign * aDist * mModelMatrix[vIdx + 2];
   mChanged = true;
 }
 //----------------------------------------------------------//

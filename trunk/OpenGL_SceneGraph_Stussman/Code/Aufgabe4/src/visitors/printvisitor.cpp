@@ -178,7 +178,7 @@ void PrintVisitor::visit(MoveNode &aNode){
 //----------------------------------------------------------//
 void PrintVisitor::visit(PolygonObjectNode &aPolygonObjectNode){
 	printIdent();
-	printf("ID: %d PolygonObjectNode ", aPolygonObjectNode.mID);	
+	printf("ID: %d PolygonObjectNode\n", aPolygonObjectNode.mID);	
 }
 //----------------------------------------------------------//
 void PrintVisitor::visit(AbstractNode &aNode){
