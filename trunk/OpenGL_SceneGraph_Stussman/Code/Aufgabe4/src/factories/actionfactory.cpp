@@ -39,11 +39,62 @@ ActionBase* ActionFactory::createAction(unsigned int aActionName){
   assert(mCount > aActionName);
   unsigned vActionNr = mMapping[aActionName];
   ActionBase* vInstance = NULL;
+  float vDist = 0.1f;
+  float vAngle = 0.2f;
   switch(vActionNr){
     // TODO: insert all new actions
     case EToggleAction:
       {
         vInstance = new OnOffAction();
+      }break;
+    case EShipMoveBackAction:
+      {
+        vInstance = new MoveAction(BACKWARD, vDist);
+      }break;
+    case EShipMoveFwdAction:
+      {
+        vInstance = new MoveAction(FORWARD, vDist);
+      }break;
+    case EShipStrafeLeftAction:
+      {
+        vInstance = new MoveAction(LEFT, vDist);
+      }break;
+    case EShipStraveRightAction:
+      {
+        vInstance = new MoveAction(RIGHT, vDist);
+      }break;
+    case EShipMoveUpAction:
+      {
+        vInstance = new MoveAction(UP, vDist);
+      }break;
+    case EShipMoveDownAction:
+      {
+        vInstance = new MoveAction(DOWN, vDist);
+      }break;
+
+    case EShipRollClkAction:
+      {
+        vInstance = new RotationAction(ROLL, vAngle);
+      }break;
+    case EShipRollCClkAction:
+      {
+        vInstance = new RotationAction(ROLLCC, vAngle);
+      }break;
+    case EShipPitchClkAction:
+      {
+        vInstance = new RotationAction(PITCH, vAngle);
+      }break;
+    case EShipPitchCClkAction:
+      {
+        vInstance = new RotationAction(PITCHCC, vAngle);
+      }break;
+    case EShipYawClkAction:
+      {
+        vInstance = new RotationAction(YAW, vAngle);
+      }break;
+    case EShipYawCClkAction:
+      {
+        vInstance = new RotationAction(YAWCC, vAngle);
       }break;
   }
   return vInstance;

@@ -4,7 +4,7 @@
 #include "actions/actionbase.h"
 #include "nodes/movenode.h"
 
-class RotationAction:ActionBase{
+class RotationAction:public ActionBase{
 public:
   RotationAction(EAxis aAxis, float aAngle);
   virtual ~RotationAction();

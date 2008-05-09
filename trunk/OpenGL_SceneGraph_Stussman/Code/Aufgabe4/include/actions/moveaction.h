@@ -4,7 +4,7 @@
 #include "actions/actionbase.h"
 #include "nodes/movenode.h"
 
-class MoveAction:ActionBase{
+class MoveAction:public ActionBase{
 public:
   MoveAction(EDirection aDir, float aDist);
   virtual ~MoveAction();
