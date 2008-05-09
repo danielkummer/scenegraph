@@ -15,7 +15,7 @@ public:
   void enable();
   void disable();
   bool isEnabled();
-  void add(AbstractNode* aNode);
+  virtual void add(AbstractNode* aNode);
   void remove(AbstractNode* aNode);
 protected:
   std::vector<AbstractNode*> mListeners;

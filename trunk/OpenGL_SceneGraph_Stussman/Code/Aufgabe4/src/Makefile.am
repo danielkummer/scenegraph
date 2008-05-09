@@ -6,25 +6,27 @@ bin_PROGRAMS=SceneGraph
 SceneGraph_LDADD = $(SDL_LIBS) $(GL_LIBS) $(GLU_LIBS)
 
 SceneGraph_SOURCES= \
-actions/onoffaction.cpp \
-actions/actionbase.cpp \
-actions/moveaction.cpp \
 actions/rotationaction.cpp \
+actions/onoffaction.cpp \
+actions/moveaction.cpp \
+actions/actionbase.cpp \
 clock.cpp \
-draw.cpp \
+draw.cpp \ 
 factories/actionfactory.cpp \
 factories/builder.cpp \
-factories/ObjLoader.cpp \
 factories/TextureManager.cpp \
+factories/ObjLoader.cpp \
 main.cpp \
 material.cpp \
+nodes/starsnode.cpp \
 nodes/togglenode.cpp \
 nodes/lightnode.cpp \
 nodes/linenode.cpp \
+nodes/movenode.cpp \
 nodes/scalenode.cpp \
 nodes/transformseparator.cpp \
+nodes/polygonObjectNode.cpp \
 nodes/translationnode.cpp \
-nodes/translatornode.cpp \
 nodes/groupnode.cpp \
 nodes/materialnode.cpp \
 nodes/rotationnode.cpp \
@@ -36,10 +38,8 @@ nodes/ringnode.cpp \
 nodes/texturenode.cpp \
 nodes/colornode.cpp \
 nodes/abstractnode.cpp \
+nodes/translatornode.cpp \
 nodes/separator.cpp \
-nodes/starsnode.cpp \
-nodes/movenode.cpp \
-nodes/polygonObjectNode.cpp \
 planetdefs.cpp \
 scene.cpp \
 shadow.cpp \
@@ -47,9 +47,9 @@ visitors/destructorvisitor.cpp \
 visitors/eventvisitor.cpp \
 visitors/printvisitor.cpp \
 visitors/abstractvisitor.cpp \
-visitors/visitor.cpp
+visitors/visitor.cpp 
 
-#nodes/_old_nodes.cpp 
 
-#visitors/_old_visitors.cpp
-#actions/_old_actions.cpp 
+# visitors/_old_visitors.cpp 
+# nodes/_old_nodes.cpp 
+# actions/_old_actions.cpp 
