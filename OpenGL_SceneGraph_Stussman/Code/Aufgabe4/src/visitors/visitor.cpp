@@ -115,7 +115,7 @@ glDisable(GL_COLOR_MATERIAL);
 }
 //----------------------------------------------------------//
 void Visitor::visit(RingNode &aRingNode){
-  float fNormalVec[3] = {0.0f, 1.0f, 0.0f};
+  float fNormalVec[3] = {0.0f, -1.0f, 0.0f};
   float** vertices = aRingNode.mVertices;
   int quadCount = aRingNode.mQuadCount;
 
