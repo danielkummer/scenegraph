@@ -7,10 +7,11 @@ float aScaleVelX, float aScaleVelY,float aScaleVelZ, Clock* aClock):
 ScaleNode(aScaleX, aScaleY, aScaleZ), ClockListener()
 {
   if(NULL != aClock){
-    aClock->addListener(this);
+    mClock = aClock;
   }else{
-    Clock::getDefaultClock()->addListener(this);
+    mClock =  Clock::getDefaultClock();
   }
+  mClock->addListener(this);
   mScaleVelX = aScaleVelX;
   mScaleVelY = aScaleVelY;
   mScaleVelZ = aScaleVelZ;
@@ -24,6 +25,9 @@ void ScalatorNode::update(float aDt, double aTime){
   mScaleX = (mScaleVelX * aDt);
   mScaleY = (mScaleVelY * aDt);
   mScaleZ = (mScaleVelZ * aDt);
+}
+ScalatorNode::~ScalatorNode(){
+	mClock->removeListener(this);
 }
 //----------------------------------------------------------//
 

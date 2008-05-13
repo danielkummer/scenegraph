@@ -24,7 +24,7 @@
 #include "nodes/translatornode.h"
 #include "nodes/movenode.h"
 #include "nodes/polygonObjectNode.h"
-
+#include "nodes/scalatornode.h"
 
 #endif // _H_ALLNODES
 

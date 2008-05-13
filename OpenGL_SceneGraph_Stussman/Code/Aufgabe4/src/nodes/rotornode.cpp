@@ -6,10 +6,11 @@ RotorNode::RotorNode(float aAngleVel, float aAngle, float aAxisX, float aAxisY, 
 RotationNode(aAngle, aAxisX, aAxisY, aAxisZ), ClockListener()
 {
   if(NULL != aClock){
-    aClock->addListener(this);
+    mClock = aClock;
   }else{
-    Clock::getDefaultClock()->addListener(this);
+    mClock = Clock::getDefaultClock();
   }
+  mClock->addListener(this);
   mAngleVel = aAngleVel;
 }
 //----------------------------------------------------------//
@@ -22,6 +23,9 @@ void RotorNode::update(float aDt, double aTime){
   if(mGradAngle > 360.0f){
     mGradAngle -= 360.0f;
   }
+}
+RotorNode::~RotorNode(){
+	mClock->removeListener(this);
 }
 //----------------------------------------------------------//
 

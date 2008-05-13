@@ -17,4 +17,5 @@ void RotationNode::setAngle(float aAngle){
 inline void RotationNode::accept(AbstractVisitor &aVisitor){
   aVisitor.visit(*this);
 }
+
 //-------------------------------------------------------//
