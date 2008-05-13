@@ -89,7 +89,20 @@ AbstractScene::AbstractScene(){
   }
   for(unsigned i=0; i<SDLK_LAST; i++){
     mKeyInputMap[i] = 0;
-    mKeyFlags[i] = 0;
+    mKeyFlags[i] = 0;mKeyInputMap[SDLK_a] = EShipMoveFwd;
+  mKeyInputMap[SDLK_d] = EShipMoveBack;
+  mKeyInputMap[SDLK_w] = EShipStrafeLeft;
+  mKeyInputMap[SDLK_s] = EShipStrafeRight;
+  mKeyInputMap[SDLK_q] = EShipMoveUp;
+  mKeyInputMap[SDLK_e] = EShipMoveDown;
+
+  mKeyInputMap[SDLK_r] = EShipRollClk;
+  mKeyInputMap[SDLK_f] = EShipRollCClk;
+  mKeyInputMap[SDLK_t] = EShipPitchClk;
+  mKeyInputMap[SDLK_g] = EShipPitchCClk;
+  mKeyInputMap[SDLK_y] = EShipYawClk;
+  mKeyInputMap[SDLK_z] = EShipYawClk;
+    
   }
 }
 //-------------------------------------------------------//
@@ -148,16 +161,19 @@ bool AbstractScene::handleEvent(SDL_Event &aEvent){
   if(aEvent.type == SDL_KEYDOWN){
     if(2 > mKeyFlags[aEvent.key.keysym.sym]){
       mKeyFlags[aEvent.key.keysym.sym] = true;
+      return true;
     }else{
       unsigned vKeyMapVal = mKeyInputMap[aEvent.key.keysym.sym];
       if(0 != vKeyMapVal){
         ActionBase* vAction = mActionFactory->getAction(vKeyMapVal);
         vAction->fire();
+        return true;
       }
     }
   }
   if(aEvent.type == SDL_KEYUP &&  2 > mKeyFlags[aEvent.key.keysym.sym]){
     mKeyFlags[aEvent.key.keysym.sym] = false;
+	return true;    
   }
   return false;
 }
@@ -176,11 +192,22 @@ SolarSytemScene::~SolarSytemScene(){
 }
 //-------------------------------------------------------//
 bool SolarSytemScene::handleEvent(SDL_Event &aEvent){
+	float xangle;
+	float yangle;
+	float mousetune = 1.0f;
   if( !AbstractScene::handleEvent(aEvent)){
     // TODO: do something with the events
+    // Handle mouse events
+    if(aEvent.type == SDL_MOUSEMOTION) {
+    	//TODO: redo!!
+    	yangle += (aEvent.motion.xrel * mousetune);
+  		xangle += (aEvent.motion.yrel * mousetune);
+		
+    }
     
+    return false;
   }
-  return false;
+  return true;
 }
 //-------------------------------------------------------//
 //void SolarSytemScene::update(){
@@ -195,6 +222,8 @@ void SolarSytemScene::init(){
   mKeyFlags[SDLK_F2] = 2;
   mKeyFlags[SDLK_F3] = 2;
 
+
+  // Ship key bindings
   mKeyInputMap[SDLK_a] = EShipMoveFwd;
   mKeyInputMap[SDLK_d] = EShipMoveBack;
   mKeyInputMap[SDLK_w] = EShipStrafeLeft;
@@ -207,9 +236,23 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_t] = EShipPitchClk;
   mKeyInputMap[SDLK_g] = EShipPitchCClk;
   mKeyInputMap[SDLK_y] = EShipYawClk;
+  mKeyInputMap[SDLK_z] = EShipYawClk;
   mKeyInputMap[SDLK_h] = EShipYawCClk;
 
-
+  // Camera key bindings
+  mKeyInputMap[SDLK_F4] = ECamSwitchType;
+  mKeyInputMap[SDLK_j] 	= ECamMoveFwd;
+  mKeyInputMap[SDLK_l] 	= ECamMoveBack;
+  mKeyInputMap[SDLK_i] 	= ECamStrafeRight;
+  mKeyInputMap[SDLK_k] 	= ECamStrafeLeft;
+  mKeyInputMap[SDLK_u] 	= ECamMoveUp;
+  mKeyInputMap[SDLK_o] 	= ECamMoveDown;
+  mKeyInputMap[SDLK_m] 	= ECamRollClockwise;
+  mKeyInputMap[SDLK_n] 	= ECamRollCClockwise;
+  mKeyInputMap[SDLK_b] 	= ECamPitchClockwise;
+  mKeyInputMap[SDLK_v] 	= ECamPitchCClockwise;
+  mKeyInputMap[SDLK_c] 	= ECamYawClockwise;
+  mKeyInputMap[SDLK_x] 	= ECamYawCClockwise;
 
 
   // action map
@@ -219,6 +262,7 @@ void SolarSytemScene::init(){
   mToActionMap[EToggleFar] = EToggleAction;
   mToActionMap[EToggleTrace] = EToggleAction;
 
+  // Ship action mapping
   mToActionMap[EShipMoveFwd] = EShipMoveFwdAction;
   mToActionMap[EShipMoveBack] = EShipMoveBackAction;
   mToActionMap[EShipMoveUp] = EShipMoveUpAction;
@@ -234,8 +278,20 @@ void SolarSytemScene::init(){
   mToActionMap[EShipYawCClk] = EShipYawCClkAction;
 //  mToActionMap[EShoot] = ;
 
-  
-
+  // Camera action Mapping
+  mToActionMap[ECamSwitchType]		= ECamSwitchTypeAction;	
+  mToActionMap[ECamMoveFwd]			= ECamMoveFwdAction;
+  mToActionMap[ECamMoveBack]		= ECamMoveBackAction;
+  mToActionMap[ECamStrafeRight]		= ECamStrafeRightAction;
+  mToActionMap[ECamStrafeLeft]		= ECamStrafeLeftAction;
+  mToActionMap[ECamMoveUp]			= ECamMoveUpAction;
+  mToActionMap[ECamMoveDown]		= ECamMoveDownAction;
+  mToActionMap[ECamRollClockwise]	= ECamRollClockwiseAction;
+  mToActionMap[ECamRollCClockwise]	= ECamRollCClockwiseAction;
+  mToActionMap[ECamPitchClockwise]	= ECamPitchClockwiseAction;
+  mToActionMap[ECamPitchCClockwise]	= ECamPitchCClockwiseAction;
+  mToActionMap[ECamYawClockwise]	= ECamYawClockwiseAction;
+  mToActionMap[ECamYawCClockwise]	= ECamYawCClockwiseAction;
 }
 //-------------------------------------------------------//
 void SolarSytemScene::createScene(){
