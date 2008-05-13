@@ -228,10 +228,11 @@ void SolarSytemScene::init(){
   //mKeyInputMap[SDLK_F4] = ECamSwitchType;
   mKeyInputMap[SDLK_i] 	= ECamMoveFwd;
   mKeyInputMap[SDLK_k] 	= ECamMoveBack;
-  mKeyInputMap[SDLK_l] 	= ECamStrafeRight;
-  mKeyInputMap[SDLK_j] 	= ECamStrafeLeft;
+  mKeyInputMap[SDLK_j] 	= ECamStrafeRight;
+  mKeyInputMap[SDLK_l] 	= ECamStrafeLeft;
   mKeyInputMap[SDLK_u] 	= ECamMoveUp;
   mKeyInputMap[SDLK_o] 	= ECamMoveDown;
+
   mKeyInputMap[SDLK_m] 	= ECamRollClockwise;
   mKeyInputMap[SDLK_n] 	= ECamRollCClockwise;
   mKeyInputMap[SDLK_b] 	= ECamPitchClockwise;

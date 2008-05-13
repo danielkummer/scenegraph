@@ -205,30 +205,59 @@ void Visitor::visit(MoveNode &aNode){
 //----------------------------------------------------------//
 void Visitor::visit(CamNode &aNode){
   glLoadIdentity();
-  glLoadMatrixf(aNode.mModelMatrix);
+  float* vT = aNode.mTransform;
   if(aNode.getChanged()){
     // construct movement
     glPushMatrix();
-      glLoadMatrixf(aNode.mTransform);
+      glLoadMatrixf(vT);
 
       glRotatef(aNode.getRoll(),  0, 0, 1);
       glRotatef(aNode.getPitch(), 1, 0, 0);
       glRotatef(aNode.getYaw(),   0, 1, 0);
 
-      glGetFloatv(GL_MODELVIEW_MATRIX, aNode.mTransform);
+      glGetFloatv(GL_MODELVIEW_MATRIX, vT);
 
     glPopMatrix();
-    float* vT = aNode.mTransform;
     vT[12] += (aNode.getX() * vT[0] + aNode.getY() * vT[4] + aNode.getZ() * vT[8]);
-    vT[13] += (aNode.getX() * vT[2] + aNode.getY() * vT[5] + aNode.getZ() * vT[9]);
-    vT[14] += (aNode.getX() * vT[3] + aNode.getY() * vT[6] + aNode.getZ() * vT[10]);
+    vT[13] += (aNode.getX() * vT[1] + aNode.getY() * vT[5] + aNode.getZ() * vT[9]);
+    vT[14] += (aNode.getX() * vT[2] + aNode.getY() * vT[6] + aNode.getZ() * vT[10]);
 
 
     // reset delta values
     aNode.reset();
   }
+  // construct transformation matrix
+  // set up inverse matrix (?) see  http://www.flipcode.com/archives/OpenGL_Camera.shtml
+  float* vM = aNode.mModelMatrix;
+
+  vM[0] = vT[0];
+  vM[1] = vT[4];
+  vM[2] = vT[8];
+  vM[3] = 0;
+
+  vM[4] = vT[1];
+  vM[5] = vT[5];
+  vM[6] = vT[9];
+  vM[7] = 0;
+
+  vM[8]  = vT[2];
+  vM[9]  = vT[6];
+  vM[10] = vT[10];
+  vM[11] = 0;
+
+  vM[12] = -(vT[0]*vT[12] +
+             vT[1]*vT[13] +
+						 vT[2]*vT[14]);
+  vM[13] = -(vT[4]*vT[12] +
+             vT[5]*vT[13] +
+						 vT[6]*vT[14]);
+  vM[14] = -(vT[8]*vT[12] +
+             vT[9]*vT[13] +
+						 vT[10]*vT[14]);
+  vM[15] = 1.0f;
+
   // apply transformation matrix
-//  glMultMatrixf(&aNode.mModelMatrix[0]);
+  glLoadMatrixf(vM);
 }
 //----------------------------------------------------------//
 
