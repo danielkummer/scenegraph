@@ -23,7 +23,6 @@ nodes/togglenode.cpp \
 nodes/lightnode.cpp \
 nodes/linenode.cpp \
 nodes/movenode.cpp \
-nodes/scalenode.cpp \
 nodes/transformseparator.cpp \
 nodes/polygonObjectNode.cpp \
 nodes/translationnode.cpp \
@@ -40,6 +39,8 @@ nodes/colornode.cpp \
 nodes/abstractnode.cpp \
 nodes/translatornode.cpp \
 nodes/separator.cpp \
+nodes/scalenode.cpp \
+nodes/scalatornode.cpp \
 planetdefs.cpp \
 scene.cpp \
 shadow.cpp \
@@ -48,7 +49,3 @@ visitors/printvisitor.cpp \
 visitors/abstractvisitor.cpp \
 visitors/visitor.cpp 
 
-
-# visitors/_old_visitors.cpp 
-# nodes/_old_nodes.cpp 
-# actions/_old_actions.cpp 
