@@ -13,10 +13,10 @@ mRadiusMin(aRadiusMin), mDeltaR(aDeltaR), mNumStars(aNumStars)
 { 
   mVertices = new float[3*aNumStars];
   mSizes = new float[aNumStars];
-  float vRadius;
+//  float vRadius;
   float x, y, z;
-  float alpha;
-  float beta;
+//  float alpha;
+//  float beta;
 /*  for(unsigned i=0; i<mNumStars; i++){
     vRadius = mRadiusMin + mDeltaR * randf();
     alpha = 1.0f *  (float)M_PI * randf();

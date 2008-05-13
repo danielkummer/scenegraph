@@ -47,10 +47,10 @@ void Visitor::visit(TranslationNode &aTranslationNode){
   glTranslatef(aTranslationNode.mX, aTranslationNode.mY, aTranslationNode.mZ);
 }
 //----------------------------------------------------------//
-void Visitor::visit(TranslatorNode &aTranslatorNode){
-  TranslationNode vTmp = aTranslatorNode;
-  Visitor::visit(vTmp);
-}
+//void Visitor::visit(TranslatorNode &aTranslatorNode){
+//  TranslationNode vTmp = aTranslatorNode;
+//  Visitor::visit(vTmp);
+//}
 //----------------------------------------------------------//
 void Visitor::visit(RotationNode &aRotationNode){
   glRotatef(aRotationNode.mGradAngle, 
@@ -63,10 +63,10 @@ void Visitor::visit(ScaleNode &aScaleNode){
   glScalef(aScaleNode.mScaleX, aScaleNode.mScaleY, aScaleNode.mScaleZ);
 }
 //----------------------------------------------------------//
-void Visitor::visit(RotorNode &aRotorNode){
-  RotationNode vTmp = aRotorNode;
-  Visitor::visit(vTmp);
-}
+//void Visitor::visit(RotorNode &aRotorNode){
+//  RotationNode vTmp = aRotorNode;
+//  Visitor::visit(vTmp);
+//}
 //----------------------------------------------------------//
 void Visitor::visit(LightNode &aLightNode){
   aLightNode.setPos();
@@ -187,12 +187,12 @@ void Visitor::visit(MoveNode &aNode){
       glLoadIdentity();
       float* vM = aNode.mModelMatrix;
       glLoadMatrixf(vM);
+      glRotatef(aNode.getYaw(),   0, 0, 1);//vM[0], vM[1], vM[2]);
+      glRotatef(aNode.getRoll(),  1, 0, 0 );//vM[8], vM[9], vM[10]);
+      glRotatef(aNode.getPitch(), 0, 1, 0);//vM[4], vM[5], vM[6]);
       glTranslatef(aNode.getX(), 
                    aNode.getY(), 
                    aNode.getZ());
-      glRotatef(aNode.getRoll(), 1, 0, 0 );//vM[8], vM[9], vM[10]);
-      glRotatef(aNode.getPitch(), 0, 1, 0);//vM[4], vM[5], vM[6]);
-      glRotatef(aNode.getYaw(),   0, 0, 1);//vM[0], vM[1], vM[2]);
       glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
     glPopMatrix();
 
@@ -202,8 +202,43 @@ void Visitor::visit(MoveNode &aNode){
   // apply transformation matrix
   glMultMatrixf(&aNode.mModelMatrix[0]);
 }
-                    
 //----------------------------------------------------------//
+void Visitor::visit(CamNode &aNode){
+  if(aNode.getChanged()){
+    // construct movement
+//    glPushMatrix();
+      glLoadIdentity();
+//      float* vM = aNode.mModelMatrix;
+      float vM[16];
+//      glLoadMatrixf(vM);
+//      glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
+      //glTranslatef(aNode.getX() * vM[0] + aNode.getY() * vM[4] + aNode.getZ() * vM[8], 
+      //             aNode.getX() * vM[1] + aNode.getY() * vM[5] + aNode.getZ() * vM[9],
+      //             aNode.getX() * vM[2] + aNode.getY() * vM[6] + aNode.getZ() * vM[10]);
+      //glTranslatef(vM[0] +  vM[4] +  vM[8], 
+      //             vM[1] +  vM[5] +  vM[9],
+      //             vM[2] +  vM[6] +  vM[10]);
+      glRotatef(aNode.getRoll(),  0, 0, 1);//vM[8], vM[9], vM[10]);//1, 0, 0 );//
+      glRotatef(aNode.getPitch(), 1, 0, 0);//vM[4], vM[5], vM[6]);//0, 1, 0);//
+      glRotatef(aNode.getYaw(),   0, 1, 0);//vM[0], vM[1], vM[2]);//0, 0, 1);//
+//      glTranslatef(aNode.getX(), aNode.getY(), aNode.getZ());
+
+      //glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
+      glGetFloatv(GL_MODELVIEW_MATRIX, vM);
+      vM[12] = vM[12] + aNode.getX() * vM[0] + aNode.getY() * vM[1] + aNode.getZ() * vM[2];
+      vM[13] = vM[13] + aNode.getX() * vM[4] + aNode.getY() * vM[5] + aNode.getZ() * vM[6];
+      vM[14] = vM[14] + aNode.getX() * vM[8] + aNode.getY() * vM[9] + aNode.getZ() * vM[10];
+      glLoadMatrixf(vM);
+//    glPopMatrix();
+
+    // reset delta values
+//    aNode.reset();
+  }
+  // apply transformation matrix
+//  glMultMatrixf(&aNode.mModelMatrix[0]);
+}
+//----------------------------------------------------------//
+
 void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 	for(int ig=0; ig < aPolygonObjectNode.groupcount; ig++)	{						// contains material definitions, textures 																						// and of course the triangles)
 		if(aPolygonObjectNode.groups[ig].textureName != 0)	{						// if the material has a texture (texureName contains not only 0)

@@ -31,7 +31,7 @@ void MoveNode::accept(AbstractVisitor &aVisitor){
 //----------------------------------------------------------//
 void MoveNode::move(EDirection aDir, float aDist){
   //unsigned vIdx;
-  //float vDirSign = 1.0f;
+   //float vDirSign = 1.0f;
   switch(aDir){
     //case UP:       vIdx = 4; break;     
     //case DOWN:     vIdx = 4; vDirSign = -1.0f; break;

@@ -88,9 +88,7 @@ Builder::Builder(GroupNode* aRootNode, ActionBase* aAction):mCurrent(NULL), mLas
 }
 //-------------------------------------------------------//
 Builder::~Builder(){
-  if(NULL != mCurrent){
-    mCurrent->unref();
-  }
+  assert(mCurrent == 0);
 }
 //-------------------------------------------------------//
 AbstractNode* Builder::getResult(){
@@ -195,6 +193,18 @@ void Builder::buildMoveNode(std::vector<ActionBase*> aActions){
     (*vItr)->add(moveNode);
   }
   mLastAdded = moveNode;  	
+}
+//-------------------------------------------------------//
+void Builder::buildCamNode(std::vector<ActionBase*> aActions){
+  CamNode* vCamNode = new CamNode();
+  
+  mCurrent->add(vCamNode);
+  
+  std::vector<ActionBase*>::iterator vItr;
+  for(vItr = aActions.begin(); vItr < aActions.end(); vItr++){  
+    (*vItr)->add(vCamNode);
+  }
+  mLastAdded = vCamNode;  	
 }
 //-------------------------------------------------------//
 void Builder::append(ActionBase* aAction, AbstractNode* aNode){

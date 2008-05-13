@@ -14,8 +14,8 @@ public:
   virtual void visit(TranslationNode &aTranslationNode);
   virtual void visit(RotationNode &aRotationNode);
   virtual void visit(ScaleNode &aScaleNode);
-  virtual void visit(RotorNode &aRotorNode);
-  virtual void visit(TranslatorNode &aTranslatorNode);
+//  virtual void visit(RotorNode &aRotorNode);
+//  virtual void visit(TranslatorNode &aTranslatorNode);
   virtual void visit(LightNode &aLightNode);
   virtual void visit(MaterialNode &aMaterialNode);
   virtual void visit(ColorNode &aColorNode);
@@ -28,6 +28,7 @@ public:
   virtual void visit(TransformSeparator &aNode);
   virtual void postvisit(TransformSeparator &aNode);
   virtual void visit(MoveNode &aNode);
+  virtual void visit(CamNode &aNode);
   virtual void visit(PolygonObjectNode &aPolygonObjectNode);
 };
 

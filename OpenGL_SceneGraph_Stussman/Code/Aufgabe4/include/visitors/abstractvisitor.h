@@ -23,6 +23,7 @@ class TranslatorNode;
 class TextureNode;
 class MoveNode;
 class PolygonObjectNode;
+class CamNode;
 
 class AbstractVisitor{
 public:
@@ -42,10 +43,10 @@ public:
   virtual void visit(SphereNode &aSphereNode ) { }
   virtual void visit(LineNode &aLineNode ) { }
   virtual void visit(TranslationNode &aTranslationNode) { }
-  virtual void visit(TranslatorNode &aTranslatorNode) { }
+//  virtual void visit(TranslatorNode &aTranslatorNode) { }
   virtual void visit(RotationNode &aRotationNode ) { }
   virtual void visit(ScaleNode &aScaleNode) { }
-  virtual void visit(RotorNode &RotorNode ) { }
+//  virtual void visit(RotorNode &RotorNode ) { }
   virtual void visit(LightNode &aLightNode) { }
   virtual void visit(MaterialNode &aMaterialNode) { }
   virtual void visit(ColorNode &aColorNode) { }
@@ -63,6 +64,7 @@ public:
   virtual void postvisit(ToggleNode &aNode) { }
 
   virtual void visit(MoveNode &aNode) { }
+  virtual void visit(CamNode &aNode) { }
   virtual void visit(PolygonObjectNode &aPolygonObjectNode) { }
 
 

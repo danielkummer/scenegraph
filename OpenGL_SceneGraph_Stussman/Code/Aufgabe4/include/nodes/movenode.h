@@ -49,7 +49,7 @@ public:
   void deactivate();
   bool isActive();
 
-private:
+protected:
   float mDeltaX;
   float mDeltaY;
   float mDeltaZ;

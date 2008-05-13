@@ -25,6 +25,7 @@
 #include "nodes/movenode.h"
 #include "nodes/polygonObjectNode.h"
 #include "nodes/scalatornode.h"
+#include "nodes/cam.h"
 
 #endif // _H_ALLNODES
 

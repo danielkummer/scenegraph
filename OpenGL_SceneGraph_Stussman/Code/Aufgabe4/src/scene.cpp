@@ -83,7 +83,9 @@ int createTexture(char *strFileName)
 
 
 //-------------------------------------------------------//
-AbstractScene::AbstractScene(){
+AbstractScene::AbstractScene():
+mSceneGraph(NULL), mActionFactory(NULL)
+{
   for(unsigned i=0; i<EActionNameCount; i++){
     mToActionMap[i] = 0;
   }
@@ -237,10 +239,10 @@ void SolarSytemScene::init(){
 
   // Camera key bindings
   //mKeyInputMap[SDLK_F4] = ECamSwitchType;
-  mKeyInputMap[SDLK_j] 	= ECamMoveFwd;
-  mKeyInputMap[SDLK_l] 	= ECamMoveBack;
-  mKeyInputMap[SDLK_i] 	= ECamStrafeRight;
-  mKeyInputMap[SDLK_k] 	= ECamStrafeLeft;
+  mKeyInputMap[SDLK_k] 	= ECamMoveFwd;
+  mKeyInputMap[SDLK_i] 	= ECamMoveBack;
+  mKeyInputMap[SDLK_l] 	= ECamStrafeRight;
+  mKeyInputMap[SDLK_j] 	= ECamStrafeLeft;
   mKeyInputMap[SDLK_u] 	= ECamMoveUp;
   mKeyInputMap[SDLK_o] 	= ECamMoveDown;
   mKeyInputMap[SDLK_m] 	= ECamRollClockwise;
@@ -298,6 +300,29 @@ void SolarSytemScene::createScene(){
 //  Director vDirector;
   mSceneGraph = new Separator();
   mSceneGraph->ref();
+
+  Builder vCameraBuilder(mSceneGraph);
+  
+  std::vector<ActionBase*> vCameraActions;
+  
+  vCameraActions.push_back(mActionFactory->getAction(ECamMoveBack));
+  vCameraActions.push_back(mActionFactory->getAction(ECamMoveDown));
+  vCameraActions.push_back(mActionFactory->getAction(ECamMoveFwd));
+  vCameraActions.push_back(mActionFactory->getAction(ECamMoveUp));
+  vCameraActions.push_back(mActionFactory->getAction(ECamStrafeLeft));
+  vCameraActions.push_back(mActionFactory->getAction(ECamStrafeRight));
+
+  vCameraActions.push_back(mActionFactory->getAction(ECamRollClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamRollCClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamPitchClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamPitchCClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamYawClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamYawCClockwise));
+  
+  vCameraBuilder.buildCamNode(vCameraActions);
+  vCameraBuilder.getResult();
+
+
 //  mSceneGraph->add(vDirector.createSolarSystem());
   DefaultMaterial vMat;
   mSceneGraph->add(new MaterialNode(GL_FRONT_AND_BACK, &vMat));
@@ -345,27 +370,6 @@ void SolarSytemScene::createScene(){
 
   mSceneGraph->add(vSpaceShipBuilder.getResult());
    
-  
-  Builder vCameraBuilder(mSceneGraph);
-  
-  std::vector<ActionBase*> vCameraActions;
-  
-  vCameraActions.push_back(mActionFactory->getAction(ECamMoveBack));
-  vCameraActions.push_back(mActionFactory->getAction(ECamMoveDown));
-  vCameraActions.push_back(mActionFactory->getAction(ECamMoveFwd));
-  vCameraActions.push_back(mActionFactory->getAction(ECamMoveUp));
-  vCameraActions.push_back(mActionFactory->getAction(ECamStrafeLeft));
-  vCameraActions.push_back(mActionFactory->getAction(ECamStrafeRight));
-
-  vCameraActions.push_back(mActionFactory->getAction(ECamRollClockwise));
-  vCameraActions.push_back(mActionFactory->getAction(ECamRollCClockwise));
-  vCameraActions.push_back(mActionFactory->getAction(ECamPitchClockwise));
-  vCameraActions.push_back(mActionFactory->getAction(ECamPitchCClockwise));
-  vCameraActions.push_back(mActionFactory->getAction(ECamYawClockwise));
-  vCameraActions.push_back(mActionFactory->getAction(ECamYawCClockwise));
-  
-  vCameraBuilder.buildMoveNode(vCameraActions);
-  
   PrintVisitor().apply(mSceneGraph);  
 }
 

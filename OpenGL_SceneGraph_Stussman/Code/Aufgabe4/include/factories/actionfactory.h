@@ -10,7 +10,7 @@
 
 // TODO: add all action classes
 enum EActions{
-  ENoAction,
+  ENoAction = 0,
   EToggleAction,
 
   EShipShootAction,
