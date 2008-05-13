@@ -160,7 +160,7 @@ bool AbstractScene::handleEvent(SDL_Event &aEvent){
   }
   if(aEvent.type == SDL_KEYUP &&  2 > mKeyFlags[aEvent.key.keysym.sym]){
     mKeyFlags[aEvent.key.keysym.sym] = false;
-	return true;    
+	  return true;    
   }
   return false;
 }
@@ -179,30 +179,17 @@ SolarSytemScene::~SolarSytemScene(){
 }
 //-------------------------------------------------------//
 bool SolarSytemScene::handleEvent(SDL_Event &aEvent){
-	float xangle;
-	float yangle;
-	float mousetune = 1.0f;
+	float mousetune = 0.1f;
   if( !AbstractScene::handleEvent(aEvent)){
     // TODO: do something with the events
     // Handle mouse events
     if(aEvent.type == SDL_MOUSEMOTION) {
     	//TODO: redo!!
-    	yangle = (aEvent.motion.xrel * mousetune);
-  		xangle = (aEvent.motion.yrel * mousetune);
-  		if(yangle > 0.0f) {
-  			mActionFactory->getAction(ECamPitchClockwiseAction)->fire();
-        return true;
-  		} else if(yangle < 0.0f){
-  			mActionFactory->getAction(ECamPitchCClockwiseAction)->fire();
-        return true;
-  		} 
-  		if(xangle > 0.0f) {
-  			mActionFactory->getAction(ECamYawClockwiseAction)->fire();
-        return true;
-  		} else if(xangle < 0.0f){
-  			mActionFactory->getAction(ECamYawCClockwiseAction)->fire();
-        return true;
-  		}
+    	float xangle = -(aEvent.motion.xrel * mousetune);
+  		float yangle = -(aEvent.motion.yrel * mousetune);
+ 			mActionFactory->getAction(ECamPitchClockwise)->fire(yangle);
+			mActionFactory->getAction(ECamYawClockwise)->fire(xangle);
+      return true;
     }
   }
   return false;
@@ -239,8 +226,8 @@ void SolarSytemScene::init(){
 
   // Camera key bindings
   //mKeyInputMap[SDLK_F4] = ECamSwitchType;
-  mKeyInputMap[SDLK_k] 	= ECamMoveFwd;
-  mKeyInputMap[SDLK_i] 	= ECamMoveBack;
+  mKeyInputMap[SDLK_i] 	= ECamMoveFwd;
+  mKeyInputMap[SDLK_k] 	= ECamMoveBack;
   mKeyInputMap[SDLK_l] 	= ECamStrafeRight;
   mKeyInputMap[SDLK_j] 	= ECamStrafeLeft;
   mKeyInputMap[SDLK_u] 	= ECamMoveUp;
@@ -280,17 +267,22 @@ void SolarSytemScene::init(){
 
   // Camera action Mapping
   //mToActionMap[ECamSwitchType]	= ECamSwitchTypeAction;	
-  mToActionMap[ECamMoveFwd]			= ECamMoveFwdAction;
-  mToActionMap[ECamMoveBack]		= ECamMoveBackAction;
-  mToActionMap[ECamStrafeRight]		= ECamStrafeRightAction;
-  mToActionMap[ECamStrafeLeft]		= ECamStrafeLeftAction;
-  mToActionMap[ECamMoveUp]			= ECamMoveUpAction;
-  mToActionMap[ECamMoveDown]		= ECamMoveDownAction;
-  mToActionMap[ECamRollClockwise]	= ECamRollClockwiseAction;
-  mToActionMap[ECamRollCClockwise]	= ECamRollCClockwiseAction;
-  mToActionMap[ECamPitchClockwise]	= ECamPitchClockwiseAction;
+  mToActionMap[ECamMoveFwd]	 = ECamMoveFwdAction;
+  mToActionMap[ECamMoveBack] = ECamMoveBackAction;
+
+  mToActionMap[ECamStrafeRight] = ECamStrafeRightAction;
+  mToActionMap[ECamStrafeLeft]  = ECamStrafeLeftAction;
+
+  mToActionMap[ECamMoveUp]	 = ECamMoveUpAction;
+  mToActionMap[ECamMoveDown] = ECamMoveDownAction;
+
+  mToActionMap[ECamRollClockwise]	 = ECamRollClockwiseAction;
+  mToActionMap[ECamRollCClockwise] = ECamRollCClockwiseAction;
+
+  mToActionMap[ECamPitchClockwise]  = ECamPitchClockwiseAction;
   mToActionMap[ECamPitchCClockwise]	= ECamPitchCClockwiseAction;
-  mToActionMap[ECamYawClockwise]	= ECamYawClockwiseAction;
+
+  mToActionMap[ECamYawClockwise]  = ECamYawClockwiseAction;
   mToActionMap[ECamYawCClockwise]	= ECamYawCClockwiseAction;
 }
 //-------------------------------------------------------//

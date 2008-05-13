@@ -10,8 +10,8 @@ class ActionBase{
 public:
   ActionBase();
   virtual ~ActionBase();
-  virtual void fire();
-  virtual void apply() = 0; // action specific code goes here
+  virtual void fire() = 0;
+  virtual void fire(float aValue) = 0;
   void enable();
   void disable();
   bool isEnabled();
@@ -20,7 +20,6 @@ public:
   void remove(AbstractNode* aNode);
 protected:
   std::vector<AbstractNode*> mListeners;
-private:
   bool mEnabled;
 };
 
