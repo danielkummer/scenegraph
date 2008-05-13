@@ -8,10 +8,11 @@ TranslatorNode::TranslatorNode(float aXVel, float aYVel, float aZVel, float aX, 
 TranslationNode(aX, aY, aZ), ClockListener()
 {
   if(NULL != aClock){
-    aClock->addListener(this);
+    mClock = aClock;
   }else{
-    Clock::getDefaultClock()->addListener(this);
+    mClock = Clock::getDefaultClock();
   }	
+  mClock->addListener(this);
   mXVel = aXVel;
   mYVel = aYVel;
   mZVel = aZVel;
@@ -25,4 +26,8 @@ void TranslatorNode::update(float aDt, double aTime){
 	mX += mXVel * aDt;
 	mY += mYVel * aDt;
 	mZ += mZVel * aDt;
+}
+
+TranslatorNode::~TranslatorNode(){
+	mClock->removeListener(this);
 }
