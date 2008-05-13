@@ -8,9 +8,9 @@ ActionBase::ActionBase():mEnabled(true){
 ActionBase::~ActionBase(){
 }
 //-------------------------------------------------------//
-void ActionBase::fire(){
-  if(isEnabled()){ apply(); } 
-}
+//void ActionBase::fire(){
+//  if(isEnabled()){ apply(); } 
+//}
 //-------------------------------------------------------//
 inline void ActionBase::enable(){
   mEnabled = true; 

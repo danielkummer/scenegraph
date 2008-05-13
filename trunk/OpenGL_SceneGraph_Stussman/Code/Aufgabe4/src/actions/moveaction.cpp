@@ -11,9 +11,15 @@ MoveAction::~MoveAction(){
 
 }
 //-------------------------------------------------------//
-void MoveAction::apply(){
-  for(unsigned i=0; i < mListeners.size(); i++){
-    (reinterpret_cast<MoveNode*>(mListeners[i]))->move(mDir, mDist);
+void MoveAction::fire(){
+  fire(mDist);
+}
+//-------------------------------------------------------//
+void MoveAction::fire(float aDist) {
+  if(mEnabled){
+    for(unsigned i=0; i < mListeners.size(); i++){
+      (reinterpret_cast<MoveNode*>(mListeners[i]))->move(mDir, aDist);
+    }
   }
 }
 //-------------------------------------------------------//

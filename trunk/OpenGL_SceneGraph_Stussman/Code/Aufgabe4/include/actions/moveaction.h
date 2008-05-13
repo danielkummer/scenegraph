@@ -8,7 +8,8 @@ class MoveAction:public ActionBase{
 public:
   MoveAction(EDirection aDir, float aDist);
   virtual ~MoveAction();
-  virtual void apply();
+  virtual void fire();
+  virtual void fire(float aDist);
 
 
 private:

@@ -204,35 +204,28 @@ void Visitor::visit(MoveNode &aNode){
 }
 //----------------------------------------------------------//
 void Visitor::visit(CamNode &aNode){
+  glLoadIdentity();
+  glLoadMatrixf(aNode.mModelMatrix);
   if(aNode.getChanged()){
     // construct movement
-//    glPushMatrix();
-      glLoadIdentity();
-//      float* vM = aNode.mModelMatrix;
-      float vM[16];
-//      glLoadMatrixf(vM);
-//      glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
-      //glTranslatef(aNode.getX() * vM[0] + aNode.getY() * vM[4] + aNode.getZ() * vM[8], 
-      //             aNode.getX() * vM[1] + aNode.getY() * vM[5] + aNode.getZ() * vM[9],
-      //             aNode.getX() * vM[2] + aNode.getY() * vM[6] + aNode.getZ() * vM[10]);
-      //glTranslatef(vM[0] +  vM[4] +  vM[8], 
-      //             vM[1] +  vM[5] +  vM[9],
-      //             vM[2] +  vM[6] +  vM[10]);
-      glRotatef(aNode.getRoll(),  0, 0, 1);//vM[8], vM[9], vM[10]);//1, 0, 0 );//
-      glRotatef(aNode.getPitch(), 1, 0, 0);//vM[4], vM[5], vM[6]);//0, 1, 0);//
-      glRotatef(aNode.getYaw(),   0, 1, 0);//vM[0], vM[1], vM[2]);//0, 0, 1);//
-//      glTranslatef(aNode.getX(), aNode.getY(), aNode.getZ());
+    glPushMatrix();
+      glLoadMatrixf(aNode.mTransform);
 
-      //glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
-      glGetFloatv(GL_MODELVIEW_MATRIX, vM);
-      vM[12] = vM[12] + aNode.getX() * vM[0] + aNode.getY() * vM[1] + aNode.getZ() * vM[2];
-      vM[13] = vM[13] + aNode.getX() * vM[4] + aNode.getY() * vM[5] + aNode.getZ() * vM[6];
-      vM[14] = vM[14] + aNode.getX() * vM[8] + aNode.getY() * vM[9] + aNode.getZ() * vM[10];
-      glLoadMatrixf(vM);
-//    glPopMatrix();
+      glRotatef(aNode.getRoll(),  0, 0, 1);
+      glRotatef(aNode.getPitch(), 1, 0, 0);
+      glRotatef(aNode.getYaw(),   0, 1, 0);
+
+      glGetFloatv(GL_MODELVIEW_MATRIX, aNode.mTransform);
+
+    glPopMatrix();
+    float* vT = aNode.mTransform;
+    vT[12] += (aNode.getX() * vT[0] + aNode.getY() * vT[4] + aNode.getZ() * vT[8]);
+    vT[13] += (aNode.getX() * vT[2] + aNode.getY() * vT[5] + aNode.getZ() * vT[9]);
+    vT[14] += (aNode.getX() * vT[3] + aNode.getY() * vT[6] + aNode.getZ() * vT[10]);
+
 
     // reset delta values
-//    aNode.reset();
+    aNode.reset();
   }
   // apply transformation matrix
 //  glMultMatrixf(&aNode.mModelMatrix[0]);

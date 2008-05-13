@@ -12,8 +12,14 @@ OnOffAction::OnOffAction(){
 }
 
 //-------------------------------------------------------//
-inline void OnOffAction::apply(){
-  toggle();
+inline void OnOffAction::fire(){
+  if(mEnabled){
+    toggle();
+  }
+}
+//-------------------------------------------------------//
+inline void OnOffAction::fire(float aVal){
+  fire();
 }
 //-------------------------------------------------------//
 inline void OnOffAction::add(AbstractNode* aToggle){

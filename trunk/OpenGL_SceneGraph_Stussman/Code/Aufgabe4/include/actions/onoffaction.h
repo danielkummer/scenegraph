@@ -11,7 +11,8 @@ class OnOffAction:public ActionBase{
 public:
   virtual ~OnOffAction();
   OnOffAction();
-  virtual void apply();
+  virtual void fire();
+  virtual void fire(float aVal);
 //  virtual void accept(AbstractVisitor &aVisitor);
   void add(AbstractNode* aToggle);
   void on();
