@@ -42,7 +42,7 @@ Clock* clk;
 void draw3D() {
 	glLoadIdentity();								// Load a new matrix
 
-	camera();										// Calculate and set cameraview and cameraposition
+//	camera();										// Calculate and set cameraview and cameraposition
 	
   clk->tick();
   scene->update();

@@ -276,6 +276,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\nodes\billboard.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\cam.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\nodes\colornode.cpp"
 					>
 				</File>
@@ -313,6 +321,10 @@
 				</File>
 				<File
 					RelativePath=".\src\nodes\rotornode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\scalatornode.cpp"
 					>
 				</File>
 				<File
@@ -406,6 +418,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\nodes\billboard.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\cam.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\nodes\colornode.h"
 					>
 				</File>
@@ -443,6 +463,10 @@
 				</File>
 				<File
 					RelativePath=".\include\nodes\rotornode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\scalatornode.h"
 					>
 				</File>
 				<File

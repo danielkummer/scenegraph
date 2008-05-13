@@ -63,7 +63,8 @@ void process_events( )
 	//////////////////////////	
     while( SDL_PollEvent( &event ) ) 				// Grab all the events off the queue
 	{
-    if( !handleEvent(event) ){
+    bool val = handleEvent(event);
+    if( !val ){
     switch( event.type ) 
 		{
     case SDL_QUIT:								// Handle quit requests (like Ctrl-c)

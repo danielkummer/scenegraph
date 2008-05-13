@@ -7,7 +7,7 @@
 void AbstractVisitor::apply(AbstractNode* aAbstractNode){
   mRootNode = aAbstractNode;
   aAbstractNode->accept(*this);
-  mRootNode = 0;
+//  mRootNode = 0;
 }
 //----------------------------------------------------------//
 
