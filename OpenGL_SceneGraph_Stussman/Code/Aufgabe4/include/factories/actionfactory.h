@@ -39,8 +39,7 @@ enum EActions{
   ECamPitchClockwiseAction,
   ECamPitchCClockwiseAction,
   ECamYawClockwiseAction,
-  ECamYawCClockwiseAction,
-
+  ECamYawCClockwiseAction,  
 
 
   EActionCount,

@@ -83,7 +83,7 @@ void PolygonObjectNode::loadObjFile( char* objFileName, char* matFileName )// ob
 	///////////////////////////////////////////////
 
 	obj->close();										// After all data is loaded close the files
-  delete obj;
+  delete obj; 											// Free the beast!!
 
 }
 //-------------------------------------------------------//
