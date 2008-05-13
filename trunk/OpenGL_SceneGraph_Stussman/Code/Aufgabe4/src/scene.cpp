@@ -135,8 +135,7 @@ void AbstractScene::update(){
     if(1==mKeyFlags[i]){
       unsigned vKeyMapVal = mKeyInputMap[i];
       if(0 != vKeyMapVal){
-        ActionBase* vAction = mActionFactory->getAction(vKeyMapVal);
-        vAction->fire();
+        mActionFactory->getAction(vKeyMapVal)->fire();
       }
     }
   }
@@ -152,8 +151,7 @@ bool AbstractScene::handleEvent(SDL_Event &aEvent){
     }else{
       unsigned vKeyMapVal = mKeyInputMap[aEvent.key.keysym.sym];
       if(0 != vKeyMapVal){
-        ActionBase* vAction = mActionFactory->getAction(vKeyMapVal);
-        vAction->fire();
+        mActionFactory->getAction(vKeyMapVal)->fire();
         return true;
       }
     }
@@ -191,20 +189,21 @@ bool SolarSytemScene::handleEvent(SDL_Event &aEvent){
   		xangle = (aEvent.motion.yrel * mousetune);
   		if(yangle > 0.0f) {
   			mActionFactory->getAction(ECamPitchClockwiseAction)->fire();
+        return true;
   		} else if(yangle < 0.0f){
   			mActionFactory->getAction(ECamPitchCClockwiseAction)->fire();
+        return true;
   		} 
   		if(xangle > 0.0f) {
   			mActionFactory->getAction(ECamYawClockwiseAction)->fire();
+        return true;
   		} else if(xangle < 0.0f){
   			mActionFactory->getAction(ECamYawCClockwiseAction)->fire();
+        return true;
   		}
-		
     }
-    
-    return false;
   }
-  return true;
+  return false;
 }
 //-------------------------------------------------------//
 //void SolarSytemScene::update(){
@@ -366,8 +365,6 @@ void SolarSytemScene::createScene(){
   vCameraActions.push_back(mActionFactory->getAction(ECamYawCClockwise));
   
   vCameraBuilder.buildMoveNode(vCameraActions);
-  
-  mSceneGraph->add(vCameraBuilder.getResult());  
   
   PrintVisitor().apply(mSceneGraph);  
 }
