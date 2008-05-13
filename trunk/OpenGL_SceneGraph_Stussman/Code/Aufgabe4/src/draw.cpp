@@ -6,7 +6,7 @@
 /*  Authors:                Reto Bollinger        */
 /*                          bolliret@zhwin.ch     */
 /*                                                */
-/*                          Hanspeter Brühlmann   */
+/*                          Hanspeter Brï¿½hlmann   */
 /*                          bruehhan@zhwin.ch     */
 /*                                                */
 /**************************************************/

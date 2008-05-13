@@ -47,7 +47,8 @@ ActionBase* ActionFactory::createAction(unsigned int aActionName){
       {
         vInstance = new OnOffAction();
       }break;
-    case EShipMoveBackAction:
+    // Ship actions      
+	case EShipMoveBackAction:
       {
         vInstance = new MoveAction(BACKWARD, vDist);
       }break;
@@ -93,6 +94,56 @@ ActionBase* ActionFactory::createAction(unsigned int aActionName){
         vInstance = new RotationAction(YAW, vAngle);
       }break;
     case EShipYawCClkAction:
+      {
+        vInstance = new RotationAction(YAWCC, vAngle);
+      }break;
+	// Camera actions
+	case ECamMoveBackAction:
+      {
+        vInstance = new MoveAction(BACKWARD, vDist);
+      }break;
+    case ECamMoveFwdAction:
+      {
+        vInstance = new MoveAction(FORWARD, vDist);
+      }break;
+    case ECamStrafeLeftAction:
+      {
+        vInstance = new MoveAction(LEFT, vDist);
+      }break;
+    case ECamStrafeRightAction:
+      {
+        vInstance = new MoveAction(RIGHT, vDist);
+      }break;
+    case ECamMoveUpAction:
+      {
+        vInstance = new MoveAction(UP, vDist);
+      }break;
+    case ECamMoveDownAction:
+      {
+        vInstance = new MoveAction(DOWN, vDist);
+      }break;
+
+    case ECamRollClockwiseAction:
+      {
+        vInstance = new RotationAction(ROLL, vAngle);
+      }break;
+    case ECamRollCClockwiseAction:
+      {
+        vInstance = new RotationAction(ROLLCC, vAngle);
+      }break;
+    case ECamPitchClockwiseAction:
+      {
+        vInstance = new RotationAction(PITCH, vAngle);
+      }break;
+    case ECamPitchCClockwiseAction:
+      {
+        vInstance = new RotationAction(PITCHCC, vAngle);
+      }break;
+    case ECamYawClockwiseAction:
+      {
+        vInstance = new RotationAction(YAW, vAngle);
+      }break;
+    case ECamYawCClockwiseAction:
       {
         vInstance = new RotationAction(YAWCC, vAngle);
       }break;

@@ -89,20 +89,7 @@ AbstractScene::AbstractScene(){
   }
   for(unsigned i=0; i<SDLK_LAST; i++){
     mKeyInputMap[i] = 0;
-    mKeyFlags[i] = 0;mKeyInputMap[SDLK_a] = EShipMoveFwd;
-  mKeyInputMap[SDLK_d] = EShipMoveBack;
-  mKeyInputMap[SDLK_w] = EShipStrafeLeft;
-  mKeyInputMap[SDLK_s] = EShipStrafeRight;
-  mKeyInputMap[SDLK_q] = EShipMoveUp;
-  mKeyInputMap[SDLK_e] = EShipMoveDown;
-
-  mKeyInputMap[SDLK_r] = EShipRollClk;
-  mKeyInputMap[SDLK_f] = EShipRollCClk;
-  mKeyInputMap[SDLK_t] = EShipPitchClk;
-  mKeyInputMap[SDLK_g] = EShipPitchCClk;
-  mKeyInputMap[SDLK_y] = EShipYawClk;
-  mKeyInputMap[SDLK_z] = EShipYawClk;
-    
+    mKeyFlags[i] = 0;    
   }
 }
 //-------------------------------------------------------//
@@ -200,8 +187,18 @@ bool SolarSytemScene::handleEvent(SDL_Event &aEvent){
     // Handle mouse events
     if(aEvent.type == SDL_MOUSEMOTION) {
     	//TODO: redo!!
-    	yangle += (aEvent.motion.xrel * mousetune);
-  		xangle += (aEvent.motion.yrel * mousetune);
+    	yangle = (aEvent.motion.xrel * mousetune);
+  		xangle = (aEvent.motion.yrel * mousetune);
+  		if(yangle > 0.0f) {
+  			mActionFactory->getAction(ECamPitchClockwiseAction)->fire();
+  		} else if(yangle < 0.0f){
+  			mActionFactory->getAction(ECamPitchCClockwiseAction)->fire();
+  		} 
+  		if(xangle > 0.0f) {
+  			mActionFactory->getAction(ECamYawClockwiseAction)->fire();
+  		} else if(xangle < 0.0f){
+  			mActionFactory->getAction(ECamYawCClockwiseAction)->fire();
+  		}
 		
     }
     
@@ -240,7 +237,7 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_h] = EShipYawCClk;
 
   // Camera key bindings
-  mKeyInputMap[SDLK_F4] = ECamSwitchType;
+  //mKeyInputMap[SDLK_F4] = ECamSwitchType;
   mKeyInputMap[SDLK_j] 	= ECamMoveFwd;
   mKeyInputMap[SDLK_l] 	= ECamMoveBack;
   mKeyInputMap[SDLK_i] 	= ECamStrafeRight;
@@ -257,29 +254,31 @@ void SolarSytemScene::init(){
 
   // action map
   // TODO: map all acitons
-  mToActionMap[EToggleAxis] = EToggleAction;
-  mToActionMap[EToggleShadow] = EToggleAction;
-  mToActionMap[EToggleFar] = EToggleAction;
-  mToActionMap[EToggleTrace] = EToggleAction;
+  
+  // Generic action mappings
+  mToActionMap[EToggleAxis] 	= EToggleAction;
+  mToActionMap[EToggleShadow] 	= EToggleAction;
+  mToActionMap[EToggleFar] 		= EToggleAction;
+  mToActionMap[EToggleTrace] 	= EToggleAction;
 
   // Ship action mapping
-  mToActionMap[EShipMoveFwd] = EShipMoveFwdAction;
-  mToActionMap[EShipMoveBack] = EShipMoveBackAction;
-  mToActionMap[EShipMoveUp] = EShipMoveUpAction;
-  mToActionMap[EShipMoveDown] = EShipMoveDownAction;
+  mToActionMap[EShipMoveFwd] 	= EShipMoveFwdAction;
+  mToActionMap[EShipMoveBack] 	= EShipMoveBackAction;
+  mToActionMap[EShipMoveUp] 	= EShipMoveUpAction;
+  mToActionMap[EShipMoveDown] 	= EShipMoveDownAction;
   mToActionMap[EShipStrafeLeft] = EShipStrafeLeftAction;
-  mToActionMap[EShipStrafeRight] = EShipStrafeRightAction;
+  mToActionMap[EShipStrafeRight]= EShipStrafeRightAction;
 
-  mToActionMap[EShipRollClk] = EShipRollClkAction;
-  mToActionMap[EShipRollCClk] = EShipRollCClkAction;
-  mToActionMap[EShipPitchClk] = EShipPitchClkAction;
-  mToActionMap[EShipPitchCClk] = EShipPitchCClkAction;
-  mToActionMap[EShipYawClk] = EShipYawClkAction;
-  mToActionMap[EShipYawCClk] = EShipYawCClkAction;
+  mToActionMap[EShipRollClk] 	= EShipRollClkAction;
+  mToActionMap[EShipRollCClk] 	= EShipRollCClkAction;
+  mToActionMap[EShipPitchClk] 	= EShipPitchClkAction;
+  mToActionMap[EShipPitchCClk] 	= EShipPitchCClkAction;
+  mToActionMap[EShipYawClk] 	= EShipYawClkAction;
+  mToActionMap[EShipYawCClk] 	= EShipYawCClkAction;
 //  mToActionMap[EShoot] = ;
 
   // Camera action Mapping
-  mToActionMap[ECamSwitchType]		= ECamSwitchTypeAction;	
+  //mToActionMap[ECamSwitchType]	= ECamSwitchTypeAction;	
   mToActionMap[ECamMoveFwd]			= ECamMoveFwdAction;
   mToActionMap[ECamMoveBack]		= ECamMoveBackAction;
   mToActionMap[ECamStrafeRight]		= ECamStrafeRightAction;
@@ -346,7 +345,31 @@ void SolarSytemScene::createScene(){
   vSpaceShipBuilder.append(0, createAxis(5));
 
   mSceneGraph->add(vSpaceShipBuilder.getResult());
-  PrintVisitor().apply(mSceneGraph);
+   
+  
+  Builder vCameraBuilder(mSceneGraph);
+  
+  std::vector<ActionBase*> vCameraActions;
+  
+  vCameraActions.push_back(mActionFactory->getAction(ECamMoveBack));
+  vCameraActions.push_back(mActionFactory->getAction(ECamMoveDown));
+  vCameraActions.push_back(mActionFactory->getAction(ECamMoveFwd));
+  vCameraActions.push_back(mActionFactory->getAction(ECamMoveUp));
+  vCameraActions.push_back(mActionFactory->getAction(ECamStrafeLeft));
+  vCameraActions.push_back(mActionFactory->getAction(ECamStrafeRight));
+
+  vCameraActions.push_back(mActionFactory->getAction(ECamRollClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamRollCClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamPitchClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamPitchCClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamYawClockwise));
+  vCameraActions.push_back(mActionFactory->getAction(ECamYawCClockwise));
+  
+  vCameraBuilder.buildMoveNode(vCameraActions);
+  
+  mSceneGraph->add(vCameraBuilder.getResult());  
+  
+  PrintVisitor().apply(mSceneGraph);  
 }
 
 //-------------------------------------------------------//
