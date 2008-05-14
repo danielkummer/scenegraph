@@ -41,6 +41,7 @@ nodes/translatornode.cpp \
 nodes/separator.cpp \
 nodes/scalenode.cpp \
 nodes/scalatornode.cpp \
+nodes/destructornode.cpp \
 planetdefs.cpp \
 scene.cpp \
 shadow.cpp \
