@@ -288,6 +288,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\nodes\destructornode.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\nodes\groupnode.cpp"
 					>
 				</File>
@@ -427,6 +431,10 @@
 				</File>
 				<File
 					RelativePath=".\include\nodes\colornode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\destructornode.h"
 					>
 				</File>
 				<File
