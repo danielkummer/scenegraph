@@ -13,7 +13,7 @@ public:
   virtual void accept(AbstractVisitor&);
 
 protected:
-  AbstractSpawn(GroupNode* aGroupNode):AbstractNode() {mGroupNode = aGroupNode;}
+  AbstractSpawn(GroupNode* aGroupNode);
   GroupNode* mGroupNode;
   void add(AbstractNode* aNode);	
 };
