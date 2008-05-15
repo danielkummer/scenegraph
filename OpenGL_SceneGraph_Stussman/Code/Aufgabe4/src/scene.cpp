@@ -203,9 +203,11 @@ void SolarSytemScene::init(){
   // TODO: define key mapping
   mKeyInputMap[SDLK_F2] = EToggleAxis;
   mKeyInputMap[SDLK_F3] = EToggleShadow;
+  mKeyInputMap[SDLK_F4] = EToggleLight;
   // prevent contious action firing (fire only at keypress once)
   mKeyFlags[SDLK_F2] = 2;
   mKeyFlags[SDLK_F3] = 2;
+  mKeyFlags[SDLK_F4] = 2;
 
 
   // Ship key bindings
@@ -247,6 +249,7 @@ void SolarSytemScene::init(){
   // Generic action mappings
   mToActionMap[EToggleAxis] 	= EToggleAction;
   mToActionMap[EToggleShadow] 	= EToggleAction;
+  mToActionMap[EToggleLight] 	= EToggleAction;
   mToActionMap[EToggleFar] 		= EToggleAction;
   mToActionMap[EToggleTrace] 	= EToggleAction;
 
@@ -359,10 +362,25 @@ void SolarSytemScene::createScene(){
   
   vSpaceShipBuilder.buildMoveNode(vShipActions);
   vSpaceShipBuilder.buildPolygonObjectNode("objects/spaceship.obj", "objects/spaceship.mtl");
-  vSpaceShipBuilder.append(0, createAxis(5));
+  //vSpaceShipBuilder.append(0, createAxis(5));
+  
+  vSpaceShipBuilder.buildLightNode(GL_LIGHT1, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, mActionFactory->getAction(EToggleLight));
+  
+  
+
+  //Spaceship Light
+  /*LightNode* vLightShip = new LightNode(GL_LIGHT1);
+  vLightShip->setParam(GL_AMBIENT, 1.0f, 1.0f, 1.0f, 1.0f);
+  vLightShip->setParam(GL_DIFFUSE, 1.0f, 1.0f, 1.0f, 1.0f);
+  vLightShip->setParam(GL_POSITION, 3.0f, 0.0f, 0.0f, 0.0f);  
+  //Spaceship Light Toggle Node
+  ToggleNode* vLightToggle = new ToggleNode();
+  mActionFactory->getAction(EToggleLight)->add(vLightToggle);
+  vLightToggle->add(vLightShip);
+  vSpaceShipNode->add(vLightToggle);*/
 
   mSceneGraph->add(vSpaceShipBuilder.getResult());
-   
+  
   PrintVisitor().apply(mSceneGraph);  
 }
 
