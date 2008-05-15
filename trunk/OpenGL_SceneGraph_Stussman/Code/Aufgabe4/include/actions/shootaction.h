@@ -2,8 +2,9 @@
 #define _H_SHOOTACTION_
 
 #include "actions/actionbase.h"
+#include "nodes/abstractspawn.h"
 
-class ShootAction:ActionBase{
+class ShootAction:public ActionBase{
 public:
   ShootAction();
   virtual ~ShootAction();
@@ -12,7 +13,7 @@ public:
   virtual void fire(float aVal);
   void add(AbstractNode* aNode);
 
-}
+};
 
 
 

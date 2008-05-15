@@ -1,14 +1,15 @@
 #ifndef _ABSTRACTSPAWN_H_
 #define _ABSTRACTSPAWN_H_
+
 #include "nodes/abstractnode.h"
 #include "nodes/groupnode.h"
 
-class AbstractSpawn {
+class AbstractSpawn:public AbstractNode {
 public:
 	virtual void spawn(){};
-	void add(AbstractNode* aNode){mGroupNode->add(aNode));};
+	void add(AbstractNode* aNode) {mGroupNode->add(aNode);}
 protected:
-	AbstractSpawn(GroupNode* aGroupNode){mGroupNode = aGroupNode;};
+  AbstractSpawn(GroupNode* aGroupNode):AbstractNode() {mGroupNode = aGroupNode;}
 	GroupNode* mGroupNode;
 };
 
