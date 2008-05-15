@@ -19,8 +19,8 @@
 /**************************************************/
 
 KeyFlag keyFlag;									// Placeholder for pressed keys
-int width = 1024;									// Dimensions of our window
-int height = 768;
+int width = 800;									// Dimensions of our window
+int height = 600;
 
 bool isAxisDrawn = true;
 bool fullscreen = false;								// Fullscreen or windowed mode
@@ -284,8 +284,8 @@ bool init_SDL()
         return false;
     }
 
-  SDL_ShowCursor(false);
-  SDL_WM_GrabInput(SDL_GRAB_ON);
+  //SDL_ShowCursor(false);
+  //SDL_WM_GrabInput(SDL_GRAB_ON);
 	return true;
 }
 

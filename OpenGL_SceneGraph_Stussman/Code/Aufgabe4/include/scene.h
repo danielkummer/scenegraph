@@ -51,6 +51,8 @@ enum EActionNames{
 
   EToggleGrab,
   EToggleFullscreen,
+  EShoot1,
+  EShoot2,
 
   EActionNameCount, // just to know the number of items in the enum
 };

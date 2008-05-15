@@ -7,6 +7,7 @@ void PrintVisitor::visit(GroupNode &aGroupNode) {
   printf("ID: %d GroupNode begin\n", aGroupNode.mID); 
   mIdent++;
 }
+
 //----------------------------------------------------------//
 void PrintVisitor::postvisit(GroupNode &aGroupNode){
   mIdent--;
@@ -183,6 +184,11 @@ void PrintVisitor::visit(MoveNode &aNode){
 void PrintVisitor::visit(PolygonObjectNode &aPolygonObjectNode){
 	printIdent();
 	printf("ID: %d PolygonObjectNode\n", aPolygonObjectNode.mID);	
+}
+//----------------------------------------------------------//
+void PrintVisitor::visit(AbstractSpawn &aNode){
+  printIdent();
+  printf("!!! ID: %d AbstractSpawn!\n", aNode.mID);
 }
 //----------------------------------------------------------//
 void PrintVisitor::visit(AbstractNode &aNode){

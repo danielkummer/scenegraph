@@ -17,7 +17,7 @@
 class LightNode:public ToggleNode{
 public:
   LightNode(GLenum aLightNr);
-  LightNode::LightNode(GLenum aLightNr, 
+  LightNode(GLenum aLightNr, 
                        float posX, 
                        float posY, 
                        float posZ, 
