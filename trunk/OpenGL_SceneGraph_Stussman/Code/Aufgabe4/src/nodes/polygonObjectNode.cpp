@@ -11,7 +11,10 @@ PolygonObjectNode::PolygonObjectNode(char* objFileName, char* matFileName):Abstr
 //-------------------------------------------------------//
 PolygonObjectNode::~PolygonObjectNode() {
   for(int i=0; i<groupcount; i++){
-    delete[] groups->triangle;
+    if(NULL != groups[i].triangle){
+      delete[] groups[i].triangle;
+      groups[i].triangle = NULL;
+    }
   }
   delete[] groups;
   delete[] gsize;
@@ -46,6 +49,7 @@ void PolygonObjectNode::loadObjFile( char* objFileName, char* matFileName )// ob
 		groups[g].triangle = new triang[gsize[g]];		// create the arrays to store the triangle definitions into
 		groups[g].size = gsize[g];						// and set the number of triangles for each group
 		groups[g].textureName = 0;
+    groups[g].textureID = 0;
 	}
 
 	// load all object groups
