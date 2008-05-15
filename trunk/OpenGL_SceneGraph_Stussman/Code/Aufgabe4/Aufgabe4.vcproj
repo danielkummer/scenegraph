@@ -280,6 +280,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\nodes\abstractspawn.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\nodes\billboard.cpp"
 					>
 				</File>
@@ -297,6 +301,10 @@
 				</File>
 				<File
 					RelativePath=".\src\nodes\groupnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\laserspawn.cpp"
 					>
 				</File>
 				<File
@@ -345,6 +353,10 @@
 				</File>
 				<File
 					RelativePath=".\src\nodes\shadownode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\nodes\shotspawn.cpp"
 					>
 				</File>
 				<File
@@ -450,6 +462,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\nodes\laserspawn.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\nodes\lightnode.h"
 					>
 				</File>
@@ -495,6 +511,10 @@
 				</File>
 				<File
 					RelativePath=".\include\nodes\shadownode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\shotspawn.h"
 					>
 				</File>
 				<File
