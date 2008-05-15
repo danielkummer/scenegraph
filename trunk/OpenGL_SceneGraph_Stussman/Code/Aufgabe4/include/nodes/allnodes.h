@@ -28,6 +28,11 @@
 #include "nodes/destructornode.h"
 #include "nodes/cam.h"
 
+#include "nodes/abstractspawn.h"
+#include "nodes/laserspawn.h"
+#include "nodes/shotspawn.h"
+
+
 
 #endif // _H_ALLNODES
 

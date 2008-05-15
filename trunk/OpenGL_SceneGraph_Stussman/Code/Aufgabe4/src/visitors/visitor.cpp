@@ -43,6 +43,14 @@ void Visitor::visit(LineNode &aLineNode){
   glEnd();
 }
 //----------------------------------------------------------//
+void Visitor::visit(AbstractSpawn &aSpawn){
+  if(aSpawn.mFire){
+     aSpawn.fire();
+     aSpawn.mFire = false;
+  }
+}
+
+//----------------------------------------------------------//
 void Visitor::visit(TranslationNode &aTranslationNode){
   glTranslatef(aTranslationNode.mX, aTranslationNode.mY, aTranslationNode.mZ);
 }

@@ -4,7 +4,7 @@
 
 class ShotSpawn: public AbstractSpawn {
 public:
-	virtual void spawn();
+	virtual void fire();
 	ShotSpawn(GroupNode* aGroupNode):AbstractSpawn(aGroupNode){};
 };
 #endif
