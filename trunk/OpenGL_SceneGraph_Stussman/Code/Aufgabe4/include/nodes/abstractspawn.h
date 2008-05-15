@@ -9,7 +9,9 @@ class AbstractSpawn:public AbstractNode {
 public:
   virtual void fire(){};
   bool mFire;
-  void spawn();
+  void spawn(); 
+  virtual void accept(AbstractVisitor&);
+
 protected:
   AbstractSpawn(GroupNode* aGroupNode):AbstractNode() {mGroupNode = aGroupNode;}
   GroupNode* mGroupNode;

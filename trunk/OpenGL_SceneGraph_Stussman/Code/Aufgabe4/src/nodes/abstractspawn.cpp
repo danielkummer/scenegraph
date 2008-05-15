@@ -12,3 +12,7 @@ void AbstractSpawn::spawn(){
 void AbstractSpawn::add(AbstractNode* aNode){
    mGroupNode->add(aNode);
 }
+
+void AbstractSpawn::accept(AbstractVisitor &aVisitor){
+  aVisitor.visit(*this);
+}

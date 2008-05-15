@@ -183,6 +183,14 @@ void Builder::buildToggleNode(ActionBase* aAction){
   append(aAction, new ToggleNode());
 }
 //-------------------------------------------------------//
+void Builder::buildLaserSpawn(GroupNode* aNode, ActionBase* aAction){
+  append(aAction, new LaserSpawn(aNode));
+}
+//-------------------------------------------------------//
+void Builder::buildShootSpawn(GroupNode* aNode, ActionBase* aAction){
+  append(aAction, new ShotSpawn(aNode));
+}
+//-------------------------------------------------------//
 void Builder::buildTranslatorNode(float xpos,float ypos, float zpos, float xvel, float yvel, float zvel, ActionBase* aAction){
   append(aAction, new TranslatorNode(xpos,ypos,zpos,xvel,yvel,zvel));
 }
