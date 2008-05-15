@@ -17,6 +17,7 @@ enum EActionNames{
   EActionUnknown = 0,
   EToggleShadow,
   EToggleAxis,
+  EToggleLight,
   EToggleFar, // Scheinwerfer Ship
   EToggleTrace, // Planetenbahnen
 
