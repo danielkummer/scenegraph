@@ -7,12 +7,15 @@
 
 class AbstractSpawn:public AbstractNode {
 public:
-	virtual void spawn(){};
-
+	void fire();
+	bool mfire;
+    virtual void spawn(){};
 protected:
 	AbstractSpawn(GroupNode* aGroupNode);
-	GroupNode* mGroupNode;
-	void add(AbstractNode* aNode);
+    GroupNode* mGroupNode;
+    void add(AbstractNode* aNode);
+
+	
 };
 
 #endif // _ABSTRACTSPAWN_H_
