@@ -4,13 +4,15 @@
 #include "nodes/abstractnode.h"
 #include "nodes/groupnode.h"
 
+
 class AbstractSpawn:public AbstractNode {
 public:
 	virtual void spawn(){};
-	void add(AbstractNode* aNode) {mGroupNode->add(aNode);}
+
 protected:
-  AbstractSpawn(GroupNode* aGroupNode):AbstractNode() {mGroupNode = aGroupNode;}
+	AbstractSpawn(GroupNode* aGroupNode);
 	GroupNode* mGroupNode;
+	void add(AbstractNode* aNode);
 };
 
 #endif // _ABSTRACTSPAWN_H_

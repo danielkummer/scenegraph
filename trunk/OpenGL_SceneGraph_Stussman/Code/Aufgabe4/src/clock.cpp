@@ -39,7 +39,7 @@ void Clock::addListener(ClockListener* aListener){
 //-------------------------------------------------------//
 void Clock::removeListener(ClockListener* aListener){
   std::vector<ClockListener*>::iterator vItr;
-  for(vItr = mListeners.begin(); vItr < mListeners.end(); vItr++){
+  for(vItr = mListeners.begin(); vItr != mListeners.end(); vItr++){
     if((*vItr) == aListener){
       mListeners.erase(vItr);
       break;

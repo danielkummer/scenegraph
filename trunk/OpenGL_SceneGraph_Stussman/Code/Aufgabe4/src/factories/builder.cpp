@@ -165,6 +165,7 @@ void Builder::buildMaterialNode(GLenum aFace, Material* aMaterial, ActionBase* a
 void Builder::buildColorNode(float aRed, float aGreen, float aBlue, float aAlpha, ActionBase* aAction){
   append(aAction, new ColorNode(aRed, aGreen, aBlue, aAlpha));
 }
+
 //-------------------------------------------------------//
 void Builder::buildTextureNode(GLint aTexID, GLenum aTarget, ActionBase* aAction){
   append(aAction, new TextureNode(aTexID, aTarget));
@@ -180,6 +181,10 @@ void Builder::buildShadowNode(float* aLightPos, float* aNormal, float* aPointInP
 //-------------------------------------------------------//
 void Builder::buildToggleNode(ActionBase* aAction){
   append(aAction, new ToggleNode());
+}
+//-------------------------------------------------------//
+void Builder::buildTranslatorNode(float xpos,float ypos, float zpos, float xvel, float yvel, float zvel, ActionBase* aAction){
+  append(aAction, new TranslatorNode(xpos,ypos,zpos,xvel,yvel,zvel));
 }
 //-------------------------------------------------------//
 void Builder::buildPolygonObjectNode(char* objFileName, char* matFileName, ActionBase* aAction){

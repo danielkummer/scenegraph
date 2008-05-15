@@ -44,6 +44,10 @@ public:
   void buildTextureNode(GLint aTexID, GLenum aTarget, GLenum aSFactor, GLenum aDFactor, ActionBase* aAction=NULL);
   void buildShadowNode(float* aLightPos, float* aNormal, float* aPointInPlane, float* aColor, ActionBase* aAction=NULL);
   void buildToggleNode(ActionBase* aAction=NULL);
+  void buildTranslatorNode(float xpos,float ypos, float zpos, float xvel, float yvel, float zvel, ActionBase* aAction=NULL);
+  
+  void buildDestructorNode(float time,ActionBase* aAction=NULL);
+  
   void buildLineNode(float aVert1X, float aVert1Y, float aVert1Z, float aVert2X, float aVert2Y, float aVert2Z, float aWidth, float ,ActionBase* aAction=NULL);
   void buildPolygonObjectNode(char* objFileName, char* matFileName, ActionBase* aAction=NULL);
   void buildMoveNode(std::vector<ActionBase*> aActions = std::vector<ActionBase*>());
