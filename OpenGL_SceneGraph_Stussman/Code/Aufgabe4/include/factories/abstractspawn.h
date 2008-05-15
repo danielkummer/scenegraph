@@ -1,9 +1,11 @@
-#ifndef abstractspawn_h
-#define abstractspawn_h
+#ifndef _ABSTRACTSPAWN_H_
+#define _ABSTRACTSPAWN_H_
+
 class AbstractSpawn {
-	public:
+public:
 	virtual void spawn(){};
-	private:
+private:
 	AbstractSpawn();
 }
-#endif
+
+#endif // _ABSTRACTSPAWN_H_
