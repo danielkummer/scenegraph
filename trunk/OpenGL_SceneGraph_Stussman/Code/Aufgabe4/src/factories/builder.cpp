@@ -149,6 +149,10 @@ void Builder::buildRotorNode(float aAngleVel, float aAngle, float aAxisX, float 
 void Builder::buildLightNode(GLenum aLightNr, ActionBase* aAction){
   append(aAction, new LightNode(aLightNr));
 }
+
+void Builder::buildLightNode(GLenum aLightNr, float posX, float posY, float posZ, float posW, float ambA, float ambB, float ambC, float ambD, float diffA, float diffB, float diffC, float diffD, ActionBase* aAction){
+  append(aAction, new LightNode(aLightNr, posX, posY, posZ, posW, ambA, ambB, ambC, ambD, diffA, diffB, diffC, diffD));
+}
 //-------------------------------------------------------//
 void Builder::buildMaterialNode(GLenum aFace, ActionBase* aAction){
   append(aAction, new MaterialNode(aFace));
