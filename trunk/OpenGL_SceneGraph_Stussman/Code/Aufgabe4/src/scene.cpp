@@ -358,7 +358,7 @@ void SolarSytemScene::createScene(){
   vShipActions.push_back(mActionFactory->getAction(EShipYawCClk));
   
   vSpaceShipBuilder.buildMoveNode(vShipActions);
-  vSpaceShipBuilder.buildPolygonObjectNode("objects/ship.obj", "objects/ship.mtl");
+  vSpaceShipBuilder.buildPolygonObjectNode("objects/spaceship.obj", "objects/spaceship.mtl");
   vSpaceShipBuilder.append(0, createAxis(5));
 
   mSceneGraph->add(vSpaceShipBuilder.getResult());
