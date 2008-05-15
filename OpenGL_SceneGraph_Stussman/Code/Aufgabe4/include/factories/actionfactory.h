@@ -6,6 +6,8 @@
 #include "actions/onoffaction.h"
 #include "actions/moveaction.h"
 #include "actions/rotationaction.h"
+#include "actions/shootaction.h"
+
 #include "nodes/movenode.h"
 
 // TODO: add all action classes

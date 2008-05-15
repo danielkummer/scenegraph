@@ -1,7 +1,7 @@
 #include "actions/shootaction.h"
 
 
-ShootAction::ShootAction():public ActionBase(){
+ShootAction::ShootAction():ActionBase(){
 
 }
 //-------------------------------------------------------//
@@ -9,20 +9,20 @@ ShootAction::~ShootAction(){
 
 }
 //-------------------------------------------------------//
-ShootAction::fire(){
+void ShootAction::fire(){
   if(mEnabled){
-    for(unsigned i=0; i<mListeners; i++){
-      mListeners[i]->spawn();
+    for(unsigned i=0; i<mListeners.size(); i++){
+      reinterpret_cast<AbstractSpawn*>(mListeners[i])->spawn();
     }
   }
 } 
 //-------------------------------------------------------//
-ShootAction::fire(float aVal){
+void ShootAction::fire(float aVal){
   ShootAction::fire();
 }
 //-------------------------------------------------------//
-ShootAction::add(AbstractNode *aNode){
-  AbstractSpawn* vNode = reinterpret_cast<AbstractSpawn*>aNode;
+void ShootAction::add(AbstractNode *aNode){
+  AbstractSpawn* vNode = reinterpret_cast<AbstractSpawn*>(aNode);
   ActionBase::add(vNode);
 }
 //-------------------------------------------------------//

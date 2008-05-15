@@ -422,6 +422,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\nodes\abstractspawn.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\nodes\allnodes.h"
 					>
 				</File>
@@ -573,10 +577,6 @@
 			<Filter
 				Name="factories"
 				>
-				<File
-					RelativePath=".\include\factories\abstractspawn.h"
-					>
-				</File>
 				<File
 					RelativePath=".\include\factories\actionfactory.h"
 					>

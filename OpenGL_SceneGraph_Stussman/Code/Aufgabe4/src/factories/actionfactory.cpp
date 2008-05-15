@@ -97,8 +97,12 @@ ActionBase* ActionFactory::createAction(unsigned int aActionName){
       {
         vInstance = new RotationAction(YAWCC, vAngle);
       }break;
+    case EShipShootAction:
+      {
+        vInstance = new ShootAction();
+      }break;
 	// Camera actions
-	case ECamMoveBackAction:
+    case ECamMoveBackAction:
       {
         vInstance = new MoveAction(BACKWARD, vDist);
       }break;
