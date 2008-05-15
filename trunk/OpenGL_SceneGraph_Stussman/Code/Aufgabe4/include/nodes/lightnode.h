@@ -16,6 +16,7 @@
 class LightNode:public AbstractNode{
 public:
   LightNode(GLenum aLightNr);
+  LightNode(GLenum aLightNr, float posX, float posY, float posZ, float posW, float ambA, float ambB, float ambC, float ambD, float diffA, float diffB, float diffC, float diffD);
   virtual ~LightNode();
   void setParam(GLenum aParamType, float aA, float aB, float aC, float aD);
   virtual void accept(AbstractVisitor &aVisitor);
