@@ -227,6 +227,10 @@
 					RelativePath=".\src\actions\rotationaction.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\actions\shootaction.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="factories"
@@ -541,6 +545,10 @@
 					RelativePath=".\include\actions\rotationaction.h"
 					>
 				</File>
+				<File
+					RelativePath=".\include\actions\shootaction.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="visitors"
@@ -565,6 +573,10 @@
 			<Filter
 				Name="factories"
 				>
+				<File
+					RelativePath=".\include\factories\abstractspawn.h"
+					>
+				</File>
 				<File
 					RelativePath=".\include\factories\actionfactory.h"
 					>
