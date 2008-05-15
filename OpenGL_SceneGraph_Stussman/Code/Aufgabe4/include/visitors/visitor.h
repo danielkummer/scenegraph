@@ -29,6 +29,8 @@ public:
   virtual void postvisit(TransformSeparator &aNode);
   virtual void visit(MoveNode &aNode);
   virtual void visit(CamNode &aNode);
+  virtual void visit(AbstractSpawn &aNode);
+  
   virtual void visit(PolygonObjectNode &aPolygonObjectNode);
 };
 

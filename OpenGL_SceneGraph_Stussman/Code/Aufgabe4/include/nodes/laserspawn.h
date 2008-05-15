@@ -4,7 +4,7 @@
 
 class LaserSpawn: public AbstractSpawn {
 public:
-	virtual void spawn();
+	virtual void fire();
 	LaserSpawn(GroupNode* aGroupNode):AbstractSpawn(aGroupNode){};
 };
 #endif

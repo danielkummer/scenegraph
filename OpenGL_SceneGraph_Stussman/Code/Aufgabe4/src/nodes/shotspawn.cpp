@@ -2,7 +2,7 @@
 #include "factories/builder.h"
 #include "nodes/allnodes.h"
 
-void ShotSpawn::spawn(){
+void ShotSpawn::fire(){
 	Builder vBuilder(new DestructorNode(100.0,mGroupNode));
 		vBuilder.buildColorNode(0.8,0,0);
 		vBuilder.buildTranslatorNode(0,0,0,1,1,1);
