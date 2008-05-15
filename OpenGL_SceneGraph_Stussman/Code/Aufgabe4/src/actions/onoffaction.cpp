@@ -23,33 +23,37 @@ inline void OnOffAction::fire(float aVal){
 }
 //-------------------------------------------------------//
 inline void OnOffAction::add(AbstractNode* aToggle){
-	
-  ActionBase::add(aToggle);
+	ToggleNode* vToggle = reinterpret_cast<ToggleNode*>(aToggle);
+//  ActionBase::add(vToggle);
+  mListeners.push_back(vToggle);
   // keep children syncronized
   if(mOn){
-    reinterpret_cast<ToggleNode*>(aToggle)->on();
+    vToggle->on();
   }else{
-    reinterpret_cast<ToggleNode*>(aToggle)->off();
+    vToggle->off();
   }
 }
 //-------------------------------------------------------//
 void OnOffAction::on(){
   mOn = true;
   for(unsigned i=0; i < mListeners.size(); i++){
-    (reinterpret_cast<ToggleNode*>(mListeners[i]))->on();
+//    (reinterpret_cast<ToggleNode*>(mListeners[i]))->on();
+    mListeners[i]->on();
   }
 } 
 //-------------------------------------------------------//
 void OnOffAction::off(){
   mOn = false;
   for(unsigned i=0; i < mListeners.size(); i++){
-    (reinterpret_cast<ToggleNode*>(mListeners[i]))->off();
+//    (reinterpret_cast<ToggleNode*>(mListeners[i]))->off();
+    mListeners[i]->off();
   }
 } 
 //-------------------------------------------------------//
 void OnOffAction::toggle(){
   for(unsigned i=0; i < mListeners.size(); i++){
-    (reinterpret_cast<ToggleNode*>(mListeners[i]))->toggle();
+//    (reinterpret_cast<ToggleNode*>(mListeners[i]))->toggle();
+    mListeners[i]->toggle();
   }
 }
 //-------------------------------------------------------//

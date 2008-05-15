@@ -16,7 +16,7 @@ public:
   Builder(GroupNode* aRootNode, ActionBase* aAction=NULL);
   ~Builder();
   AbstractNode* getResult();
-  AbstractNode* getLast(){ return mLastAdded; }
+  AbstractNode* getLast();
 //  void setRootNode(GroupNode* aNode);
 
   void buildGroupNode(ActionBase* aAction=NULL);

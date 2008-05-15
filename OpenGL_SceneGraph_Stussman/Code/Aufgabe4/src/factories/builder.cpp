@@ -224,6 +224,9 @@ void Builder::append(ActionBase* aAction, AbstractNode* aNode){
   mLastAdded = aNode;
 }
 //-------------------------------------------------------//
+AbstractNode* Builder::getLast(){ 
+  return mLastAdded; 
+}
 /*********************************************************/
 //-------------------------------------------------------//
 /*

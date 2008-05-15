@@ -8,9 +8,9 @@ public:
   ToggleNode();
   virtual ~ToggleNode();
   bool isOn();
-  bool toggle(); // return new state
-  void on();
-  void off();
+  virtual bool toggle(); // return new state
+  virtual void on();
+  virtual void off();
   virtual void accept(AbstractVisitor &aVisitor);
 
 private:

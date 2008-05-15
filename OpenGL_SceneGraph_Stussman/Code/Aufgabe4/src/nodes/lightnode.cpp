@@ -1,6 +1,20 @@
 #include "nodes/lightnode.h"
 
-LightNode::LightNode(GLenum aLightNr, float posX, float posY, float posZ, float posW, float ambA, float ambB, float ambC, float ambD, float diffA, float diffB, float diffC, float diffD) {
+LightNode::LightNode(GLenum aLightNr, 
+                     float posX, 
+                     float posY, 
+                     float posZ, 
+                     float posW, 
+                     float ambA, 
+                     float ambB, 
+                     float ambC, 
+                     float ambD, 
+                     float diffA, 
+                     float diffB, 
+                     float diffC, 
+                     float diffD):
+  ToggleNode()
+{
 	
 	mLightNr = aLightNr;
 	mPos = new float[4];
@@ -18,10 +32,9 @@ LightNode::LightNode(GLenum aLightNr, float posX, float posY, float posZ, float 
 }
 
 //-------------------------------------------------------//
-LightNode::LightNode(GLenum aLightNr){
+LightNode::LightNode(GLenum aLightNr):ToggleNode(){
   mLightNr = aLightNr;
   mPos = new float[4];
-  glEnable(aLightNr);
   if(false == glIsEnabled(GL_LIGHTING)){
     glEnable(GL_LIGHTING);
   }
@@ -56,19 +69,22 @@ inline void LightNode::accept(AbstractVisitor &aVisitor){
 }
 //-------------------------------------------------------//
 void LightNode::on(){
+  ToggleNode::on();
   glEnable(mLightNr);
 }
 //-------------------------------------------------------//
 void LightNode::off(){
+  ToggleNode::off();
   glDisable(mLightNr);
 }
 //-------------------------------------------------------//
-void LightNode::toggle(){
+bool LightNode::toggle(){
   if(glIsEnabled(mLightNr)){
     glDisable(mLightNr);
   }else{
     glEnable(mLightNr);
   }
+  return ToggleNode::toggle();
 }
 //-------------------------------------------------------//
 
