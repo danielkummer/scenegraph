@@ -11,19 +11,32 @@
 #include <GL/gl.h> 
 #include <GL/glu.h> 
 
-#include "nodes/abstractnode.h"
+//#include "nodes/abstractnode.h"
+#include "nodes/togglenode.h"
 
-class LightNode:public AbstractNode{
+class LightNode:public ToggleNode{
 public:
   LightNode(GLenum aLightNr);
-  LightNode(GLenum aLightNr, float posX, float posY, float posZ, float posW, float ambA, float ambB, float ambC, float ambD, float diffA, float diffB, float diffC, float diffD);
+  LightNode::LightNode(GLenum aLightNr, 
+                       float posX, 
+                       float posY, 
+                       float posZ, 
+                       float posW, 
+                       float ambA, 
+                       float ambB, 
+                       float ambC, 
+                       float ambD, 
+                       float diffA, 
+                       float diffB, 
+                       float diffC, 
+                       float diffD);
   virtual ~LightNode();
   void setParam(GLenum aParamType, float aA, float aB, float aC, float aD);
   virtual void accept(AbstractVisitor &aVisitor);
   void setPos();
   void on();
   void off();
-  void toggle();
+  bool toggle();
 private:
   GLenum mLightNr;
   float* mPos;

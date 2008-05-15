@@ -5,6 +5,7 @@
 #include "visitors/abstractvisitor.h"
 #include "nodes/togglenode.h"
 #include "nodes/abstractnode.h"
+#include "nodes/togglenode.h"
 
 //-------------------------------------------------------//
 class OnOffAction:public ActionBase{
@@ -19,6 +20,10 @@ public:
   void off();
   void toggle();
   bool isOn();
+
+protected:
+  std::vector<ToggleNode*> mListeners;
+
 private:
   bool mOn;
 };

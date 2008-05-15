@@ -226,6 +226,8 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_z] = EShipYawClk;
   mKeyInputMap[SDLK_h] = EShipYawCClk;
 
+  mKeyInputMap[SDLK_SPACE] = EShipShoot;
+
   // Camera key bindings
   //mKeyInputMap[SDLK_F4] = ECamSwitchType;
   mKeyInputMap[SDLK_i] 	= ECamMoveFwd;
@@ -267,7 +269,7 @@ void SolarSytemScene::init(){
   mToActionMap[EShipPitchCClk] 	= EShipPitchCClkAction;
   mToActionMap[EShipYawClk] 	= EShipYawClkAction;
   mToActionMap[EShipYawCClk] 	= EShipYawCClkAction;
-//  mToActionMap[EShoot] = ;
+  mToActionMap[EShipShoot] = EShipShootAction;
 
   // Camera action Mapping
   //mToActionMap[ECamSwitchType]	= ECamSwitchTypeAction;	
@@ -362,9 +364,27 @@ void SolarSytemScene::createScene(){
   
   vSpaceShipBuilder.buildMoveNode(vShipActions);
   vSpaceShipBuilder.buildPolygonObjectNode("objects/spaceship.obj", "objects/spaceship.mtl");
-  //vSpaceShipBuilder.append(0, createAxis(5));
+  vSpaceShipBuilder.append(0, createAxis(5));
   
-  vSpaceShipBuilder.buildLightNode(GL_LIGHT1, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, mActionFactory->getAction(EToggleLight));
+  vSpaceShipBuilder.buildLightNode(GL_LIGHT1, 
+                                        3.0f, // pos
+                                        0.0f, 
+                                        0.0f, 
+                                        1.0f, 
+                                        0.0f, // ambient
+                                        0.0f, 
+                                        0.0f, 
+                                        1.0f, 
+                                        1.0f, // diffuse
+                                        1.0f, 
+                                        1.0f, 
+                                        1.0f, 
+                                        mActionFactory->getAction(EToggleLight));
+  LightNode* vLightNode = reinterpret_cast<LightNode*>(vSpaceShipBuilder.getLast());
+  vLightNode->setParam(GL_SPOT_DIRECTION, 0, 0, -1, 1);
+  vLightNode->setParam(GL_SPOT_EXPONENT, 50, 0, 0, 0);
+  vLightNode->setParam(GL_SPOT_CUTOFF, 40, 0, 0, 0);
+  
   
   
 
