@@ -11,7 +11,7 @@ actions/onoffaction.cpp \
 actions/moveaction.cpp \
 actions/actionbase.cpp \
 clock.cpp \
-draw.cpp \ 
+draw.cpp \
 factories/actionfactory.cpp \
 factories/builder.cpp \
 factories/TextureManager.cpp \
@@ -50,5 +50,8 @@ shadow.cpp \
 visitors/eventvisitor.cpp \
 visitors/printvisitor.cpp \
 visitors/abstractvisitor.cpp \
-visitors/visitor.cpp 
-
+visitors/visitor.cpp \
+nodes/laserspawn.cpp \
+nodes/shotspawn.cpp \
+nodes/abstractspawn.cpp \
+actions/shootaction.cpp 

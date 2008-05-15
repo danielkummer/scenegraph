@@ -1,6 +1,5 @@
 #include "nodes/destructornode.h"
 
-
 //-------------------------------------------------------//
 DestructorNode::DestructorNode(float aLifetime,GroupNode* aParent, Clock* aClock):
 GroupNode(), ClockListener()

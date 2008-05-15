@@ -1,5 +1,5 @@
-#ifndef _H_ROTORNODE
-#define _H_ROTORNODE
+#ifndef _H_DESTRUCTORNODE
+#define _H_DESTRUCTORNODE
 
 #include "clock.h"
 #include "abstractnode.h"
