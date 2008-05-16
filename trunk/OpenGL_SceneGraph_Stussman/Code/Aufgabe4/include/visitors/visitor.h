@@ -33,6 +33,23 @@ public:
   virtual void visit(AbstractSpawn &aNode);
   
   virtual void visit(PolygonObjectNode &aPolygonObjectNode);
+
+private:
+  void loadIdentity();
+  void rotate(float aDeg, float aAxisX, float aAxisY, float aAxisZ);
+  void translate(float aX, float aY, float aZ);
+  void scale(float aX, float aY, float aZ);
+  void push();
+  void pop();
+  void mult(float* aMatrix);
+  void copy(float* aToMatrix);
+  void loadMatrix(float* aMatrix);
+  
+  float* mCurrentMatrix;
+  float* mMatrixStack[32];
+  unsigned mStackIdx;
+
+  CamNode* mCurrentCam;
 };
 
 #endif // _H_VISITOR

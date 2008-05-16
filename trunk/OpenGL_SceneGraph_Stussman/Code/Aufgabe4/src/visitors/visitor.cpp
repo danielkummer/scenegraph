@@ -11,10 +11,21 @@
 #include "visitors/visitor.h"
 
 //----------------------------------------------------------//
-Visitor::Visitor():AbstractVisitor(){
+Visitor::Visitor():AbstractVisitor(), mStackIdx(0){
+  mCurrentMatrix = new float[16];
+  loadIdentity();
+  for(unsigned i=0; i<32; i++){
+    mMatrixStack[i] = NULL;
+  }
+
 }
 //----------------------------------------------------------//
 Visitor::~Visitor(){
+  //for(unsigned i=0; i<32; i++){
+  //  delete[] mMatrixStack[i];
+  //}
+  //delete[] mMatrixStack;
+  delete[] mCurrentMatrix;
 }
 //----------------------------------------------------------//
 void Visitor::visit(SphereNode &aSphereNode){
@@ -33,6 +44,7 @@ void Visitor::visit(SphereNode &aSphereNode){
   }else{
     gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
   }
+  copy(aSphereNode.mModelMatrix);
 }
 //----------------------------------------------------------//
 void Visitor::visit(LineNode &aLineNode){
@@ -53,6 +65,7 @@ void Visitor::visit(AbstractSpawn &aSpawn){
 //----------------------------------------------------------//
 void Visitor::visit(TranslationNode &aTranslationNode){
   glTranslatef(aTranslationNode.mX, aTranslationNode.mY, aTranslationNode.mZ);
+  translate(aTranslationNode.mX, aTranslationNode.mY, aTranslationNode.mZ);
 }
 //----------------------------------------------------------//
 //void Visitor::visit(TranslatorNode &aTranslatorNode){
@@ -65,10 +78,15 @@ void Visitor::visit(RotationNode &aRotationNode){
             aRotationNode.mAxisX,
             aRotationNode.mAxisY,
             aRotationNode.mAxisZ);
+  rotate(aRotationNode.mGradAngle, 
+         aRotationNode.mAxisX,
+         aRotationNode.mAxisY,
+         aRotationNode.mAxisZ);
 }
 //----------------------------------------------------------//
 void Visitor::visit(ScaleNode &aScaleNode){
   glScalef(aScaleNode.mScaleX, aScaleNode.mScaleY, aScaleNode.mScaleZ);
+  scale(aScaleNode.mScaleX, aScaleNode.mScaleY, aScaleNode.mScaleZ);
 }
 //----------------------------------------------------------//
 //void Visitor::visit(RotorNode &aRotorNode){
@@ -107,28 +125,21 @@ void Visitor::visit(ShadowNode &aShadow){
 }
 //----------------------------------------------------------//
 void Visitor::visit(StarsNode &aStarNode){
-//  glEnable(GL_COLOR_MATERIAL);
-//  glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-glEnable(GL_COLOR_MATERIAL);
+  glEnable(GL_COLOR_MATERIAL);
   glColor3f(1, 1, 1);
-//  glMaterialf(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, 1);
   for(unsigned i=0; i<aStarNode.mNumStars; i++){
     glPointSize(aStarNode.mSizes[i]);
-  glBegin(GL_POINTS);
-    glVertex3fv(&aStarNode.mVertices[3*i]);
-  glEnd();
+    glBegin(GL_POINTS);
+      glVertex3fv(&aStarNode.mVertices[3*i]);
+    glEnd();
   }
-glDisable(GL_COLOR_MATERIAL);
-//  glDisable(GL_COLOR_MATERIAL);
+  glDisable(GL_COLOR_MATERIAL);
 }
 //----------------------------------------------------------//
 void Visitor::visit(RingNode &aRingNode){
   float fNormalVec[3] = {0.0f, -1.0f, 0.0f};
   float** vertices = aRingNode.mVertices;
   int quadCount = aRingNode.mQuadCount;
-
-//  glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-//  glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
   glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);  
   glDisable(GL_CULL_FACE);
@@ -182,10 +193,12 @@ void Visitor::postvisit(Separator &aNode){
 //----------------------------------------------------------//
 void Visitor::visit(TransformSeparator &aNode){
   glPushMatrix();
+  push();
 }
 
 void Visitor::postvisit(TransformSeparator &aNode){
   glPopMatrix();
+  pop();
 }
 //----------------------------------------------------------//
 void Visitor::visit(MoveNode &aNode){
@@ -209,6 +222,7 @@ void Visitor::visit(MoveNode &aNode){
   }
   // apply transformation matrix
   glMultMatrixf(&aNode.mModelMatrix[0]);
+  mult(aNode.mModelMatrix);
 }
 //----------------------------------------------------------//
 void Visitor::visit(CamNode &aNode){
@@ -266,6 +280,7 @@ void Visitor::visit(CamNode &aNode){
 
   // apply transformation matrix
   glLoadMatrixf(vM);
+  loadMatrix(vM);
 }
 //----------------------------------------------------------//
 void Visitor::visit(CamFollowNode &aNode) {
@@ -345,3 +360,133 @@ void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 		}
 	}
 }
+//----------------------------------------------------------//
+void Visitor::loadIdentity(){
+  for(unsigned i=0; i<16; i++){
+    mCurrentMatrix[i] = 0.0f;
+  }
+  mCurrentMatrix[0]  = 1.0f;
+  mCurrentMatrix[5]  = 1.0f;
+  mCurrentMatrix[10] = 1.0f;
+  mCurrentMatrix[15] = 1.0f;
+}
+
+
+//----------------------------------------------------------//
+void Visitor::rotate(float aDeg, float aAxisX, float aAxisY, float aAxisZ){
+  float vRotMat[16];
+  glPushMatrix();
+    glLoadIdentity();
+    glRotatef(aDeg, aAxisX, aAxisY, aAxisZ);
+    glGetFloatv(GL_MODELVIEW_MATRIX, vRotMat);
+  glPopMatrix();
+
+  mult(vRotMat);
+}
+//----------------------------------------------------------//
+void Visitor::mult(float* aMatrix){
+//0 4  8 12
+//1 5  9 13
+//2 6 10 14
+//3 7 11 15
+  float vTemp[16];
+  copy(vTemp);
+  mCurrentMatrix[0] = vTemp[0]  * aMatrix[0] + 
+                      vTemp[4]  * aMatrix[1] + 
+                      vTemp[8]  * aMatrix[2] + 
+                      vTemp[12] * aMatrix[3];
+  mCurrentMatrix[4] = vTemp[0]  * aMatrix[4] + 
+                      vTemp[4]  * aMatrix[5] + 
+                      vTemp[8]  * aMatrix[6] + 
+                      vTemp[12] * aMatrix[7];
+  mCurrentMatrix[8] = vTemp[0]  * aMatrix[8] + 
+                      vTemp[4]  * aMatrix[9] + 
+                      vTemp[8]  * aMatrix[10] + 
+                      vTemp[12] * aMatrix[11];
+  mCurrentMatrix[12]= vTemp[0]  * aMatrix[12] + 
+                      vTemp[4]  * aMatrix[13] + 
+                      vTemp[8]  * aMatrix[14] + 
+                      vTemp[12] * aMatrix[15];
+
+  mCurrentMatrix[1] = vTemp[1]  * aMatrix[0] + 
+                      vTemp[5]  * aMatrix[1] + 
+                      vTemp[9]  * aMatrix[2] + 
+                      vTemp[13] * aMatrix[3];
+  mCurrentMatrix[5] = vTemp[1]  * aMatrix[4] + 
+                      vTemp[5]  * aMatrix[5] + 
+                      vTemp[9]  * aMatrix[6] + 
+                      vTemp[13] * aMatrix[7];
+  mCurrentMatrix[9] = vTemp[1]  * aMatrix[8] + 
+                      vTemp[5]  * aMatrix[9] + 
+                      vTemp[9]  * aMatrix[10] + 
+                      vTemp[13] * aMatrix[11];
+  mCurrentMatrix[13]= vTemp[1]  * aMatrix[12] + 
+                      vTemp[5]  * aMatrix[13] + 
+                      vTemp[9]  * aMatrix[14] + 
+                      vTemp[13] * aMatrix[15];
+
+  mCurrentMatrix[2] = vTemp[2]  * aMatrix[0] + 
+                      vTemp[6]  * aMatrix[1] + 
+                      vTemp[10] * aMatrix[2] + 
+                      vTemp[14] * aMatrix[3];
+  mCurrentMatrix[6] = vTemp[2]  * aMatrix[4] + 
+                      vTemp[6]  * aMatrix[5] + 
+                      vTemp[10] * aMatrix[6] + 
+                      vTemp[14] * aMatrix[7];
+  mCurrentMatrix[10]= vTemp[2]  * aMatrix[8] + 
+                      vTemp[6]  * aMatrix[9] + 
+                      vTemp[10] * aMatrix[10] + 
+                      vTemp[14] * aMatrix[11];
+  mCurrentMatrix[14]= vTemp[2] * aMatrix[12] + 
+                      vTemp[6]  * aMatrix[13] + 
+                      vTemp[10] * aMatrix[14] + 
+                      vTemp[14] * aMatrix[15];
+  mCurrentMatrix[3] = 0.0f;
+  mCurrentMatrix[7] = 0.0f;
+  mCurrentMatrix[11] = 0.0f;
+  mCurrentMatrix[15] = 1.0f;
+}
+//----------------------------------------------------------//
+void Visitor::translate(float aX, float aY, float aZ){
+  mCurrentMatrix[12] += aX;
+  mCurrentMatrix[13] += aY;
+  mCurrentMatrix[14] += aZ;
+}
+//----------------------------------------------------------//
+void Visitor::scale(float aX, float aY, float aZ){
+  mCurrentMatrix[0] *= aX;
+  mCurrentMatrix[5] *= aY;
+  mCurrentMatrix[10] *= aZ;
+}
+//----------------------------------------------------------//
+void Visitor::push(){
+  assert(mStackIdx < 32);
+  mMatrixStack[mStackIdx] = mCurrentMatrix;
+  mCurrentMatrix = new float[16];
+  for(unsigned i=0; i<16; i++){
+    mCurrentMatrix[i] = mMatrixStack[mStackIdx][i];
+  }
+  mStackIdx++;
+}
+//----------------------------------------------------------//
+void Visitor::pop(){
+  delete[] mCurrentMatrix;
+  mStackIdx--;
+  assert(mStackIdx >= 0);
+
+  mCurrentMatrix = mMatrixStack[mStackIdx];
+}
+//----------------------------------------------------------//
+void Visitor::copy(float *aToMatrix){
+  for(unsigned i=0; i<16; i++){
+    aToMatrix[i] = mCurrentMatrix[i];
+  }
+}
+//----------------------------------------------------------//
+void Visitor::loadMatrix(float *aMatrix){
+  for(unsigned i=0; i<16; i++){
+    mCurrentMatrix[i] = aMatrix[i];
+  }
+}
+//----------------------------------------------------------//
+
