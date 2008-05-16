@@ -10,6 +10,7 @@ actions/rotationaction.cpp \
 actions/onoffaction.cpp \
 actions/moveaction.cpp \
 actions/actionbase.cpp \
+actions/switchaction.cpp \
 clock.cpp \
 draw.cpp \
 factories/actionfactory.cpp \
