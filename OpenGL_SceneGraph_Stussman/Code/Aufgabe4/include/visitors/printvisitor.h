@@ -47,6 +47,9 @@ public:
   virtual void visit(AbstractSpawn &aNode);
   virtual void visit(PolygonObjectNode &aPolygonObjectNode);
 
+  virtual void visit(CamNode &aNode);
+  virtual void visit(CamFollowNode &aNode);
+
 private:
   void printIdent();
   unsigned mIdent;

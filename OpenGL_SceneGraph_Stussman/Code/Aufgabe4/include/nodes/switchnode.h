@@ -8,6 +8,8 @@ public:
   SwitchNode():GroupNode(), mCurrent(-1) { }
   virtual void accept(AbstractVisitor &aVisitor);
   void switchTo(unsigned aChildNr);
+  int getNumChildren();
+  int getCurrent();
 private:
   int mCurrent;
 };
