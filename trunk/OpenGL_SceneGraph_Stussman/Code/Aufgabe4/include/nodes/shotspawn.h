@@ -5,6 +5,7 @@
 class ShotSpawn: public AbstractSpawn {
 public:
 	virtual void fire();
-	ShotSpawn(GroupNode* aGroupNode):AbstractSpawn(aGroupNode){};
+  virtual void fire(float aPosX, float aPosY, float aPosZ, float aDirX, float aDirY, float aDirZ);
+  ShotSpawn(GroupNode* aGroupNode):AbstractSpawn(aGroupNode){};
 };
 #endif

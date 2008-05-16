@@ -7,6 +7,7 @@
 #include "actions/moveaction.h"
 #include "actions/rotationaction.h"
 #include "actions/shootaction.h"
+#include "actions/switchaction.h"
 
 #include "nodes/movenode.h"
 

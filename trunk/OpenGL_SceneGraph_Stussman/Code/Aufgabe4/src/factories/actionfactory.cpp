@@ -151,6 +151,10 @@ ActionBase* ActionFactory::createAction(unsigned int aActionName){
       {
         vInstance = new RotationAction(YAWCC, vAngle);
       }break;
+    case ECamSwitchTypeAction:
+      {
+        vInstance = new SwitchAction();
+      }break;
   }
   return vInstance;
 

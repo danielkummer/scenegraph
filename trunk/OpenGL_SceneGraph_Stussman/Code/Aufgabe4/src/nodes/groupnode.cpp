@@ -28,16 +28,26 @@ void GroupNode::clear(){
 }
 //----------------------------------------------------------//
 void GroupNode::visitChildren(AbstractVisitor &aVisitor){
+  realAdd();
+  std::vector<AbstractNode*>::iterator vItr;
+  for(vItr = mChildren.begin(); vItr < mChildren.end(); vItr++){
+    (*vItr)->accept(aVisitor);
+  }
+  realRemove();
+}
+//----------------------------------------------------------//
+void GroupNode::realAdd(){
   std::vector<AbstractNode*>::iterator vItr;
   // add
   for(vItr = mToAdd.begin(); vItr < mToAdd.end(); vItr++){
     mChildren.push_back(*vItr);
   }
   mToAdd.clear();
-  for(vItr = mChildren.begin(); vItr < mChildren.end(); vItr++){
-    (*vItr)->accept(aVisitor);
-  }
+}
+//----------------------------------------------------------//
+void GroupNode::realRemove(){
   // remove 
+  std::vector<AbstractNode*>::iterator vItr;
   std::vector<AbstractNode*>::iterator vRmItr;
   for(vRmItr = mToRemove.begin(); vRmItr < mToRemove.end(); vRmItr++){
     for(vItr = mChildren.begin(); vItr < mChildren.end(); vItr++){
@@ -49,7 +59,6 @@ void GroupNode::visitChildren(AbstractVisitor &aVisitor){
     }
   }
   mToRemove.clear();
-
 }
 //----------------------------------------------------------//
 inline void GroupNode::accept(AbstractVisitor &aVisitor){

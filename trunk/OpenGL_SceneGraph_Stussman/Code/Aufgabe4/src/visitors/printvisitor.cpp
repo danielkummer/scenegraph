@@ -200,3 +200,16 @@ void PrintVisitor::postvisit(AbstractNode &aNode){
   printIdent();
   printf("!!! ID: %d AbstractNode postvisit!!!\n", aNode.mID);
 }
+//----------------------------------------------------------//
+void PrintVisitor::visit(CamNode &aNode){
+  printIdent();
+  printf("ID: %d CamNode\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::visit(CamFollowNode &aNode){
+  printIdent();
+  printf("ID: %d CamFollowNode\n", aNode.mID);
+}
+//----------------------------------------------------------//
+
+

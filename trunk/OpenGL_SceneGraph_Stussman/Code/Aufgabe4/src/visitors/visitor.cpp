@@ -57,11 +57,19 @@ void Visitor::visit(LineNode &aLineNode){
 //----------------------------------------------------------//
 void Visitor::visit(AbstractSpawn &aSpawn){
   if(aSpawn.mFire){
-     aSpawn.fire();
+    aSpawn.fire(mCurrentMatrix[12], 
+                mCurrentMatrix[13], 
+                mCurrentMatrix[14], 
+                mCurrentMatrix[0], 
+                mCurrentMatrix[1], 
+                mCurrentMatrix[2]);
      aSpawn.mFire = false;
   }
 }
-
+//0 4  8 12
+//1 5  9 13
+//2 6 10 14
+//3 7 11 15
 //----------------------------------------------------------//
 void Visitor::visit(TranslationNode &aTranslationNode){
   glTranslatef(aTranslationNode.mX, aTranslationNode.mY, aTranslationNode.mZ);
@@ -280,7 +288,7 @@ void Visitor::visit(CamNode &aNode){
 
   // apply transformation matrix
   glLoadMatrixf(vM);
-  loadMatrix(vM);
+//  loadMatrix(vM);
 }
 //----------------------------------------------------------//
 void Visitor::visit(CamFollowNode &aNode) {
@@ -292,7 +300,7 @@ void Visitor::visit(CamFollowNode &aNode) {
 	//aNode.mTransform = aNode.mGlueNode.mModelMatrix;	
 	
 	float* vT = aNode.mTransform;
-	float* vM = aNode.mTransform;
+	float* vM = aNode.mModelMatrix;
 
   	vM[0] = vT[0];
   	vM[1] = vT[4];
@@ -321,7 +329,10 @@ void Visitor::visit(CamFollowNode &aNode) {
   	vM[15] = 1.0f;
 
   	// apply transformation matrix
-  	glLoadMatrixf(vM);
+    glTranslatef(0, -1, -3);
+    glRotatef(90, 0, 1, 0);
+//  	glLoadMatrixf(vM);
+    glMultMatrixf(vM);
 }
 //----------------------------------------------------------//
 

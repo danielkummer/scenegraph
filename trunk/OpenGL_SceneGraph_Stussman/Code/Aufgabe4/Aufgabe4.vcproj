@@ -231,6 +231,10 @@
 					RelativePath=".\src\actions\shootaction.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\actions\switchaction.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="factories"
@@ -579,6 +583,10 @@
 				</File>
 				<File
 					RelativePath=".\include\actions\shootaction.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\actions\switchaction.h"
 					>
 				</File>
 			</Filter>

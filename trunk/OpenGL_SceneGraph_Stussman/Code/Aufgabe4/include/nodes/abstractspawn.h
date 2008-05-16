@@ -8,6 +8,8 @@
 class AbstractSpawn:public AbstractNode {
 public:
   virtual void fire(){};
+  virtual void fire(float aPosX, float aPosY, float aPosZ, float aDirX, float aDirY, float aDirZ) { }
+
   bool mFire;
   void spawn(); 
   virtual void accept(AbstractVisitor&);

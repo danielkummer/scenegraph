@@ -14,6 +14,8 @@ public:
   virtual void clear();
   virtual void accept(AbstractVisitor &aVisitor);
 protected:
+  void realAdd();
+  void realRemove();
   virtual void visitChildren(AbstractVisitor &aVisitor);
   std::vector<AbstractNode*> mChildren;
   std::vector<AbstractNode*> mToRemove;

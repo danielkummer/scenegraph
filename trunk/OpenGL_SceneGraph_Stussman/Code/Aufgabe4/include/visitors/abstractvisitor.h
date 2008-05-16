@@ -72,6 +72,8 @@ public:
   virtual void visit(AbstractSpawn &aNode) { }
 
 
+
+
   void apply(AbstractNode* aAbstractNode);
 protected:
   AbstractNode* mRootNode;
