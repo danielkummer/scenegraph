@@ -25,6 +25,7 @@ class MoveNode;
 class PolygonObjectNode;
 class CamNode;
 class AbstractSpawn;
+class CamFollowNode;
 
 class AbstractVisitor{
 public:
@@ -66,6 +67,7 @@ public:
 
   virtual void visit(MoveNode &aNode) { }
   virtual void visit(CamNode &aNode) { }
+  virtual void visit(CamFollowNode &aNode) { }
   virtual void visit(PolygonObjectNode &aPolygonObjectNode) { }
   virtual void visit(AbstractSpawn &aNode) { }
 

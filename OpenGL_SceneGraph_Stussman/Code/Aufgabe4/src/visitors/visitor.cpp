@@ -268,6 +268,47 @@ void Visitor::visit(CamNode &aNode){
   glLoadMatrixf(vM);
 }
 //----------------------------------------------------------//
+void Visitor::visit(CamFollowNode &aNode) {
+	
+	for(int i=0; i < 16; i++) {
+		aNode.mTransform[i] = aNode.mGlueNode->mModelMatrix[i];
+	}
+	
+	//aNode.mTransform = aNode.mGlueNode.mModelMatrix;	
+	
+	float* vT = aNode.mTransform;
+	float* vM = aNode.mTransform;
+
+  	vM[0] = vT[0];
+  	vM[1] = vT[4];
+  	vM[2] = vT[8];
+  	vM[3] = 0;
+	
+  	vM[4] = vT[1];
+  	vM[5] = vT[5];
+  	vM[6] = vT[9];
+  	vM[7] = 0;
+
+	vM[8]  = vT[2];
+  	vM[9]  = vT[6];
+  	vM[10] = vT[10];
+  	vM[11] = 0;
+
+ 	vM[12] = -(vT[0]*vT[12] +
+             vT[1]*vT[13] +
+						 vT[2]*vT[14]);
+  	vM[13] = -(vT[4]*vT[12] +
+             vT[5]*vT[13] +
+						 vT[6]*vT[14]);
+  	vM[14] = -(vT[8]*vT[12] +
+             vT[9]*vT[13] +
+						 vT[10]*vT[14]);
+  	vM[15] = 1.0f;
+
+  	// apply transformation matrix
+  	glLoadMatrixf(vM);
+}
+//----------------------------------------------------------//
 
 void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 	for(int ig=0; ig < aPolygonObjectNode.groupcount; ig++)	{						// contains material definitions, textures 																						// and of course the triangles)

@@ -238,7 +238,7 @@ void SolarSytemScene::init(){
   mKeyInputMap[SDLK_SPACE] = EShipShoot;
 
   // Camera key bindings
-  //mKeyInputMap[SDLK_F4] = ECamSwitchType;
+  mKeyInputMap[SDLK_F5] = ECamSwitchType;
   mKeyInputMap[SDLK_i] 	= ECamMoveFwd;
   mKeyInputMap[SDLK_k] 	= ECamMoveBack;
   mKeyInputMap[SDLK_j] 	= ECamStrafeRight;
@@ -281,7 +281,7 @@ void SolarSytemScene::init(){
   mToActionMap[EShipShoot] = EShipShootAction;
 
   // Camera action Mapping
-  //mToActionMap[ECamSwitchType]	= ECamSwitchTypeAction;	
+  mToActionMap[ECamSwitchType]	= ECamSwitchTypeAction;	
   mToActionMap[ECamMoveFwd]	 = ECamMoveFwdAction;
   mToActionMap[ECamMoveBack] = ECamMoveBackAction;
 
@@ -308,6 +308,7 @@ void SolarSytemScene::createScene(){
   mSceneGraph = new Separator();
   mSceneGraph->ref();
 
+  //Scene Camera
   Builder vCameraBuilder(mSceneGraph);
   
   std::vector<ActionBase*> vCameraActions;
@@ -329,7 +330,7 @@ void SolarSytemScene::createScene(){
   vCameraBuilder.buildCamNode(vCameraActions);
   vCameraBuilder.getResult();
 
-
+  
 //  mSceneGraph->add(vDirector.createSolarSystem());
   DefaultMaterial vMat;
   mSceneGraph->add(new MaterialNode(GL_FRONT_AND_BACK, &vMat));
@@ -396,22 +397,18 @@ void SolarSytemScene::createScene(){
 
   vSpaceShipBuilder.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
 //  vSpaceShipBuilder.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
-  
-  
-  
-
-  //Spaceship Light
-  /*LightNode* vLightShip = new LightNode(GL_LIGHT1);
-  vLightShip->setParam(GL_AMBIENT, 1.0f, 1.0f, 1.0f, 1.0f);
-  vLightShip->setParam(GL_DIFFUSE, 1.0f, 1.0f, 1.0f, 1.0f);
-  vLightShip->setParam(GL_POSITION, 3.0f, 0.0f, 0.0f, 0.0f);  
-  //Spaceship Light Toggle Node
-  ToggleNode* vLightToggle = new ToggleNode();
-  mActionFactory->getAction(EToggleLight)->add(vLightToggle);
-  vLightToggle->add(vLightShip);
-  vSpaceShipNode->add(vLightToggle);*/
-
+    
   mSceneGraph->add(vSpaceShipBuilder.getResult());
+  
+   //Ship Camera
+   /*SwitchNode* vCamSwitchNode = new SwitchNode();
+   mActionFactory->getAction(ECamSwitchType)->add(vCamSwitchNode);
+   vCamSwitchNode->add(vCameraBuilder.getResult());
+   
+   CamFollowNode* vShipCamera = new CamFollowNode(vSpaceShipBuilder.getRoot());      
+   vCamSwitchNode->add(vShipCamera);   
+   mSceneGraph->add(vCamSwitchNode);*/
+   
   
   PrintVisitor().apply(mSceneGraph);  
 }

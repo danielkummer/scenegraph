@@ -224,6 +224,12 @@ void Builder::buildCamNode(std::vector<ActionBase*> aActions){
   mLastAdded = vCamNode;  	
 }
 //-------------------------------------------------------//
+void Builder::buildCamFollowNode(AbstractNode* aGlueNode, ActionBase* aAction){
+	CamFollowNode* vCamFollowNode = new CamFollowNode(aGlueNode);
+	
+	append(aAction, vCamFollowNode);      	
+}
+//-------------------------------------------------------//
 void Builder::append(ActionBase* aAction, AbstractNode* aNode){
   mCurrent->add(aNode);
   if(NULL != aAction){

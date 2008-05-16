@@ -27,6 +27,7 @@
 #include "nodes/scalatornode.h"
 #include "nodes/destructornode.h"
 #include "nodes/cam.h"
+#include "nodes/camfollownode.h"
 
 #include "nodes/abstractspawn.h"
 #include "nodes/laserspawn.h"
