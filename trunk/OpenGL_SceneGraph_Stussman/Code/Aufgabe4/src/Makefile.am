@@ -43,6 +43,7 @@ nodes/scalenode.cpp \
 nodes/scalatornode.cpp \
 nodes/destructornode.cpp \
 nodes/cam.cpp	\
+nodes/camfollownode.cpp	\
 nodes/billboard.cpp \
 planetdefs.cpp \
 scene.cpp \

@@ -54,6 +54,7 @@ public:
   void buildPolygonObjectNode(char* objFileName, char* matFileName, ActionBase* aAction=NULL);
   void buildMoveNode(std::vector<ActionBase*> aActions = std::vector<ActionBase*>());
   void buildCamNode(std::vector<ActionBase*> aActions);
+  void buildCamFollowNode(AbstractNode* aGlueNode, ActionBase* aAction=NULL);
   void append(ActionBase* aAction, AbstractNode* aNode);
 
 private:
