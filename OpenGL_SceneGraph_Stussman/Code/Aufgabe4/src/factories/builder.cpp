@@ -192,7 +192,7 @@ void Builder::buildShootSpawn(GroupNode* aNode, ActionBase* aAction){
 }
 //-------------------------------------------------------//
 void Builder::buildTranslatorNode(float xpos,float ypos, float zpos, float xvel, float yvel, float zvel, ActionBase* aAction){
-  append(aAction, new TranslatorNode(xpos,ypos,zpos,xvel,yvel,zvel));
+  append(aAction, new TranslatorNode(xvel,yvel,zvel, xpos,ypos,zpos));
 }
 //-------------------------------------------------------//
 void Builder::buildPolygonObjectNode(char* objFileName, char* matFileName, ActionBase* aAction){
@@ -235,7 +235,10 @@ void Builder::append(ActionBase* aAction, AbstractNode* aNode){
 AbstractNode* Builder::getLast(){ 
   return mLastAdded; 
 }
-/*********************************************************/
+//-------------------------------------------------------//
+AbstractNode* Builder::getRoot(){
+  return mCurrent;
+}
 //-------------------------------------------------------//
 /*
 AbstractNode* Director::createPlanet(PlanetDef* aPlanterDef, AbstractNode** aNodelist, unsigned aNodeCount){

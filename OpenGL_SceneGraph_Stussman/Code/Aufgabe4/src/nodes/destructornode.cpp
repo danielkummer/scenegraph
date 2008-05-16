@@ -15,11 +15,13 @@ GroupNode(), ClockListener()
 }
 
 void DestructorNode::update(float aDt, double aTime){
-	if(aTime > mLifetime){
+  mLifetime -= aDt;
+	if(0>=mLifetime){
 		mParent->remove(this); // remove me from parent, will auto delete this
 	}
 }
 DestructorNode::~DestructorNode(){
+  mClock->removeListener(this);
 	clear();	
 }
 //----------------------------------------------------------//

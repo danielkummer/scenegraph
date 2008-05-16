@@ -12,18 +12,11 @@ GroupNode::~GroupNode(){
 //----------------------------------------------------------//
 void GroupNode::add(AbstractNode* aNode){
   aNode->ref();
-  mChildren.push_back(aNode);
+  mToAdd.push_back(aNode);
 }
 //----------------------------------------------------------//
 void GroupNode::remove(AbstractNode* aNode){
-  std::vector<AbstractNode*>::iterator vItr;
-  for(vItr = mChildren.begin(); vItr < mChildren.end(); vItr++){
-    if(*vItr == aNode){
-      aNode->unref();
-      vItr = mChildren.erase(vItr);
-      break;
-    }
-  }
+  mToRemove.push_back(aNode);
 }
 //----------------------------------------------------------//
 void GroupNode::clear(){
@@ -36,9 +29,27 @@ void GroupNode::clear(){
 //----------------------------------------------------------//
 void GroupNode::visitChildren(AbstractVisitor &aVisitor){
   std::vector<AbstractNode*>::iterator vItr;
+  // add
+  for(vItr = mToAdd.begin(); vItr < mToAdd.end(); vItr++){
+    mChildren.push_back(*vItr);
+  }
+  mToAdd.clear();
   for(vItr = mChildren.begin(); vItr < mChildren.end(); vItr++){
     (*vItr)->accept(aVisitor);
   }
+  // remove 
+  std::vector<AbstractNode*>::iterator vRmItr;
+  for(vRmItr = mToRemove.begin(); vRmItr < mToRemove.end(); vRmItr++){
+    for(vItr = mChildren.begin(); vItr < mChildren.end(); vItr++){
+      if(*vItr == *vRmItr){
+        (*vRmItr)->unref();
+        vItr = mChildren.erase(vItr);
+        break;
+      }
+    }
+  }
+  mToRemove.clear();
+
 }
 //----------------------------------------------------------//
 inline void GroupNode::accept(AbstractVisitor &aVisitor){

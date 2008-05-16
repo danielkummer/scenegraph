@@ -384,6 +384,9 @@ void SolarSytemScene::createScene(){
   vLightNode->setParam(GL_SPOT_DIRECTION, 0, 0, -1, 1);
   vLightNode->setParam(GL_SPOT_EXPONENT, 50, 0, 0, 0);
   vLightNode->setParam(GL_SPOT_CUTOFF, 40, 0, 0, 0);
+
+//  vSpaceShipBuilder.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vSpaceShipBuilder.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
   
   
   

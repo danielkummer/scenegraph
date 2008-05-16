@@ -3,9 +3,11 @@
 #include "nodes/allnodes.h"
 
 void ShotSpawn::fire(){
-	Builder vBuilder(new DestructorNode(100.0,mGroupNode));
+  Builder vBuilder(new TransformSeparator());
 		vBuilder.buildColorNode(0.8,0,0);
-		vBuilder.buildTranslatorNode(0,0,0,1,1,1);
-		vBuilder.buildSphereNode(2,20,20,0);	
-	add(vBuilder.getResult());
+		vBuilder.buildTranslatorNode(0,0,0,20,20,20);
+		vBuilder.buildSphereNode(0.2,20,20,0);	
+    DestructorNode* vDestr = new DestructorNode(5.0,mGroupNode);
+    vDestr->add(vBuilder.getResult());
+    add( vDestr );
 }
