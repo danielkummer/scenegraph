@@ -24,6 +24,7 @@ class TextureNode;
 class MoveNode;
 class PolygonObjectNode;
 class CamNode;
+class AbstractSpawn;
 
 class AbstractVisitor{
 public:
@@ -66,6 +67,7 @@ public:
   virtual void visit(MoveNode &aNode) { }
   virtual void visit(CamNode &aNode) { }
   virtual void visit(PolygonObjectNode &aPolygonObjectNode) { }
+  virtual void visit(AbstractSpawn &aNode) { }
 
 
   void apply(AbstractNode* aAbstractNode);

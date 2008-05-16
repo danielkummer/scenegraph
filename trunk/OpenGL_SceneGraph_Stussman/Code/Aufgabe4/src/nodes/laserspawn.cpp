@@ -3,8 +3,9 @@
 #include "nodes/allnodes.h"
 
 void LaserSpawn::fire(){
-     Builder vBuilder(new DestructorNode(100.0,mGroupNode));
-     vBuilder.buildColorNode(0.8,1,1);
-     vBuilder.buildLineNode(0,0,0,10,0,0);	
+     Builder vBuilder(new DestructorNode(0.2,mGroupNode));
+     vBuilder.buildColorNode(0.0f,1.0f,0.0f);
+     // TODO: laser texture or 'material' ;-)
+     vBuilder.buildLineNode(0,0,0,100,0,0, 4);	
      add(vBuilder.getResult());
 }

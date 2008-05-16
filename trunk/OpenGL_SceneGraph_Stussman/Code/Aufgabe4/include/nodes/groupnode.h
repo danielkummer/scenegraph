@@ -16,6 +16,8 @@ public:
 protected:
   virtual void visitChildren(AbstractVisitor &aVisitor);
   std::vector<AbstractNode*> mChildren;
+  std::vector<AbstractNode*> mToRemove;
+  std::vector<AbstractNode*> mToAdd;
 };
 
 #endif // _H_GROUPNODE

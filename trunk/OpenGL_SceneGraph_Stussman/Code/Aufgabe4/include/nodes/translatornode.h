@@ -13,7 +13,7 @@ public:
   
   Clock *mClock;
   float mXVel, mYVel, mZVel;
-  float mX, mY, mZ;
+//  float mX, mY, mZ;
 };
 
 #endif /*TRANSLATORNODE_H_*/
