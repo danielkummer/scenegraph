@@ -191,6 +191,15 @@ bool SolarSytemScene::handleEvent(SDL_Event &aEvent){
 			mActionFactory->getAction(ECamYawClockwise)->fire(xangle);
       return true;
     }
+    if(aEvent.type == SDL_MOUSEBUTTONDOWN) {
+    	
+    	if(aEvent.button.button == 5) {
+    		Clock::getDefaultClock()->setDilatation(Clock::getDefaultClock()->getDilatation() + 0.1f);	
+    	} else if(aEvent.button.button == 4) {
+    		Clock::getDefaultClock()->setDilatation(Clock::getDefaultClock()->getDilatation() - 0.1f);
+    	}		
+    } 
+    
   }
   return false;
 }
@@ -385,8 +394,8 @@ void SolarSytemScene::createScene(){
   vLightNode->setParam(GL_SPOT_EXPONENT, 50, 0, 0, 0);
   vLightNode->setParam(GL_SPOT_CUTOFF, 40, 0, 0, 0);
 
-//  vSpaceShipBuilder.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
-  vSpaceShipBuilder.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vSpaceShipBuilder.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+//  vSpaceShipBuilder.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
   
   
   
