@@ -1,7 +1,7 @@
 #ifndef CAMFOLLOWNODE_H_
 #define CAMFOLLOWNODE_H_
 
-
+#include "nodes/abstractnode.h"
 #include "nodes/groupnode.h"
 #include "nodes/cam.h"
 

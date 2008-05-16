@@ -292,6 +292,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\nodes\camfollownode.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\nodes\colornode.cpp"
 					>
 				</File>
@@ -447,6 +451,10 @@
 				</File>
 				<File
 					RelativePath=".\include\nodes\cam.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\camfollownode.h"
 					>
 				</File>
 				<File
