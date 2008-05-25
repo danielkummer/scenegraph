@@ -35,6 +35,7 @@ public:
   void buildTranslationNode(float aX, float aY, float aZ, ActionBase* aAction=NULL);
   void buildRotationNode(float aAngle, float aAxisX, float aAxisY, float aAxisZ, ActionBase* aAction=NULL);
   void buildScaleNode(float aScaleX=1.0f, float aScaleY=1.0f, float aScaleZ=1.0f, ActionBase* aAction=NULL);
+  void buildUniformScaleNode(float aScaleX=1.0f, ActionBase* aAction=NULL);
   void buildRotorNode(float aAngleVel, float aAngle, float aAxisX, float aAxisY, float aAxisZ, ActionBase* aAction=NULL);
   void buildLightNode(GLenum aLightNr, ActionBase* aAction=NULL);
   void buildLightNode(GLenum aLightNr, float posX, float posY, float posZ, float posW, float ambA, float ambB, float ambC, float ambD, float diffA, float diffB, float diffC, float diffD, ActionBase* aAction = NULL);
