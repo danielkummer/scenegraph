@@ -115,7 +115,8 @@ protected:
   virtual AbstractNode* createPlanet(RingDef* aRingDef);
   AbstractNode* createSolarSystem();
   AbstractNode* createAxis(float aLength=1.0);
-
+private:
+  AbstractNode* mAxis;
 
 };
 

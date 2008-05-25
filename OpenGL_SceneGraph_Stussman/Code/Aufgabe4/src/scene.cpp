@@ -171,7 +171,7 @@ void AbstractScene::createScene(){
 //-------------------------------------------------------//
 /*********************************************************/
 //-------------------------------------------------------//
-SolarSytemScene::SolarSytemScene():AbstractScene(){
+SolarSytemScene::SolarSytemScene():AbstractScene(), mAxis(NULL){
 
 }
 //-------------------------------------------------------//
@@ -219,7 +219,7 @@ void SolarSytemScene::init(){
   mKeyFlags[SDLK_F3] = 2;
   mKeyFlags[SDLK_F4] = 2;
   mKeyFlags[SDLK_TAB] = 2;
-  mKeyFlags[SDLK_SPACE] = 2;
+//  mKeyFlags[SDLK_SPACE] = 2;
 
 
   // Ship key bindings
@@ -547,28 +547,36 @@ AbstractNode* SolarSytemScene::createSolarSystem(){
 }
 //-------------------------------------------------------//
 AbstractNode* SolarSytemScene::createAxis(float aLength){
-  Builder vBuilder(new ToggleNode(), mActionFactory->getAction(EToggleAxis));
 
-  DefaultMaterial vMat;
-  vBuilder.buildMaterialNode(GL_FRONT_AND_BACK, &vMat);
+  if(NULL==mAxis){
+    Builder vBuilder(new Separator());
 
-  vBuilder.buildColorNode(1, 0, 0);
-  vBuilder.buildLineNode(0, 0, 0, aLength, 0, 0, 3);
+    DefaultMaterial vMat;
+    vBuilder.buildMaterialNode(GL_FRONT_AND_BACK, &vMat);
 
-  vBuilder.buildColorNode(0, 1, 0);
-  vBuilder.buildLineNode(0, 0, 0, 0, aLength, 0, 3);
+    vBuilder.buildColorNode(1, 0, 0);
+    vBuilder.buildLineNode(0, 0, 0, 1, 0, 0, 3);
 
-  vBuilder.buildColorNode(0, 0, 1);
-  vBuilder.buildLineNode(0, 0, 0, 0, 0, aLength, 3);
+    vBuilder.buildColorNode(0, 1, 0);
+    vBuilder.buildLineNode(0, 0, 0, 0, 1, 0, 3);
 
-  vBuilder.buildColorNode(1, 1, 1);
-  DefaultMaterial vDMat;
-  vBuilder.buildMaterialNode(GL_FRONT_AND_BACK, &vDMat);
+    vBuilder.buildColorNode(0, 0, 1);
+    vBuilder.buildLineNode(0, 0, 0, 0, 0, 1, 3);
 
-  Separator* vSep = new Separator();
-  vSep->add(vBuilder.getResult());
+    vBuilder.buildColorNode(1, 1, 1);
+    DefaultMaterial vDMat;
+    vBuilder.buildMaterialNode(GL_FRONT_AND_BACK, &vDMat);
+    mAxis = vBuilder.getResult();
+  }
 
-  return vSep;
+  Builder vRootBuilder(new ToggleNode(), mActionFactory->getAction(EToggleAxis));
+  Builder vTSepBuilder(new TransformSeparator(), NULL);
+  vTSepBuilder.buildUniformScaleNode(aLength, NULL);
+  vTSepBuilder.append(NULL, mAxis);
+
+  vRootBuilder.append(NULL, vTSepBuilder.getResult());
+  
+  return vRootBuilder.getResult();
 }
 //-------------------------------------------------------//
 //-------------------------------------------------------//

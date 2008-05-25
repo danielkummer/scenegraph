@@ -142,6 +142,10 @@ void Builder::buildScaleNode(float aScaleX, float aScaleY, float aScaleZ, Action
   append(aAction, new ScaleNode(aScaleX, aScaleY, aScaleZ));
 }
 //-------------------------------------------------------//
+void Builder::buildUniformScaleNode(float aScale, ActionBase* aAction){
+  buildScaleNode(aScale, aScale, aScale, aAction);
+}
+//-------------------------------------------------------//
 void Builder::buildRotorNode(float aAngleVel, float aAngle, float aAxisX, float aAxisY, float aAxisZ, ActionBase* aAction){
   append(aAction, new RotorNode(aAngleVel, aAngle, aAxisX, aAxisY, aAxisZ));
 }
