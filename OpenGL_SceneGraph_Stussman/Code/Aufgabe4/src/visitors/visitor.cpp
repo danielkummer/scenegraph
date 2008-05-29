@@ -306,6 +306,7 @@ void Visitor::visit(CamNode &aNode){
   // apply transformation matrix
   glLoadMatrixf(vM);
 //  loadMatrix(vM);
+  mCurrentCam = &aNode;
 }
 //----------------------------------------------------------//
 void Visitor::visit(CamFollowNode &aNode) {
@@ -350,6 +351,7 @@ void Visitor::visit(CamFollowNode &aNode) {
     glRotatef(90, 0, 1, 0);
 //  	glLoadMatrixf(vM);
     glMultMatrixf(vM);
+    mCurrentCam = &aNode;
 }
 //----------------------------------------------------------//
 

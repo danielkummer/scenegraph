@@ -349,10 +349,7 @@ void SolarSytemScene::createScene(){
   mSceneGraph->add(new ColorNode(1, 1, 1, 1));
 
   // scene axis
-  ToggleNode* vAxisToggle = new ToggleNode();
-  mActionFactory->getAction(EToggleAxis)->add(vAxisToggle);
-  vAxisToggle->add(createAxis(20));
-  mSceneGraph->add(vAxisToggle);
+  mSceneGraph->add(createAxis(20));
 
   // light
   LightNode* vLight = new LightNode(GL_LIGHT0);
