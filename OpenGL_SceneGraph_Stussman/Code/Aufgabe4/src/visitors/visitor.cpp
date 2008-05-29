@@ -30,6 +30,7 @@ Visitor::~Visitor(){
 //----------------------------------------------------------//
 void Visitor::visit(SphereNode &aSphereNode){
 //  glGetFloatv(GL_MODELVIEW_MATRIX, aSphereNode.mModelMatrix);
+  //copy(aSphereNode.mModelMatrix);
   gluQuadricNormals(aSphereNode.mQuadric, GLU_SMOOTH);
   gluQuadricTexture(aSphereNode.mQuadric, aSphereNode.mUseTexCoord);
   glEnable(GL_CULL_FACE);
@@ -44,7 +45,6 @@ void Visitor::visit(SphereNode &aSphereNode){
   }else{
     gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
   }
-  copy(aSphereNode.mModelMatrix);
 }
 //----------------------------------------------------------//
 void Visitor::visit(LineNode &aLineNode){
@@ -212,18 +212,27 @@ void Visitor::postvisit(TransformSeparator &aNode){
 void Visitor::visit(MoveNode &aNode){
   if(aNode.getChanged()){
     // construct movement
-    glPushMatrix();
-      glLoadIdentity();
-      float* vM = aNode.mModelMatrix;
-      glLoadMatrixf(vM);
-      glRotatef(aNode.getYaw(),   0, 0, 1);//vM[0], vM[1], vM[2]);
-      glRotatef(aNode.getRoll(),  1, 0, 0 );//vM[8], vM[9], vM[10]);
-      glRotatef(aNode.getPitch(), 0, 1, 0);//vM[4], vM[5], vM[6]);
-      glTranslatef(aNode.getX(), 
-                   aNode.getY(), 
-                   aNode.getZ());
-      glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
-    glPopMatrix();
+    //glPushMatrix();
+    //  glLoadIdentity();
+    //  float* vM = aNode.mModelMatrix;
+    //  glLoadMatrixf(vM);
+    //  glRotatef(aNode.getYaw(),   0, 0, 1);//vM[0], vM[1], vM[2]);
+    //  glRotatef(aNode.getRoll(),  1, 0, 0 );//vM[8], vM[9], vM[10]);
+    //  glRotatef(aNode.getPitch(), 0, 1, 0);//vM[4], vM[5], vM[6]);
+    //  glTranslatef(aNode.getX(), 
+    //               aNode.getY(), 
+    //               aNode.getZ());
+    //  glGetFloatv(GL_MODELVIEW_MATRIX, &aNode.mModelMatrix[0]);
+    //glPopMatrix();
+
+    push();
+      loadMatrix(aNode.mModelMatrix);
+      rotate(aNode.getYaw(),   0, 0, 1);//vM[0], vM[1], vM[2]);
+      rotate(aNode.getRoll(),  1, 0, 0 );//vM[8], vM[9], vM[10]);
+      rotate(aNode.getPitch(), 0, 1, 0);//vM[4], vM[5], vM[6]);
+      translate(aNode.getX(), aNode.getY(), aNode.getZ());
+      copy(aNode.mModelMatrix);
+    pop();
 
     // reset delta values
     aNode.reset();
@@ -238,16 +247,24 @@ void Visitor::visit(CamNode &aNode){
   float* vT = aNode.mTransform;
   if(aNode.getChanged()){
     // construct movement
-    glPushMatrix();
-      glLoadMatrixf(vT);
+    //glPushMatrix();
+    //  glLoadMatrixf(vT);
 
-      glRotatef(aNode.getRoll(),  0, 0, 1);
-      glRotatef(aNode.getPitch(), 1, 0, 0);
-      glRotatef(aNode.getYaw(),   0, 1, 0);
+    //  glRotatef(aNode.getRoll(),  0, 0, 1);
+    //  glRotatef(aNode.getPitch(), 1, 0, 0);
+    //  glRotatef(aNode.getYaw(),   0, 1, 0);
 
-      glGetFloatv(GL_MODELVIEW_MATRIX, vT);
+    //  glGetFloatv(GL_MODELVIEW_MATRIX, vT);
 
-    glPopMatrix();
+    //glPopMatrix();
+    push();
+    loadMatrix(vT);
+    rotate(aNode.getRoll(), 0, 0, 1);
+    rotate(-aNode.getPitch(), 1, 0, 0);
+    rotate(-aNode.getYaw(), 0, 1, 0);
+    copy(vT);
+    pop();
+
     vT[12] += (aNode.getX() * vT[0] + aNode.getY() * vT[4] + aNode.getZ() * vT[8]);
     vT[13] += (aNode.getX() * vT[1] + aNode.getY() * vT[5] + aNode.getZ() * vT[9]);
     vT[14] += (aNode.getX() * vT[2] + aNode.getY() * vT[6] + aNode.getZ() * vT[10]);
@@ -386,11 +403,44 @@ void Visitor::loadIdentity(){
 //----------------------------------------------------------//
 void Visitor::rotate(float aDeg, float aAxisX, float aAxisY, float aAxisZ){
   float vRotMat[16];
-  glPushMatrix();
-    glLoadIdentity();
-    glRotatef(aDeg, aAxisX, aAxisY, aAxisZ);
-    glGetFloatv(GL_MODELVIEW_MATRIX, vRotMat);
-  glPopMatrix();
+  //glPushMatrix();
+  //  glLoadIdentity();
+  //  glRotatef(aDeg, aAxisX, aAxisY, aAxisZ);
+  //  glGetFloatv(GL_MODELVIEW_MATRIX, vRotMat);
+  //glPopMatrix();
+
+// http://www.cprogramming.com/tutorial/3d/rotation.html
+  
+//tX2 + c  tXY + sZ  tXZ - sY  0
+//tXY-sZ   tY2 + c   tYZ + sX  0
+//tXY + sY tYZ - sX  tZ2 + c   0
+//0        0         0         1
+
+//Where c = cos (theta), s = sin (theta), t = 1-cos (theta), and <X,Y,Z> is the unit vector representing the arbitary axis
+
+  float vRad = aDeg /180.0f * 3.14159265f;
+  float c = cos(vRad);
+  float s = sin(vRad);
+  float t = 1 - c;
+  vRotMat [0] = t * aAxisX * aAxisX + c;
+  vRotMat [1] = t * aAxisX * aAxisY - s * aAxisZ;
+  vRotMat [2] = t * aAxisX * aAxisY + s * aAxisY;
+  vRotMat [3] = 0;
+
+  vRotMat [4] = t * aAxisX * aAxisY + s * aAxisZ;;
+  vRotMat [5] = t * aAxisY * aAxisY + c;
+  vRotMat [6] = t * aAxisY * aAxisZ - s * aAxisX;
+  vRotMat [7] = 0;
+
+  vRotMat [8] = t * aAxisX * aAxisZ - s * aAxisY;
+  vRotMat [9] = t * aAxisY * aAxisZ + s * aAxisX;
+  vRotMat[10] = t * aAxisZ * aAxisZ + c;
+  vRotMat[11] = 0;
+
+  vRotMat[12] = 0;
+  vRotMat[13] = 0;
+  vRotMat[14] = 0;
+  vRotMat[15] = 1;
 
   mult(vRotMat);
 }
@@ -400,68 +450,69 @@ void Visitor::mult(float* aMatrix){
 //1 5  9 13
 //2 6 10 14
 //3 7 11 15
-  float vTemp[16];
-  copy(vTemp);
-  mCurrentMatrix[0] = vTemp[0]  * aMatrix[0] + 
-                      vTemp[4]  * aMatrix[1] + 
-                      vTemp[8]  * aMatrix[2] + 
-                      vTemp[12] * aMatrix[3];
-  mCurrentMatrix[4] = vTemp[0]  * aMatrix[4] + 
-                      vTemp[4]  * aMatrix[5] + 
-                      vTemp[8]  * aMatrix[6] + 
-                      vTemp[12] * aMatrix[7];
-  mCurrentMatrix[8] = vTemp[0]  * aMatrix[8] + 
-                      vTemp[4]  * aMatrix[9] + 
-                      vTemp[8]  * aMatrix[10] + 
-                      vTemp[12] * aMatrix[11];
-  mCurrentMatrix[12]= vTemp[0]  * aMatrix[12] + 
-                      vTemp[4]  * aMatrix[13] + 
-                      vTemp[8]  * aMatrix[14] + 
-                      vTemp[12] * aMatrix[15];
+  float* vNewMat = new float[16];
+  vNewMat [0]= mCurrentMatrix[0]  * aMatrix[0] + 
+               mCurrentMatrix[4]  * aMatrix[1] + 
+               mCurrentMatrix[8]  * aMatrix[2];// + 
+               //mCurrentMatrix[12] * aMatrix[3];
+  vNewMat [4]= mCurrentMatrix[0]  * aMatrix[4] + 
+               mCurrentMatrix[4]  * aMatrix[5] + 
+               mCurrentMatrix[8]  * aMatrix[6];// + 
+               //mCurrentMatrix[12] * aMatrix[7];
+  vNewMat [8]= mCurrentMatrix[0]  * aMatrix[8] + 
+               mCurrentMatrix[4]  * aMatrix[9] + 
+               mCurrentMatrix[8]  * aMatrix[10];// + 
+               //mCurrentMatrix[12] * aMatrix[11];
+  vNewMat[12]= mCurrentMatrix[0]  * aMatrix[12] + 
+               mCurrentMatrix[4]  * aMatrix[13] + 
+               mCurrentMatrix[8]  * aMatrix[14] + 
+               mCurrentMatrix[12];// * aMatrix[15];
 
-  mCurrentMatrix[1] = vTemp[1]  * aMatrix[0] + 
-                      vTemp[5]  * aMatrix[1] + 
-                      vTemp[9]  * aMatrix[2] + 
-                      vTemp[13] * aMatrix[3];
-  mCurrentMatrix[5] = vTemp[1]  * aMatrix[4] + 
-                      vTemp[5]  * aMatrix[5] + 
-                      vTemp[9]  * aMatrix[6] + 
-                      vTemp[13] * aMatrix[7];
-  mCurrentMatrix[9] = vTemp[1]  * aMatrix[8] + 
-                      vTemp[5]  * aMatrix[9] + 
-                      vTemp[9]  * aMatrix[10] + 
-                      vTemp[13] * aMatrix[11];
-  mCurrentMatrix[13]= vTemp[1]  * aMatrix[12] + 
-                      vTemp[5]  * aMatrix[13] + 
-                      vTemp[9]  * aMatrix[14] + 
-                      vTemp[13] * aMatrix[15];
+  vNewMat [1]= mCurrentMatrix[1]  * aMatrix[0] + 
+               mCurrentMatrix[5]  * aMatrix[1] + 
+               mCurrentMatrix[9]  * aMatrix[2];// + 
+               //mCurrentMatrix[13] * aMatrix[3];
+  vNewMat [5]= mCurrentMatrix[1]  * aMatrix[4] + 
+               mCurrentMatrix[5]  * aMatrix[5] + 
+               mCurrentMatrix[9]  * aMatrix[6];// + 
+               //mCurrentMatrix[13] * aMatrix[7];
+  vNewMat [9]= mCurrentMatrix[1]  * aMatrix[8] + 
+               mCurrentMatrix[5]  * aMatrix[9] + 
+               mCurrentMatrix[9]  * aMatrix[10];// + 
+               //mCurrentMatrix[13] * aMatrix[11];
+  vNewMat[13]= mCurrentMatrix[1]  * aMatrix[12] + 
+               mCurrentMatrix[5]  * aMatrix[13] + 
+               mCurrentMatrix[9]  * aMatrix[14] + 
+               mCurrentMatrix[13];// * aMatrix[15];
 
-  mCurrentMatrix[2] = vTemp[2]  * aMatrix[0] + 
-                      vTemp[6]  * aMatrix[1] + 
-                      vTemp[10] * aMatrix[2] + 
-                      vTemp[14] * aMatrix[3];
-  mCurrentMatrix[6] = vTemp[2]  * aMatrix[4] + 
-                      vTemp[6]  * aMatrix[5] + 
-                      vTemp[10] * aMatrix[6] + 
-                      vTemp[14] * aMatrix[7];
-  mCurrentMatrix[10]= vTemp[2]  * aMatrix[8] + 
-                      vTemp[6]  * aMatrix[9] + 
-                      vTemp[10] * aMatrix[10] + 
-                      vTemp[14] * aMatrix[11];
-  mCurrentMatrix[14]= vTemp[2] * aMatrix[12] + 
-                      vTemp[6]  * aMatrix[13] + 
-                      vTemp[10] * aMatrix[14] + 
-                      vTemp[14] * aMatrix[15];
-  mCurrentMatrix[3] = 0.0f;
-  mCurrentMatrix[7] = 0.0f;
-  mCurrentMatrix[11] = 0.0f;
-  mCurrentMatrix[15] = 1.0f;
+  vNewMat [2]= mCurrentMatrix[2]  * aMatrix[0] + 
+               mCurrentMatrix[6]  * aMatrix[1] + 
+               mCurrentMatrix[10] * aMatrix[2];// + 
+               //mCurrentMatrix[14] * aMatrix[3];
+  vNewMat [6]= mCurrentMatrix[2]  * aMatrix[4] + 
+               mCurrentMatrix[6]  * aMatrix[5] + 
+               mCurrentMatrix[10] * aMatrix[6];// + 
+               //mCurrentMatrix[14] * aMatrix[7];
+  vNewMat[10]= mCurrentMatrix[2]  * aMatrix[8] + 
+               mCurrentMatrix[6]  * aMatrix[9] + 
+               mCurrentMatrix[10] * aMatrix[10];// + 
+               //mCurrentMatrix[14] * aMatrix[11];
+  vNewMat[14]= mCurrentMatrix[2] * aMatrix[12] + 
+               mCurrentMatrix[6]  * aMatrix[13] + 
+               mCurrentMatrix[10] * aMatrix[14] + 
+               mCurrentMatrix[14];// * aMatrix[15];
+  vNewMat [3] = 0.0f;
+  vNewMat [7] = 0.0f;
+  vNewMat[11] = 0.0f;
+  vNewMat[15] = 1.0f;
+  delete[] mCurrentMatrix;
+  mCurrentMatrix = vNewMat;
 }
 //----------------------------------------------------------//
 void Visitor::translate(float aX, float aY, float aZ){
-  mCurrentMatrix[12] += aX;
-  mCurrentMatrix[13] += aY;
-  mCurrentMatrix[14] += aZ;
+  mCurrentMatrix[12] += (aX * mCurrentMatrix[0] + aY * mCurrentMatrix[4] + aZ * mCurrentMatrix [8]);
+  mCurrentMatrix[13] += (aX * mCurrentMatrix[1] + aY * mCurrentMatrix[5] + aZ * mCurrentMatrix [9]);
+  mCurrentMatrix[14] += (aX * mCurrentMatrix[2] + aY * mCurrentMatrix[6] + aZ * mCurrentMatrix[10]);
 }
 //----------------------------------------------------------//
 void Visitor::scale(float aX, float aY, float aZ){
