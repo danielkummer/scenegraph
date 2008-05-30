@@ -523,13 +523,13 @@ AbstractNode* SolarSytemScene::createSolarSystem(){
   vTSep->add(createPlanet(&vSunD));
   int vDir = 1;
   float vAlpha = 0.9f;
-  for(unsigned i=0; i<2; i++){
-    vSunDTrans.radius += 0.01f;
-    vSunDTrans.rotVelocity += 0.01f;
+  for(unsigned i=0; i<5; i++){
+    vSunDTrans.radius += .015f;
+    vSunDTrans.rotVelocity += 1.01f;
     vDir = -vDir;
     vSunDTrans.rotVelocity = vDir * vSunDTrans.rotVelocity;
     vTSep->add(createPlanet(&vSunDTrans, true, vAlpha));
-    vAlpha -= 0.2f;
+    vAlpha -= 0.1f;
     vSunDTrans.rotVelocity = vDir * vSunDTrans.rotVelocity;
   }
   Separator* vStarsSep = new Separator();

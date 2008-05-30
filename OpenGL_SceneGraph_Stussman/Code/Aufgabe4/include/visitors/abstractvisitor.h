@@ -1,6 +1,7 @@
 #ifndef _H_ABSTRACTVISITOR
 #define _H_ABSTRACTVISITOR
 
+
 class AbstractNode;
 class GroupNode;
 class ColorNode;
@@ -26,6 +27,9 @@ class PolygonObjectNode;
 class CamNode;
 class AbstractSpawn;
 class CamFollowNode;
+
+
+
 
 class AbstractVisitor{
 public:
@@ -74,7 +78,8 @@ public:
 
 
 
-  void apply(AbstractNode* aAbstractNode);
+  virtual void apply(AbstractNode* aAbstractNode);
+
 protected:
   AbstractNode* mRootNode;
 };
