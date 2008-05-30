@@ -3,6 +3,24 @@
 
 #include "nodes/allnodes.h"
 #include "visitors/abstractvisitor.h"
+#include <vector>
+#include <algorithm> 
+
+
+
+
+struct SBlendInfo{
+  float mModelView[16];
+  TextureNode* mTextureNode;
+  AbstractNode* mGeomNode;
+  ColorNode* mColorNode;
+  MaterialNode* mMatNode;
+  bool operator<(const SBlendInfo& other) const {
+    return mModelView[14] < other.mModelView[14];
+  } 
+};
+
+
 
 class Visitor:public AbstractVisitor{
 public:
@@ -34,6 +52,12 @@ public:
   
   virtual void visit(PolygonObjectNode &aPolygonObjectNode);
 
+  void drawBlended();
+  std::vector<SBlendInfo> mBlendInfos;
+
+  virtual void apply(AbstractNode* aAbstractNode);
+
+
 private:
   void loadIdentity();
   void rotate(float aDeg, float aAxisX, float aAxisY, float aAxisZ);
@@ -50,6 +74,8 @@ private:
   unsigned mStackIdx;
 
   CamNode* mCurrentCam;
+  SBlendInfo mCurBlendInfo;
+  bool mBlendInfoSet;
 };
 
 #endif // _H_VISITOR

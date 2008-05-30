@@ -11,7 +11,7 @@
 #include "visitors/visitor.h"
 
 //----------------------------------------------------------//
-Visitor::Visitor():AbstractVisitor(), mStackIdx(0){
+Visitor::Visitor():AbstractVisitor(), mStackIdx(0), mBlendInfoSet(false){
   mCurrentMatrix = new float[16];
   loadIdentity();
   for(unsigned i=0; i<32; i++){
@@ -33,15 +33,18 @@ void Visitor::visit(SphereNode &aSphereNode){
   //copy(aSphereNode.mModelMatrix);
   gluQuadricNormals(aSphereNode.mQuadric, GLU_SMOOTH);
   gluQuadricTexture(aSphereNode.mQuadric, aSphereNode.mUseTexCoord);
-  glEnable(GL_CULL_FACE);
+//  glEnable(GL_CULL_FACE);
 
-  if(glIsEnabled(GL_BLEND)){
-    glCullFace(GL_FRONT);
-    gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
+  if(mBlendInfoSet){
+    //glCullFace(GL_FRONT);
+    //gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
 
-    glCullFace(GL_BACK);
-    gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
-    glDisable(GL_BLEND);
+    //glCullFace(GL_BACK);
+    //gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
+    //glDisable(GL_BLEND);
+    mCurBlendInfo.mGeomNode = &aSphereNode;
+    mBlendInfos.push_back(mCurBlendInfo);
+    mBlendInfoSet = false;
   }else{
     gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
   }
@@ -107,24 +110,36 @@ void Visitor::visit(LightNode &aLightNode){
 }
 //----------------------------------------------------------//
 void Visitor::visit(MaterialNode &aMaterialNode){
-  std::map<GLenum, float*>::iterator vItr;
-  for(vItr=aMaterialNode.mParams.begin(); vItr!= aMaterialNode.mParams.end(); vItr++){
-    glMaterialfv(aMaterialNode.mFace, vItr->first, vItr->second);
+  if(mBlendInfoSet){
+    mCurBlendInfo.mMatNode = &aMaterialNode;
+  }else{
+    std::map<GLenum, float*>::iterator vItr;
+    for(vItr=aMaterialNode.mParams.begin(); vItr!= aMaterialNode.mParams.end(); vItr++){
+      glMaterialfv(aMaterialNode.mFace, vItr->first, vItr->second);
+    }
   }
 }
 //----------------------------------------------------------//
 void Visitor::visit(ColorNode &aColorNode){
-  glEnable(GL_COLOR_MATERIAL);	
-  glColor4f(aColorNode.mRed, aColorNode.mGreen, aColorNode.mBlue, aColorNode.mAlpha);
-  glDisable(GL_COLOR_MATERIAL);
+  if(mBlendInfoSet){
+    mCurBlendInfo.mColorNode = &aColorNode;
+  }else{
+    glEnable(GL_COLOR_MATERIAL);	
+    glColor4f(aColorNode.mRed, aColorNode.mGreen, aColorNode.mBlue, aColorNode.mAlpha);
+    glDisable(GL_COLOR_MATERIAL);
+  }
 }
 //----------------------------------------------------------//
 void Visitor::visit(TextureNode &aTexNode){
   // TODO: enable/disable texturemode??
   glBindTexture(aTexNode.mTarget, aTexNode.mTexID);
   if(true == aTexNode.mBlending){
-    glEnable(GL_BLEND);
-    glBlendFunc(aTexNode.mSFactor, aTexNode.mDFactor);
+    mCurBlendInfo.mTextureNode = &aTexNode;
+//    copy(mCurBlendInfo.mModelView);
+    mBlendInfoSet = true;
+    copy(aTexNode.mModelMatrix);
+    //glEnable(GL_BLEND);
+    //glBlendFunc(aTexNode.mSFactor, aTexNode.mDFactor);
   }
 }
 //----------------------------------------------------------//
@@ -554,3 +569,42 @@ void Visitor::loadMatrix(float *aMatrix){
 }
 //----------------------------------------------------------//
 
+void Visitor::drawBlended(){
+  sort(mBlendInfos.begin(), mBlendInfos.end());
+  mBlendInfoSet = false;
+  // draw back first
+  glEnable(GL_BLEND);
+  glEnable(GL_CULL_FACE);
+  glCullFace(GL_FRONT);
+  for(unsigned i=0; i<mBlendInfos.size(); i++){
+    SBlendInfo* vBI = &(mBlendInfos[i]);
+    glBindTexture(vBI->mTextureNode->mTarget, vBI->mTextureNode->mTexID);
+    glBlendFunc(vBI->mTextureNode->mSFactor, vBI->mTextureNode->mDFactor);
+    glPushMatrix();
+    glMultMatrixf(vBI->mTextureNode->mModelMatrix);
+    vBI->mMatNode->accept(*this);
+    vBI->mColorNode->accept(*this);
+    vBI->mGeomNode->accept(*this);
+    glPopMatrix();
+  }
+  glCullFace(GL_BACK);
+  for(unsigned i=0; i<mBlendInfos.size(); i++){
+    SBlendInfo* vBI = &(mBlendInfos[i]);
+    glBindTexture(vBI->mTextureNode->mTarget, vBI->mTextureNode->mTexID);
+    glBlendFunc(vBI->mTextureNode->mSFactor, vBI->mTextureNode->mDFactor);
+    glPushMatrix();
+    glMultMatrixf(vBI->mTextureNode->mModelMatrix);
+    vBI->mMatNode->accept(*this);
+    vBI->mColorNode->accept(*this);
+    vBI->mGeomNode->accept(*this);
+    glPopMatrix();
+  }
+  glDisable(GL_BLEND);
+
+  mBlendInfos.clear();
+}
+//----------------------------------------------------------//
+void Visitor::apply(AbstractNode *aAbstractNode){
+  AbstractVisitor::apply(aAbstractNode);
+  drawBlended();
+}
