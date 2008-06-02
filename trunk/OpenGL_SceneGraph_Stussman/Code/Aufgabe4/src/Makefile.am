@@ -56,4 +56,6 @@ visitors/visitor.cpp \
 nodes/laserspawn.cpp \
 nodes/shotspawn.cpp \
 nodes/abstractspawn.cpp \
-actions/shootaction.cpp 
+actions/shootaction.cpp \
+nodes/Quad.cpp \
+nodes/billboard.cpp
