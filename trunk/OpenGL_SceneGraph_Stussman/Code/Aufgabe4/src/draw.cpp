@@ -143,10 +143,11 @@ void drawGrid()
   glPushMatrix();
   	glTranslatef( 0.0f, -3.0f, 0.0f);				// Translate grid in the y-axis
   	glEnable(GL_COLOR_MATERIAL);
+    glColor3f(0, 255, 0);							// Turn the lines green
     for(float i = -50; i <= 50; i += 1)	{			// Draw a 1x1 grid along the X and Z axis
         glLineWidth(1);        
         glBegin(GL_LINES);							// Start drawing some lines	
-            glColor3ub(0, 255, 0);							// Turn the lines green
+            glColor3f(0, 255, 0);							// Turn the lines green
             glVertex3f(-50, 0, i);					// Do the horizontal lines (along the X)
             glVertex3f(50, 0, i);
             glVertex3f(i, 0, -50);					// Do the vertical lines (along the Z)
@@ -155,6 +156,11 @@ void drawGrid()
     }
     glDisable(GL_COLOR_MATERIAL);
   glPopMatrix();
+
+  int vErr = glGetError();
+  if(0!=vErr){
+    printf("GL_ERROR@createTexture(): %i\n", vErr);
+  }
 
 }
 
