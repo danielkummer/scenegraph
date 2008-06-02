@@ -336,7 +336,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\nodes\Quad.cpp"
+					RelativePath=".\src\nodes\quad.cpp"
 					>
 				</File>
 				<File
@@ -502,7 +502,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\nodes\Quad.h"
+					RelativePath=".\include\nodes\quad.h"
 					>
 				</File>
 				<File
