@@ -46,6 +46,7 @@ nodes/destructornode.cpp \
 nodes/cam.cpp	\
 nodes/camfollownode.cpp	\
 nodes/billboard.cpp \
+nodes/quad.cpp \
 planetdefs.cpp \
 scene.cpp \
 shadow.cpp \
@@ -56,6 +57,4 @@ visitors/visitor.cpp \
 nodes/laserspawn.cpp \
 nodes/shotspawn.cpp \
 nodes/abstractspawn.cpp \
-actions/shootaction.cpp \
-nodes/Quad.cpp \
-nodes/billboard.cpp
+actions/shootaction.cpp 
