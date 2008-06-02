@@ -31,6 +31,7 @@
 
 #include "nodes/quad.h"
 #include "nodes/billboard.h"
+#include "nodes/textureanimator.h"
 
 #include "nodes/abstractspawn.h"
 #include "nodes/laserspawn.h"

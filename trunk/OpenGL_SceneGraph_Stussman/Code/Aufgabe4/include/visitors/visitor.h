@@ -61,6 +61,7 @@ public:
   void drawBlended();
   std::vector<SBlendInfo> mBlendInfos;
 
+
   virtual void apply(AbstractNode* aAbstractNode);
 
 
@@ -82,6 +83,10 @@ private:
   CamNode* mCurrentCam;
   SBlendInfo mCurBlendInfo;
   bool mBlendInfoSet;
+
+  std::vector<AbstractNode*> mCollider;
+  void checkCollisions();
+
 };
 
 #endif // _H_VISITOR

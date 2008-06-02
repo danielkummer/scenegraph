@@ -384,6 +384,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\nodes\textureanimator.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\nodes\texturenode.cpp"
 					>
 				</File>
@@ -547,6 +551,10 @@
 				</File>
 				<File
 					RelativePath=".\include\nodes\switchnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\textureanimator.h"
 					>
 				</File>
 				<File

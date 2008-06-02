@@ -18,7 +18,8 @@ void ShotSpawn::fire(float aPosX, float aPosY, float aPosZ, float aDirX, float a
 		vBuilder.buildColorNode(0.8f,0,0);
 		vBuilder.buildTranslatorNode(aPosX, aPosY, aPosZ, 20.0f*aDirX, 20.0f*aDirY, 20.0f*aDirZ);
 		vBuilder.buildSphereNode(0.2f,20,20,0);	
-    DestructorNode* vDestr = new DestructorNode(15.0,mGroupNode);
+    vBuilder.getLast()->mCollidable = 2;
+    DestructorNode* vDestr = new DestructorNode(15.0, mGroupNode);
     vDestr->add(vBuilder.getResult());
     add( vDestr );
 }
