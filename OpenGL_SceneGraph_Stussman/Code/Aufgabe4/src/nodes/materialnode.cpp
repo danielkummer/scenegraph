@@ -42,7 +42,7 @@ void MaterialNode::setParam(GLenum aParamName, float aV1, float aV2, float aV3, 
 //----------------------------------------------------------//
 void MaterialNode::setParam(GLenum aParamName, float* aValues3){
   assert(NULL != aValues3);
-  setParam(aParamName, aValues3[0], aValues3[1], aValues3[2], 0.0f);
+  setParam(aParamName, aValues3[0], aValues3[1], aValues3[2], aValues3[3]);
 }
 //----------------------------------------------------------//
 

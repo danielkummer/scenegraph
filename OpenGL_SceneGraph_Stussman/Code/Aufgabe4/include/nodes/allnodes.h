@@ -29,6 +29,9 @@
 #include "nodes/cam.h"
 #include "nodes/camfollownode.h"
 
+#include "nodes/quad.h"
+#include "nodes/billboard.h"
+
 #include "nodes/abstractspawn.h"
 #include "nodes/laserspawn.h"
 #include "nodes/shotspawn.h"

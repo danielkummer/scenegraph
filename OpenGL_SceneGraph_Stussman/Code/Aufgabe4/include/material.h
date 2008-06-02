@@ -35,5 +35,10 @@ public:
   DefaultMaterial();
 };
 
+class TransDefaultMaterial:public Material{
+public:
+  TransDefaultMaterial(float aAlpha=0.5);
+};
+
 #endif // _MATERIAL_H
 

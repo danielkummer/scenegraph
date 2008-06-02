@@ -48,6 +48,7 @@ void Visitor::visit(SphereNode &aSphereNode){
   }else{
     gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
   }
+  checkError(1);
 }
 //----------------------------------------------------------//
 void Visitor::visit(LineNode &aLineNode){
@@ -56,6 +57,7 @@ void Visitor::visit(LineNode &aLineNode){
     glVertex3f(aLineNode.mVert1X, aLineNode.mVert1Y, aLineNode.mVert1Z);
     glVertex3f(aLineNode.mVert2X, aLineNode.mVert2Y, aLineNode.mVert2Z);
   glEnd();
+  checkError(2);
 }
 //----------------------------------------------------------//
 void Visitor::visit(AbstractSpawn &aSpawn){
@@ -68,6 +70,7 @@ void Visitor::visit(AbstractSpawn &aSpawn){
                 mCurrentMatrix[2]);
      aSpawn.mFire = false;
   }
+  checkError(3);
 }
 //0 4  8 12
 //1 5  9 13
@@ -77,6 +80,7 @@ void Visitor::visit(AbstractSpawn &aSpawn){
 void Visitor::visit(TranslationNode &aTranslationNode){
   glTranslatef(aTranslationNode.mX, aTranslationNode.mY, aTranslationNode.mZ);
   translate(aTranslationNode.mX, aTranslationNode.mY, aTranslationNode.mZ);
+  checkError(4);
 }
 //----------------------------------------------------------//
 //void Visitor::visit(TranslatorNode &aTranslatorNode){
@@ -93,11 +97,13 @@ void Visitor::visit(RotationNode &aRotationNode){
          aRotationNode.mAxisX,
          aRotationNode.mAxisY,
          aRotationNode.mAxisZ);
+  checkError(5);
 }
 //----------------------------------------------------------//
 void Visitor::visit(ScaleNode &aScaleNode){
   glScalef(aScaleNode.mScaleX, aScaleNode.mScaleY, aScaleNode.mScaleZ);
   scale(aScaleNode.mScaleX, aScaleNode.mScaleY, aScaleNode.mScaleZ);
+  checkError(6);
 }
 //----------------------------------------------------------//
 //void Visitor::visit(RotorNode &aRotorNode){
@@ -118,6 +124,8 @@ void Visitor::visit(MaterialNode &aMaterialNode){
       glMaterialfv(aMaterialNode.mFace, vItr->first, vItr->second);
     }
   }
+  checkError(7);
+
 }
 //----------------------------------------------------------//
 void Visitor::visit(ColorNode &aColorNode){
@@ -141,22 +149,30 @@ void Visitor::visit(TextureNode &aTexNode){
     //glEnable(GL_BLEND);
     //glBlendFunc(aTexNode.mSFactor, aTexNode.mDFactor);
   }
+  checkError(8);
+
 }
 //----------------------------------------------------------//
 void Visitor::visit(ShadowNode &aShadow){
   aShadow.draw(*this);
+  checkError(9);
 }
 //----------------------------------------------------------//
 void Visitor::visit(StarsNode &aStarNode){
+  checkError(101);
   glEnable(GL_COLOR_MATERIAL);
   glColor3f(1, 1, 1);
+  checkError(102);
   for(unsigned i=0; i<aStarNode.mNumStars; i++){
     glPointSize(aStarNode.mSizes[i]);
     glBegin(GL_POINTS);
-      glVertex3fv(&aStarNode.mVertices[3*i]);
+      checkError(103);
+      glVertex3fv(&(aStarNode.mVertices[3*i]) );
+      checkError(104);
     glEnd();
   }
   glDisable(GL_COLOR_MATERIAL);
+  checkError(10);
 }
 //----------------------------------------------------------//
 void Visitor::visit(RingNode &aRingNode){
@@ -195,23 +211,28 @@ void Visitor::visit(RingNode &aRingNode){
   glEnd();   
   glEnable(GL_CULL_FACE);
   glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-
+  checkError(11);
 }
 //----------------------------------------------------------//
 void Visitor::visit(Separator &aNode){
-//  glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+  glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+  glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 }
 
 void Visitor::postvisit(Separator &aNode){
-//  glPopClientAttrib();
-  //glColor4f(1, 1, 1, 1);
+  glPopClientAttrib();
+  glPopAttrib();
+  glEnable(GL_COLOR_MATERIAL);
+  glColor4f(1, 1, 1, 1);
+  glDisable(GL_COLOR_MATERIAL);
   DefaultMaterial vDMat;
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, vDMat.ambient);
   glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, vDMat.diffuse);
   glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, vDMat.emission);
   glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, vDMat.shininess);
   glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, vDMat.specular);
+  checkError(12);
 }
 //----------------------------------------------------------//
 void Visitor::visit(TransformSeparator &aNode){
@@ -275,8 +296,8 @@ void Visitor::visit(CamNode &aNode){
     push();
     loadMatrix(vT);
     rotate(aNode.getRoll(), 0, 0, 1);
-    rotate(-aNode.getPitch(), 1, 0, 0);
-    rotate(-aNode.getYaw(), 0, 1, 0);
+    rotate(aNode.getPitch(), 1, 0, 0);
+    rotate(aNode.getYaw(), 0, 1, 0);
     copy(vT);
     pop();
 
@@ -322,6 +343,7 @@ void Visitor::visit(CamNode &aNode){
   glLoadMatrixf(vM);
 //  loadMatrix(vM);
   mCurrentCam = &aNode;
+  checkError(13);
 }
 //----------------------------------------------------------//
 void Visitor::visit(CamFollowNode &aNode) {
@@ -404,6 +426,77 @@ void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 			glEnd();											// end drawing triangles
 		}
 	}
+  checkError(14);
+}
+//----------------------------------------------------------//
+void Visitor::visit(Quad& aQuad){
+  if(mBlendInfoSet){
+    mCurBlendInfo.mGeomNode = &aQuad;
+    mBlendInfos.push_back(mCurBlendInfo);
+    mBlendInfoSet = false;
+  }else{
+    push();
+    glPushMatrix();
+    //glTranslatef(aQuad.mPos.x, aQuad.mPos.y, aQuad.mPos.z);
+    //translate(aQuad.mPos.x, aQuad.mPos.y, aQuad.mPos.z);
+    //glTranslatef(aQuad.mOffset.x, aQuad.mOffset.y, aQuad.mOffset.z);
+    //translate(aQuad.mOffset.x, aQuad.mOffset.y, aQuad.mOffset.z);
+    glMultMatrixf(aQuad.mModelMatrix);
+    mult(aQuad.mModelMatrix);
+    glBegin(GL_QUADS);
+      glTexCoord2f(1.0f, 1.0f);
+      glVertex3f(aQuad.mP1.x, aQuad.mP1.y, aQuad.mP1.z);
+      glTexCoord2f(0.0f, 1.0f);
+      glVertex3f(aQuad.mP2.x, aQuad.mP2.y, aQuad.mP2.z);
+      glTexCoord2f(0.0f, 0.0f);
+      glVertex3f(aQuad.mP3.x, aQuad.mP3.y, aQuad.mP3.z);
+      glTexCoord2f(1.0f, 0.0f);
+      glVertex3f(aQuad.mP4.x, aQuad.mP4.y, aQuad.mP4.z);
+    glEnd();
+    glPopMatrix();
+    pop();
+  }
+  checkError(15);
+}
+//----------------------------------------------------------//
+void Visitor::visit(Billboard& aNode){
+  if(mBlendInfoSet){
+    mCurBlendInfo.mGeomNode = &aNode;
+    mBlendInfos.push_back(mCurBlendInfo);
+    mBlendInfoSet = false;
+  }else{
+//0 4  8 12
+//1 5  9 13
+//2 6 10 14
+//3 7 11 15
+
+    SPoint3D vLook = SPoint3D(mCurrentCam->mTransform[12] - aNode.mModelMatrix[12],
+                              mCurrentCam->mTransform[13] - aNode.mModelMatrix[13],
+                              mCurrentCam->mTransform[14] - aNode.mModelMatrix[14]);
+    // HACK: actually it should be in a fixed axis billboard
+    SPoint3D vUp = SPoint3D(0, 1, 0);
+    //SPoint3D vUp = SPoint3D(mCurrentCam->mTransform[4],
+    //                        mCurrentCam->mTransform[5],
+    //                        mCurrentCam->mTransform[6]);
+    SPoint3D vXAxis = vUp.cross(vLook).normalize();
+    SPoint3D vYAxis = vLook.cross(vXAxis).normalize();
+
+
+    aNode.mModelMatrix[0] = vXAxis.x;
+    aNode.mModelMatrix[1] = vXAxis.y;
+    aNode.mModelMatrix[2] = vXAxis.z;
+
+    aNode.mModelMatrix[4] = vYAxis.x;
+    aNode.mModelMatrix[5] = vYAxis.y;
+    aNode.mModelMatrix[6] = vYAxis.z;
+
+    aNode.mModelMatrix [8] = vLook.x;
+    aNode.mModelMatrix [9] = vLook.y;
+    aNode.mModelMatrix[10] = vLook.z;
+    visit((Quad)aNode);
+
+  }
+  checkError(16);
 }
 //----------------------------------------------------------//
 void Visitor::loadIdentity(){
@@ -436,8 +529,8 @@ void Visitor::rotate(float aDeg, float aAxisX, float aAxisY, float aAxisZ){
 //Where c = cos (theta), s = sin (theta), t = 1-cos (theta), and <X,Y,Z> is the unit vector representing the arbitary axis
 
   float vRad = aDeg /180.0f * 3.14159265f;
-  float c = cos(vRad);
-  float s = sin(vRad);
+  float c = cos(-vRad);
+  float s = sin(-vRad);
   float t = 1 - c;
   vRotMat [0] = t * aAxisX * aAxisX + c;
   vRotMat [1] = t * aAxisX * aAxisY - s * aAxisZ;
@@ -570,6 +663,7 @@ void Visitor::loadMatrix(float *aMatrix){
 //----------------------------------------------------------//
 
 void Visitor::drawBlended(){
+
   sort(mBlendInfos.begin(), mBlendInfos.end());
   mBlendInfoSet = false;
   // draw back first
@@ -578,33 +672,42 @@ void Visitor::drawBlended(){
   glCullFace(GL_FRONT);
   for(unsigned i=0; i<mBlendInfos.size(); i++){
     SBlendInfo* vBI = &(mBlendInfos[i]);
+    vBI->mMatNode->accept(*this);
     glBindTexture(vBI->mTextureNode->mTarget, vBI->mTextureNode->mTexID);
     glBlendFunc(vBI->mTextureNode->mSFactor, vBI->mTextureNode->mDFactor);
     glPushMatrix();
     glMultMatrixf(vBI->mTextureNode->mModelMatrix);
-    vBI->mMatNode->accept(*this);
-    vBI->mColorNode->accept(*this);
+//    vBI->mColorNode->accept(*this);
     vBI->mGeomNode->accept(*this);
     glPopMatrix();
   }
   glCullFace(GL_BACK);
   for(unsigned i=0; i<mBlendInfos.size(); i++){
     SBlendInfo* vBI = &(mBlendInfos[i]);
+    vBI->mMatNode->accept(*this);
     glBindTexture(vBI->mTextureNode->mTarget, vBI->mTextureNode->mTexID);
     glBlendFunc(vBI->mTextureNode->mSFactor, vBI->mTextureNode->mDFactor);
     glPushMatrix();
     glMultMatrixf(vBI->mTextureNode->mModelMatrix);
-    vBI->mMatNode->accept(*this);
-    vBI->mColorNode->accept(*this);
+//    vBI->mColorNode->accept(*this);
     vBI->mGeomNode->accept(*this);
     glPopMatrix();
   }
   glDisable(GL_BLEND);
 
   mBlendInfos.clear();
+  checkError(17);
 }
 //----------------------------------------------------------//
 void Visitor::apply(AbstractNode *aAbstractNode){
   AbstractVisitor::apply(aAbstractNode);
   drawBlended();
+}
+
+//----------------------------------------------------------//
+inline void Visitor::checkError(int aInt){
+  int vErrNum = glGetError();
+  if(0<vErrNum){
+    printf("@ %i ERROR: %i\n", aInt, vErrNum);
+  }
 }

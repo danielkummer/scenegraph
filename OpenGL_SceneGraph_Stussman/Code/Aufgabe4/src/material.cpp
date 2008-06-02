@@ -63,15 +63,22 @@ void Material::set(GLenum aParamName, float a, float b, float c, float d){
 }
 //-------------------------------------------------------//
 SunMaterial::SunMaterial():Material(){
-  set(GL_EMISSION, 1.0, 1.0, 1.0);
-  set(GL_COLOR, 1, 1, 0);
+  set(GL_EMISSION, 0.95f, 0.85f, 0.39f, 1);
+//  set(GL_COLOR, 1, 1, 0);
+//  set(GL_EMISSION, 1, 1, 1);
+  set(GL_AMBIENT, 1, 1, 1, 1);
+  set(GL_DIFFUSE, 1, 1, 1, 1);
 }
 //-------------------------------------------------------//
 DefaultMaterial::DefaultMaterial():Material(){
-  set(GL_AMBIENT, 1, 1, 1);
-  set(GL_DIFFUSE, 1, 1, 1);
+  set(GL_AMBIENT, 1, 1, 1, 1);
+  set(GL_DIFFUSE, 1, 1, 1, 1);
 }
-
+//-------------------------------------------------------//
+TransDefaultMaterial::TransDefaultMaterial(float aAlpha){
+  set(GL_AMBIENT, 1, 1, 1, aAlpha);
+  set(GL_DIFFUSE, 1, 1, 1, aAlpha);
+}
 
 
 

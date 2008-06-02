@@ -4,6 +4,13 @@
 
 //----------------------------------------------------------//
 AbstractNode::AbstractNode():mID(getID()),mRefCount(0){
+  for(unsigned i=0; i<16; i++){
+    mModelMatrix[i] = 0.0f;
+  }
+  mModelMatrix[0]  = 1.0f;
+  mModelMatrix[5]  = 1.0f;
+  mModelMatrix[10] = 1.0f;
+  mModelMatrix[15] = 1.0f;
 }
 //----------------------------------------------------------//
 AbstractNode::~AbstractNode(){
