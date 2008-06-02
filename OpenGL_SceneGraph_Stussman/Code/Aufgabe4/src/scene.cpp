@@ -69,12 +69,18 @@ int createTexture(char *strFileName)
 	glGenTextures(1, &texId);									// Generate a new texture ID
 	glBindTexture(GL_TEXTURE_2D, texId);						// Bind the texture (the following commands work with this texture)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);		// Set the filter mode for magnification to linear
+//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);		// Set the filter mode for magnification to linear
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);		// Set the filter mode for minification to linear
+//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);		// Set the filter mode for minification to linear
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);			// Set the wrapping mode for the texturecoourdinate s to repeat
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);			// Set the wrapping mode for the texturecoourdinate t to repeat
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, conv->w, conv->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, conv->pixels);	//copy the image into the texture
 	SDL_FreeSurface(bitmap);
 	SDL_FreeSurface(conv);
+  int vErr = glGetError();
+  if(0!=vErr){
+    printf("GL_ERROR@createTexture(): %i %s %s\n", vErr, gluErrorString(vErr), strFileName);
+  }
   return texId;
 }
 
@@ -334,26 +340,16 @@ void SolarSytemScene::createScene(){
   vCameraBuilder.buildCamNode(vCameraActions);
   mSceneGraph->add(vCameraBuilder.getResult());
 
- //Ship Camera
-// SwitchNode* vCamSwitchNode = new SwitchNode();
- //mActionFactory->getAction(ECamSwitchType)->add(vCamSwitchNode);
- //vCamSwitchNode->add(vCameraBuilder.getResult());
- 
-
-
-
-  
-//  mSceneGraph->add(vDirector.createSolarSystem());
   DefaultMaterial vMat;
   mSceneGraph->add(new MaterialNode(GL_FRONT_AND_BACK, &vMat));
   mSceneGraph->add(new ColorNode(1, 1, 1, 1));
 
   // scene axis
-  mSceneGraph->add(createAxis(20));
+//  mSceneGraph->add(createAxis(20));
 
   // light
   LightNode* vLight = new LightNode(GL_LIGHT0);
-  vLight->setParam(GL_AMBIENT, 0.2f, 0.2f, 0.2f, 1.0f);
+  vLight->setParam(GL_AMBIENT, 0.1f, 0.1f, 0.1f, 1.0f);
   vLight->setParam(GL_DIFFUSE, 0.8f, 0.8f, 0.8f, 1.0f);
   vLight->setParam(GL_POSITION, 1.0f, 1.0f, 1.0f, 1.0f);
   mSceneGraph->add(vLight);
@@ -362,7 +358,6 @@ void SolarSytemScene::createScene(){
   
   
   // spaceship
-  //MoveNode* vMoveShip = new MoveNode();  
   Builder vSpaceShipBuilder(new TransformSeparator());
   
   std::vector<ActionBase*> vShipActions;
@@ -411,25 +406,55 @@ void SolarSytemScene::createScene(){
   vLightNode->setParam(GL_SPOT_CUTOFF, 40, 0, 0, 0);
 
 //TODO: add offset to position the shot to the wings
-  vSpaceShipBuilder.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
-//  vSpaceShipBuilder.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  Builder vRCannon(new TransformSeparator());
+  vRCannon.buildTranslationNode(0, -0.25, 0.75);
+  vRCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+//  vRCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vSpaceShipBuilder.append(NULL, vRCannon.getResult());
     
+  Builder vLCannon(new TransformSeparator());
+  vLCannon.buildTranslationNode(0, -0.25, -0.75);
+  vLCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+//  vLCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vSpaceShipBuilder.append(NULL, vLCannon.getResult());
+
   mSceneGraph->add(vSpaceShipBuilder.getResult());
 
   TransformSeparator* vTS;
   TransDefaultMaterial vTMat;
   Separator* vS;
   for(unsigned i=0; i<1; i++){
-    //TODO: remove test quad
+//    //TODO: remove test quad
     vTS = new TransformSeparator();
-    vTS->add(new TextureNode(createTexture("Textures/th_Corona.bmp"), GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR, GL_TEXTURE_2D));
-    vTMat = TransDefaultMaterial(0.1f);
-    vTMat.set(GL_EMISSION, 1.0, 1.0, 1.0);
+    unsigned vFlames[16];
+    vFlames [0] = createTexture("Textures/corona_anim/flame1.bmp");
+    vFlames [1] = createTexture("Textures/corona_anim/flame2.bmp");
+    vFlames [2] = createTexture("Textures/corona_anim/flame3.bmp");
+    vFlames [3] = createTexture("Textures/corona_anim/flame4.bmp");
+    vFlames [4] = createTexture("Textures/corona_anim/flame5.bmp");
+    vFlames [5] = createTexture("Textures/corona_anim/flame6.bmp");
+    vFlames [6] = createTexture("Textures/corona_anim/flame7.bmp");
+    vFlames [7] = createTexture("Textures/corona_anim/flame8.bmp");
+    vFlames [8] = createTexture("Textures/corona_anim/flame9.bmp");
+    vFlames [9] = createTexture("Textures/corona_anim/flame10.bmp");
+    vFlames[10] = createTexture("Textures/corona_anim/flame11.bmp");
+    vFlames[11] = createTexture("Textures/corona_anim/flame12.bmp");
+    vFlames[12] = createTexture("Textures/corona_anim/flame13.bmp");
+    vFlames[13] = createTexture("Textures/corona_anim/flame14.bmp");
+    vFlames[14] = createTexture("Textures/corona_anim/flame15.bmp");
+    vFlames[15] = createTexture("Textures/corona_anim/flame16.bmp");
+
+//    vTS->add(new TextureNode(createTexture("Textures/th_Corona.bmp"), GL_ONE, GL_ONE_MINUS_SRC_COLOR, GL_TEXTURE_2D));
+    vTS->add(new TextureAnimator(16, vFlames, GL_ONE, GL_ONE_MINUS_SRC_COLOR, GL_TEXTURE_2D, 16));
+
+    vTMat = TransDefaultMaterial(0.5f);
+    vTMat.set(GL_EMISSION, 1.0, 1.0, 1.0, 1.0);
 
     vTS->add(new MaterialNode(GL_FRONT_AND_BACK, &vTMat));
     vTS->add(new Billboard(9, 9, 0, 0, 0));
-//    mTS->add(new Quad(9, 9, 0, 0, 0, 1, 1, 1, 0, 1, 0));
-//    mTS->add(new Quad(9, 9, 0, 0, 0, rand()-32500, rand()-32500, rand()-32500, 0, 1, 0));
+////    mTS->add(new Quad(9, 9, 0, 0, 0, 1, 1, 1, 0, 1, 0));
+////    mTS->add(new Quad(9, 9, 0, 0, 0, rand()-32500, rand()-32500, rand()-32500, 0, 1, 0));
+//    vTS->add(new MaterialNode(GL_FRONT_AND_BACK, &DefaultMaterial()));
     vS = new Separator();
     vS->add(vTS);
     mSceneGraph->add(vS);
@@ -500,6 +525,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYes
     vBuilder.buildColorNode(1, 1, 1, aAlpha, NULL);
   }
   vBuilder.buildSphereNode(aPlanetDef->radius, 32, 32, true);
+  vBuilder.getLast()->mCollidable = 1;
 
   // axis
   ToggleNode* vToggleN = new ToggleNode();
@@ -536,6 +562,7 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
 AbstractNode* SolarSytemScene::createSolarSystem(){
   TransformSeparator* vTSep = new TransformSeparator();
 
+  // Sun surface
   SunDef vSunD;
   SunTransDef vSunDTrans;
   vTSep->add(createPlanet(&vSunD));
@@ -550,13 +577,15 @@ AbstractNode* SolarSytemScene::createSolarSystem(){
     vAlpha -= 0.1f;
     vSunDTrans.rotVelocity = vDir * vSunDTrans.rotVelocity;
   }
+
+  // stars
   Separator* vStarsSep = new Separator();
   Material* vEmitMat = new DefaultMaterial();
   vEmitMat->set(GL_EMISSION, 1, 1, 1);
   vEmitMat->set(GL_COLOR, 1, 1, 1);
   vStarsSep->add(new MaterialNode(GL_FRONT_AND_BACK, vEmitMat));
   delete vEmitMat; // MaterialNode copies the values
-  vStarsSep->add(new StarsNode(500, 400, 1000));
+  vStarsSep->add(new StarsNode(500, 400, 10000));
   vTSep->add(vStarsSep);
   return vTSep;
 }

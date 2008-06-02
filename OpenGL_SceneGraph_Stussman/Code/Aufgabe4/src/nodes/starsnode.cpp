@@ -49,6 +49,9 @@ mRadiusMin(aRadiusMin), mDeltaR(aDeltaR), mNumStars(aNumStars)
       mVertices[3 * vNum + 1] = y;
       mVertices[3 * vNum + 2] = z;
       mSizes[vNum] = randf() * 1.51f;
+      if(0 >= mSizes[vNum]){
+        mSizes[vNum] = 0.75f;
+      }
       vNum++;
     }
 

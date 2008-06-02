@@ -159,7 +159,7 @@ void drawGrid()
 
   int vErr = glGetError();
   if(0!=vErr){
-    printf("GL_ERROR@createTexture(): %i\n", vErr);
+    printf("GL_ERROR@drawGrid(): %i\n", vErr);
   }
 
 }

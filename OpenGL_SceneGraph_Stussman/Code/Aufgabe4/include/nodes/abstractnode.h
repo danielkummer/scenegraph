@@ -14,6 +14,8 @@ public:
   virtual void accept(AbstractVisitor &) = 0;
 
   float mModelMatrix[16];
+  // 0 is not collidable, any other number define sort of type
+  unsigned mCollidable;
 
   const unsigned mID;
 

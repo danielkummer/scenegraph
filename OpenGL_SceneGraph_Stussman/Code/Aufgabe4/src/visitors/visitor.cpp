@@ -31,6 +31,12 @@ Visitor::~Visitor(){
 void Visitor::visit(SphereNode &aSphereNode){
 //  glGetFloatv(GL_MODELVIEW_MATRIX, aSphereNode.mModelMatrix);
   //copy(aSphereNode.mModelMatrix);
+  if(0<aSphereNode.mCollidable){
+    mCollider.push_back(&aSphereNode);
+    aSphereNode.mModelMatrix[12] = mCurrentMatrix[12];
+    aSphereNode.mModelMatrix[13] = mCurrentMatrix[13];
+    aSphereNode.mModelMatrix[14] = mCurrentMatrix[14];
+  }
   gluQuadricNormals(aSphereNode.mQuadric, GLU_SMOOTH);
   gluQuadricTexture(aSphereNode.mQuadric, aSphereNode.mUseTexCoord);
 //  glEnable(GL_CULL_FACE);
@@ -48,6 +54,7 @@ void Visitor::visit(SphereNode &aSphereNode){
   }else{
     gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
   }
+//  glDisable(GL_TEXTURE_2D);
   checkError(1);
 }
 //----------------------------------------------------------//
@@ -132,14 +139,15 @@ void Visitor::visit(ColorNode &aColorNode){
   if(mBlendInfoSet){
     mCurBlendInfo.mColorNode = &aColorNode;
   }else{
+    glDisable(GL_TEXTURE_2D);
     glEnable(GL_COLOR_MATERIAL);	
     glColor4f(aColorNode.mRed, aColorNode.mGreen, aColorNode.mBlue, aColorNode.mAlpha);
-    glDisable(GL_COLOR_MATERIAL);
   }
 }
 //----------------------------------------------------------//
 void Visitor::visit(TextureNode &aTexNode){
-  // TODO: enable/disable texturemode??
+  // TODO: enable/disable texturemode?? save which mode
+  glEnable(GL_TEXTURE_2D);
   glBindTexture(aTexNode.mTarget, aTexNode.mTexID);
   if(true == aTexNode.mBlending){
     mCurBlendInfo.mTextureNode = &aTexNode;
@@ -159,17 +167,29 @@ void Visitor::visit(ShadowNode &aShadow){
 }
 //----------------------------------------------------------//
 void Visitor::visit(StarsNode &aStarNode){
-  checkError(101);
   glEnable(GL_COLOR_MATERIAL);
-  glColor3f(1, 1, 1);
+  checkError(101);
+  //glColor3f(1, 1, 1);
+  //float val1[4] = {1, 1, 1, 1};
+  //glMaterialfv(GL_FRONT, GL_AMBIENT, val1);
+  //float val2[4] = {1, 1, 1, 1};
+  //glMaterialfv(GL_FRONT, GL_DIFFUSE, val2);
+  //float val3[4] = {1, 1, 1, 1};
+  //glMaterialfv(GL_FRONT, GL_SPECULAR, val3);
+  //float val4[4] = {1, 1, 1, 1};
+  //glMaterialfv(GL_FRONT, GL_EMISSION, val4);
+  //float val5[4] = {1, 1, 1, 1};
+  //glMaterialfv(GL_FRONT, GL_SHININESS, val5);
+
   checkError(102);
   for(unsigned i=0; i<aStarNode.mNumStars; i++){
     glPointSize(aStarNode.mSizes[i]);
+    checkError(103);
     glBegin(GL_POINTS);
-      checkError(103);
-      glVertex3fv(&(aStarNode.mVertices[3*i]) );
-      checkError(104);
+      float* vP = &(aStarNode.mVertices[3*i]);
+      glVertex3fv( vP );
     glEnd();
+    checkError(104);
   }
   glDisable(GL_COLOR_MATERIAL);
   checkError(10);
@@ -180,6 +200,7 @@ void Visitor::visit(RingNode &aRingNode){
   float** vertices = aRingNode.mVertices;
   int quadCount = aRingNode.mQuadCount;
 
+  glEnable(GL_TEXTURE_2D);
   glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);  
   glDisable(GL_CULL_FACE);
   glBegin(GL_QUADS);
@@ -217,21 +238,21 @@ void Visitor::visit(RingNode &aRingNode){
 void Visitor::visit(Separator &aNode){
   glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
   glPushAttrib(GL_ALL_ATTRIB_BITS);
-
 }
 
 void Visitor::postvisit(Separator &aNode){
   glPopClientAttrib();
   glPopAttrib();
-  glEnable(GL_COLOR_MATERIAL);
-  glColor4f(1, 1, 1, 1);
+//  glEnable(GL_COLOR_MATERIAL);
+//  glColor4f(1, 1, 1, 1);
   glDisable(GL_COLOR_MATERIAL);
-  DefaultMaterial vDMat;
-  glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, vDMat.ambient);
-  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, vDMat.diffuse);
-  glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, vDMat.emission);
-  glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, vDMat.shininess);
-  glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, vDMat.specular);
+  glDisable(GL_TEXTURE_2D);
+  //DefaultMaterial vDMat;
+  //glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, vDMat.ambient);
+  //glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, vDMat.diffuse);
+  //glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, vDMat.emission);
+  //glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, vDMat.shininess);
+  //glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, vDMat.specular);
   checkError(12);
 }
 //----------------------------------------------------------//
@@ -426,6 +447,7 @@ void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 			glEnd();											// end drawing triangles
 		}
 	}
+  glDisable(GL_TEXTURE_2D);
   checkError(14);
 }
 //----------------------------------------------------------//
@@ -493,7 +515,8 @@ void Visitor::visit(Billboard& aNode){
     aNode.mModelMatrix [8] = vLook.x;
     aNode.mModelMatrix [9] = vLook.y;
     aNode.mModelMatrix[10] = vLook.z;
-    visit((Quad)aNode);
+    Quad* vQNode = &((Quad)aNode);
+    visit(*vQNode);
 
   }
   checkError(16);
@@ -667,6 +690,7 @@ void Visitor::drawBlended(){
   sort(mBlendInfos.begin(), mBlendInfos.end());
   mBlendInfoSet = false;
   // draw back first
+  glEnable(GL_TEXTURE_2D);
   glEnable(GL_BLEND);
   glEnable(GL_CULL_FACE);
   glCullFace(GL_FRONT);
@@ -689,11 +713,14 @@ void Visitor::drawBlended(){
     glBlendFunc(vBI->mTextureNode->mSFactor, vBI->mTextureNode->mDFactor);
     glPushMatrix();
     glMultMatrixf(vBI->mTextureNode->mModelMatrix);
-//    vBI->mColorNode->accept(*this);
+    //vBI->mColorNode->accept(*this);
     vBI->mGeomNode->accept(*this);
     glPopMatrix();
   }
+  glBlendFunc(GL_ONE, GL_ZERO);
   glDisable(GL_BLEND);
+  glDisable(GL_CULL_FACE);
+  glDisable(GL_TEXTURE_2D);
 
   mBlendInfos.clear();
   checkError(17);
@@ -701,6 +728,7 @@ void Visitor::drawBlended(){
 //----------------------------------------------------------//
 void Visitor::apply(AbstractNode *aAbstractNode){
   AbstractVisitor::apply(aAbstractNode);
+  checkCollisions();
   drawBlended();
 }
 
@@ -708,6 +736,38 @@ void Visitor::apply(AbstractNode *aAbstractNode){
 inline void Visitor::checkError(int aInt){
   int vErrNum = glGetError();
   if(0<vErrNum){
-    printf("@ %i ERROR: %i\n", aInt, vErrNum);
+    printf("@ %i ERROR: %i %s\n", aInt, vErrNum, gluErrorString(vErrNum));
   }
 }
+//----------------------------------------------------------//
+void Visitor::checkCollisions(){
+  // only spheres
+  for(unsigned i=0; i<mCollider.size(); i++){
+    unsigned vType2 = 1;
+    if(1 == mCollider[i]->mCollidable){
+      vType2 = 2;
+    };
+    for(unsigned j=i+1; j<mCollider.size(); j++){
+      // only check collision if it is of other type
+      if( vType2 == mCollider[j]->mCollidable){
+        // check distance
+        float vdx = mCollider[i]->mModelMatrix[12] - mCollider[j]->mModelMatrix[12];
+        float vdy = mCollider[i]->mModelMatrix[13] - mCollider[j]->mModelMatrix[13];
+        float vdz = mCollider[i]->mModelMatrix[14] - mCollider[j]->mModelMatrix[14];
+        float vLen = sqrt(vdx * vdx + vdy * vdy + vdz * vdz);
+        float vR1 = ((SphereNode*)mCollider[i])->mRadius;
+        float vR2 = ((SphereNode*)mCollider[j])->mRadius;
+        if(vLen < (vR1 + vR2)){
+          // collision
+          printf("Collision at %f %f %f \n", 
+                  mCollider[i]->mModelMatrix[12], 
+                  mCollider[i]->mModelMatrix[13], 
+                  mCollider[i]->mModelMatrix[14]);
+        }
+      }
+    }
+  }
+  mCollider.clear();
+}
+
+
