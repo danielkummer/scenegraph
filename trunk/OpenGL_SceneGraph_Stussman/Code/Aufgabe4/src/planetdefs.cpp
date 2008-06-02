@@ -15,6 +15,7 @@ PlanetDef::PlanetDef(float aDiameter,       // in earths
                float aOrbitInclination, // in degrees to suns equator
                const char* aTextureName,
                bool aAntiRot,
+               float aAlpha,
                Material* aMaterial):material(aMaterial){
   radius = aDiameter/2.0f * 0.50f;
   //rotVelocity = 360.0f/aRotationPeriod;
@@ -25,6 +26,7 @@ PlanetDef::PlanetDef(float aDiameter,       // in earths
   orbitVelocity = aOrbitVelocity * 360.0f/365.25f;
   textureName = strdup(aTextureName);
   mAntiRot = aAntiRot;
+  mAlpha = aAlpha;
 }
 PlanetDef::~PlanetDef(){
   free(textureName);
@@ -51,10 +53,15 @@ PlanetDef(0, 0, 0, 0, 0, 0, aTextureName){
 //Moons
 LunaDef::LunaDef():PlanetDef(       0.546f,    0.0f,    1.54f,    0.257f,     13.369f,    5.145f, "Textures/Moon.bmp", false){}
 TitanDef::TitanDef():PlanetDef(     0.404f,    0.0f,    0.34854f, 0.832f,    0.004738f,   0.0f,   "Textures/Titan.bmp", false){}
+//EarthCloudsDef::EarthCloudsDef():PlanetDef(1.1f, 360.1f, 0.0f, 0.0f,       1.0f,        0.0f,   "Textures/Clouds.bmp", false, 0.5f){} 
+EarthCloudsDef::EarthCloudsDef():PlanetDef(1.01f,    720.1f,    23.45f,    0.0f,     0.0f,    0.0f, "Textures/Clouds.bmp", false, 0.5f, new TransDefaultMaterial(0.4f)){}
 //Planets
 MercuryDef::MercuryDef():PlanetDef( 0.382f,    6.13f,   0.0f,     0.39f,       4.166f,    0.0f,   "Textures/Mercury.bmp"){}
 VenusDef::VenusDef():PlanetDef(     0.949f,   -1.48f, 177.4f,     0.72f,       1.6129f,   0.0f,   "Textures/Venus.bmp"){}
-EarthDef::EarthDef():PlanetDef(     1.0f,    360.0f,   23.45f,    1.0f,        1.0f,      0.0f,   "Textures/Earth.bmp"){mMoons.push_back(new LunaDef());}
+EarthDef::EarthDef():PlanetDef(     1.0f,    360.0f,   23.45f,    1.0f,        1.0f,      0.0f,   "Textures/Earth.bmp"){
+  mMoons.push_back(new EarthCloudsDef());
+  mMoons.push_back(new LunaDef());
+}
 MarsDef::MarsDef():PlanetDef(       0.532f,  349.51f,  23.98f,    1.52f,       0.5319f,   0.0f,   "Textures/Mars.bmp"){}
 JupiterDef::JupiterDef():PlanetDef(11.209f,  878.04f,   3.08f,    5.20f,      0.08432f,   0.0f,   "Textures/Jupiter.bmp"){}
 SaturnDef::SaturnDef():PlanetDef(   9.44f,   818.18f,  26.73f,    9.45f,      0.03394f,   0.0f,   "Textures/Saturn.bmp"){
@@ -65,7 +72,7 @@ UranusDef::UranusDef():PlanetDef(   4.007f, -500.0f,   97.92f,   19.18f,      0.
 NeptuneDef::NeptuneDef():PlanetDef( 3.883f,  500.0f,   28.8f,    30.06f,     0.006067f,   0.0f,   "Textures/Neptune.bmp"){}
 PlutoDef::PlutoDef():PlanetDef(     0.180f,  -56.42f, 122.0f,    39.44f,     0.00403714f, 0.0f,   "Textures/Pluto.bmp"){}
 
-SunDef::SunDef():PlanetDef(         10.0f,     0.00024f, 0.0f,     0.0f,        0.0f,      0.0f,   "Textures/Sun.bmp", false, new SunMaterial()){
+SunDef::SunDef():PlanetDef(         10.0f,     0.00024f, 0.0f,     0.0f,        0.0f,      0.0f,   "Textures/Sun.bmp", false, 1.0f, new SunMaterial()){
   mMoons.push_back(new MercuryDef());
   mMoons.push_back(new VenusDef());
   mMoons.push_back(new EarthDef());
@@ -78,7 +85,12 @@ SunDef::SunDef():PlanetDef(         10.0f,     0.00024f, 0.0f,     0.0f,        
 
 }
 
-SunTransDef::SunTransDef():PlanetDef(         10.01f,     -0.024f, 0.0f,     0.0f,        0.0f,      0.0f,   "Textures/Sun.bmp", false, new SunMaterial()){
+
+
+SunTransDef::SunTransDef():PlanetDef(         10.01f,     -0.024f, 0.0f,     0.0f,        0.0f,      0.0f,   "Textures/latest_smooth2.bmp", false, 0.5f, new SunMaterial()){
+//SunTransDef::SunTransDef():PlanetDef(         10.01f,     -0.024f, 0.0f,     0.0f,        0.0f,      0.0f,   "Textures/Sun.bmp", false, 0.5f, new SunMaterial()){
+  material->ambient[3] = 0.5f;
+  material->diffuse[3] = 0.5f;
 }
 
 

@@ -3,9 +3,12 @@
 #include "nodes/allnodes.h"
 
 void LaserSpawn::fire(){
-     Builder vBuilder(new DestructorNode(0.2f,mGroupNode));
+}
+//----------------------------------------------------------//
+void LaserSpawn::fire(float aPosX, float aPosY, float aPosZ, float aDirX, float aDirY, float aDirZ){
+     Builder vBuilder(new DestructorNode(0.1f,mGroupNode));
      vBuilder.buildColorNode(0.0f,1.0f,0.0f);
      // TODO: laser texture or 'material' ;-)
-     vBuilder.buildLineNode(0,0,0,100,0,0, 4);	
+     vBuilder.buildLineNode(aPosX, aPosY, aPosZ, aPosX+100*aDirX, aPosY+100*aDirY, aPosZ+100*aDirZ, 4);	
      add(vBuilder.getResult());
 }

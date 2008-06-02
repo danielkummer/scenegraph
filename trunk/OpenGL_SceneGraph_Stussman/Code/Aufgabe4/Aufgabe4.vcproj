@@ -336,6 +336,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\nodes\Quad.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\nodes\ringnode.cpp"
 					>
 				</File>
@@ -495,6 +499,10 @@
 				</File>
 				<File
 					RelativePath=".\include\nodes\polygonObjectNode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\nodes\Quad.h"
 					>
 				</File>
 				<File

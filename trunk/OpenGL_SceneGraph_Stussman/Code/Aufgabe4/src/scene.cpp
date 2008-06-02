@@ -396,9 +396,9 @@ void SolarSytemScene::createScene(){
                                         0.0f, 
                                         0.0f, 
                                         1.0f, 
-                                        0.0f, // ambient
-                                        0.0f, 
-                                        0.0f, 
+                                        0.2f, // ambient
+                                        0.2f, 
+                                        0.2f, 
                                         1.0f, 
                                         1.0f, // diffuse
                                         1.0f, 
@@ -410,12 +410,30 @@ void SolarSytemScene::createScene(){
   vLightNode->setParam(GL_SPOT_EXPONENT, 50, 0, 0, 0);
   vLightNode->setParam(GL_SPOT_CUTOFF, 40, 0, 0, 0);
 
+//TODO: add offset to position the shot to the wings
   vSpaceShipBuilder.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
 //  vSpaceShipBuilder.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
     
   mSceneGraph->add(vSpaceShipBuilder.getResult());
-  
-  
+
+  TransformSeparator* vTS;
+  TransDefaultMaterial vTMat;
+  Separator* vS;
+  for(unsigned i=0; i<1; i++){
+    //TODO: remove test quad
+    vTS = new TransformSeparator();
+    vTS->add(new TextureNode(createTexture("Textures/th_Corona.bmp"), GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR, GL_TEXTURE_2D));
+    vTMat = TransDefaultMaterial(0.1f);
+    vTMat.set(GL_EMISSION, 1.0, 1.0, 1.0);
+
+    vTS->add(new MaterialNode(GL_FRONT_AND_BACK, &vTMat));
+    vTS->add(new Billboard(9, 9, 0, 0, 0));
+//    mTS->add(new Quad(9, 9, 0, 0, 0, 1, 1, 1, 0, 1, 0));
+//    mTS->add(new Quad(9, 9, 0, 0, 0, rand()-32500, rand()-32500, rand()-32500, 0, 1, 0));
+    vS = new Separator();
+    vS->add(vTS);
+    mSceneGraph->add(vS);
+  }
   
   PrintVisitor().apply(mSceneGraph);  
 }
@@ -441,7 +459,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYes
   // moons
   if(true == aMoonYesOrNo){
     for(unsigned i=0; i<aPlanetDef->mMoons.size(); i++){
-      vBuilder.append(NULL, createPlanet(aPlanetDef->mMoons[i]));
+      vBuilder.append(NULL, createPlanet(aPlanetDef->mMoons[i], true, (aPlanetDef->mMoons[i])->mAlpha));
     }
   }
 
@@ -522,8 +540,8 @@ AbstractNode* SolarSytemScene::createSolarSystem(){
   SunTransDef vSunDTrans;
   vTSep->add(createPlanet(&vSunD));
   int vDir = 1;
-  float vAlpha = 0.9f;
-  for(unsigned i=0; i<5; i++){
+  float vAlpha = 0.3f;
+  for(unsigned i=0; i<2; i++){
     vSunDTrans.radius += .015f;
     vSunDTrans.rotVelocity += 1.01f;
     vDir = -vDir;
@@ -538,7 +556,7 @@ AbstractNode* SolarSytemScene::createSolarSystem(){
   vEmitMat->set(GL_COLOR, 1, 1, 1);
   vStarsSep->add(new MaterialNode(GL_FRONT_AND_BACK, vEmitMat));
   delete vEmitMat; // MaterialNode copies the values
-  vStarsSep->add(new StarsNode(500, 400, 10000));
+  vStarsSep->add(new StarsNode(500, 400, 1000));
   vTSep->add(vStarsSep);
   return vTSep;
 }

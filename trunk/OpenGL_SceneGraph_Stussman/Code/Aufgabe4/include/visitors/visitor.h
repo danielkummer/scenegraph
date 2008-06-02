@@ -52,6 +52,12 @@ public:
   
   virtual void visit(PolygonObjectNode &aPolygonObjectNode);
 
+  virtual void visit(Quad& aNode);
+  virtual void visit(Billboard& aNode);
+
+  void checkError(int aInt);
+
+
   void drawBlended();
   std::vector<SBlendInfo> mBlendInfos;
 

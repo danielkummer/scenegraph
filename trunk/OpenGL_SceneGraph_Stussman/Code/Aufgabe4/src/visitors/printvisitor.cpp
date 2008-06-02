@@ -211,5 +211,15 @@ void PrintVisitor::visit(CamFollowNode &aNode){
   printf("ID: %d CamFollowNode\n", aNode.mID);
 }
 //----------------------------------------------------------//
+void PrintVisitor::visit(Quad& aNode){
+  printIdent();
+  printf("ID: %d Quad\n", aNode.mID);
+}
+//----------------------------------------------------------//
+void PrintVisitor::visit(Billboard& aNode){
+  printIdent();
+  printf("ID: %d Billboard\n", aNode.mID);
+}
+//----------------------------------------------------------//
 
 

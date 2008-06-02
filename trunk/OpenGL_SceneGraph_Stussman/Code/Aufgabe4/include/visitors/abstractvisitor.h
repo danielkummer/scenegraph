@@ -27,7 +27,8 @@ class PolygonObjectNode;
 class CamNode;
 class AbstractSpawn;
 class CamFollowNode;
-
+class Quad;
+class Billboard;
 
 
 
@@ -75,6 +76,8 @@ public:
   virtual void visit(PolygonObjectNode &aPolygonObjectNode) { }
   virtual void visit(AbstractSpawn &aNode) { }
 
+  virtual void visit(Quad& aNode) { }
+  virtual void visit(Billboard& aNode) { }
 
 
 

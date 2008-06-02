@@ -25,6 +25,7 @@ public:
          float aOrbitInclination, // in degrees to suns equator
          const char* aTextureName,
          bool aAntiRot=true,
+         float aAlpha=1.0f,
          Material* aMaterial = new DefaultMaterial());  // name of texture to use
   virtual ~PlanetDef();
   // planet
@@ -43,6 +44,7 @@ public:
   float blue;
   // material
   Material* material;
+  float mAlpha;
 
   bool mAntiRot;
 
@@ -60,6 +62,10 @@ public:
 class EarthDef:public PlanetDef{
 public:
   EarthDef();
+};
+class EarthCloudsDef:public PlanetDef{
+public:
+  EarthCloudsDef();
 };
 class LunaDef:public PlanetDef{
 public:

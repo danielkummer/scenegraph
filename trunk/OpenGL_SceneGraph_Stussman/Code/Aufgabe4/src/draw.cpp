@@ -54,67 +54,67 @@ void draw3D() {
 /* Calculate and set camera                       */
 /**************************************************/
 
-void camera() {
-	// TODO 2.4 to 2.6
-	////////////////////////////////////////////////
-  yangle += (keyFlag.relMouseX * mousetune);
-  xangle += (keyFlag.relMouseY * mousetune);
-  if(4 == keyFlag.rollButton){
-    speed += 10.0f;
-    printf("speed: %f\n", speed);
-  }
-  if(5 == keyFlag.rollButton){
-    speed -= 10.0f;
-    printf("speed: %f\n", speed);
-  }
-  keyFlag.rollButton = -1;
-  keyFlag.relMouseX = 0;
-  keyFlag.relMouseY = 0;
-
-  Clock::getDefaultClock()->setDilatation(speed);
-  float dx = 0;
-  float dy = 0;
-  float dz = 0;
-
-  if(keyFlag.left){
-    dx = 1.1f;
-  }
-  if(keyFlag.right){
-    dx = -1.1f;
-  }
-  if(keyFlag.up){
-    dz = 1.1f;
-  }
-  if(keyFlag.down){
-    dz = -1.1f;
-  }
-  if(keyFlag.pageUp){
-    dy = 1.1f;
-  }
-  if(keyFlag.pageDown){
-    dy = -1.1f;
-  }
-  /*
-  // shooter
-  posx += dx * cos(yangle*vToRad) - dz * sin(yangle*vToRad);
-  posy += dy * cos(xangle*vToRad);
-  posz += dx * sin(yangle*vToRad) + dz * cos(yangle*vToRad);
-*/
-/*
-    float x = (float)( dx*cos(yRot) + dy*sin(xRot)*sin(yRot) - dz*cos(xRot)*sin(yRot) );
-    float y = (float)(              + dy*cos(xRot)           + dz*sin(xRot)           );
-    float z = (float)( dx*sin(yRot) - dy*sin(xRot)*cos(yRot) + dz*cos(xRot)*cos(yRot) );
-*/
-  float vToRad = 3.14f/180;
-  posx += dx * cos(yangle*vToRad) + dy * sin(xangle*vToRad) * sin(yangle*vToRad) - dz * cos(xangle*vToRad) * sin(yangle*vToRad);
-  posy +=                           dy * cos(xangle*vToRad)                      + dz * sin(xangle*vToRad);
-  posz += dx * sin(yangle*vToRad) - dy * sin(xangle*vToRad) * cos(yangle*vToRad) + dz * cos(xangle*vToRad) * cos(yangle*vToRad);
-
-  glRotatef(zangle, 0, 0, 1);
-  glRotatef(xangle, 1, 0, 0);
-  glRotatef(yangle, 0, 1, 0);
-  glTranslatef(posx, posy, posz);
-}
+//void camera() {
+//	// TODO 2.4 to 2.6
+//	////////////////////////////////////////////////
+//  yangle += (keyFlag.relMouseX * mousetune);
+//  xangle += (keyFlag.relMouseY * mousetune);
+//  if(4 == keyFlag.rollButton){
+//    speed += 10.0f;
+//    printf("speed: %f\n", speed);
+//  }
+//  if(5 == keyFlag.rollButton){
+//    speed -= 10.0f;
+//    printf("speed: %f\n", speed);
+//  }
+//  keyFlag.rollButton = -1;
+//  keyFlag.relMouseX = 0;
+//  keyFlag.relMouseY = 0;
+//
+//  Clock::getDefaultClock()->setDilatation(speed);
+//  float dx = 0;
+//  float dy = 0;
+//  float dz = 0;
+//
+//  if(keyFlag.left){
+//    dx = 1.1f;
+//  }
+//  if(keyFlag.right){
+//    dx = -1.1f;
+//  }
+//  if(keyFlag.up){
+//    dz = 1.1f;
+//  }
+//  if(keyFlag.down){
+//    dz = -1.1f;
+//  }
+//  if(keyFlag.pageUp){
+//    dy = 1.1f;
+//  }
+//  if(keyFlag.pageDown){
+//    dy = -1.1f;
+//  }
+//  /*
+//  // shooter
+//  posx += dx * cos(yangle*vToRad) - dz * sin(yangle*vToRad);
+//  posy += dy * cos(xangle*vToRad);
+//  posz += dx * sin(yangle*vToRad) + dz * cos(yangle*vToRad);
+//*/
+///*
+//    float x = (float)( dx*cos(yRot) + dy*sin(xRot)*sin(yRot) - dz*cos(xRot)*sin(yRot) );
+//    float y = (float)(              + dy*cos(xRot)           + dz*sin(xRot)           );
+//    float z = (float)( dx*sin(yRot) - dy*sin(xRot)*cos(yRot) + dz*cos(xRot)*cos(yRot) );
+//*/
+//  float vToRad = 3.14f/180;
+//  posx += dx * cos(yangle*vToRad) + dy * sin(xangle*vToRad) * sin(yangle*vToRad) - dz * cos(xangle*vToRad) * sin(yangle*vToRad);
+//  posy +=                           dy * cos(xangle*vToRad)                      + dz * sin(xangle*vToRad);
+//  posz += dx * sin(yangle*vToRad) - dy * sin(xangle*vToRad) * cos(yangle*vToRad) + dz * cos(xangle*vToRad) * cos(yangle*vToRad);
+//
+//  glRotatef(zangle, 0, 0, 1);
+//  glRotatef(xangle, 1, 0, 0);
+//  glRotatef(yangle, 0, 1, 0);
+//  glTranslatef(posx, posy, posz);
+//}
 
 /**************************************************/
 /* Increment Animation Variables                  */
