@@ -13,13 +13,18 @@ GroupNode(), ClockListener()
   mLifetime = aLifetime;
   mParent = aParent;
 }
-
+//----------------------------------------------------------//
 void DestructorNode::update(float aDt, double aTime){
   mLifetime -= aDt;
 	if(0>=mLifetime){
-		mParent->remove(this); // remove me from parent, will auto delete this
+    destroy();
 	}
 }
+//----------------------------------------------------------//
+void DestructorNode::destroy(){
+  mParent->remove(this); // remove me from parent, will auto delete this
+}
+//----------------------------------------------------------//
 DestructorNode::~DestructorNode(){
   mClock->removeListener(this);
 	clear();	

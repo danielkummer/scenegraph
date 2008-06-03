@@ -16,6 +16,7 @@
 class SphereNode:public AbstractNode{
 public:
   SphereNode(double aRadius, int aSlices = 16, int aStacks = 16, GLboolean aUseTexCoord=GL_FALSE);
+  virtual ~SphereNode();
   virtual void accept(AbstractVisitor &aVisitor);
 
   static GLUquadric* mQuadric;

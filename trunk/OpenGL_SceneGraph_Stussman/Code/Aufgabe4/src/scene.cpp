@@ -408,14 +408,14 @@ void SolarSytemScene::createScene(){
 //TODO: add offset to position the shot to the wings
   Builder vRCannon(new TransformSeparator());
   vRCannon.buildTranslationNode(0, -0.25, 0.75);
-  vRCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
-//  vRCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+//  vRCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vRCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
   vSpaceShipBuilder.append(NULL, vRCannon.getResult());
     
   Builder vLCannon(new TransformSeparator());
   vLCannon.buildTranslationNode(0, -0.25, -0.75);
-  vLCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
-//  vLCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+//  vLCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vLCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
   vSpaceShipBuilder.append(NULL, vLCannon.getResult());
 
   mSceneGraph->add(vSpaceShipBuilder.getResult());
@@ -514,7 +514,6 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYes
   int vTexId = createTexture(aPlanetDef->textureName);
   if(1.0f > aAlpha){
     vBuilder.buildTextureNode(vTexId, GL_TEXTURE_2D, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, NULL);
-//    vBuilder.buildTextureNode(vTexId, GL_TEXTURE_2D, GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA , NULL);
   }else{
     vBuilder.buildTextureNode(vTexId);
   }
@@ -525,7 +524,10 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYes
     vBuilder.buildColorNode(1, 1, 1, aAlpha, NULL);
   }
   vBuilder.buildSphereNode(aPlanetDef->radius, 32, 32, true);
-  vBuilder.getLast()->mCollidable = 1;
+  // TODO: why does the 2 following lines cause a memoryleak!?!?!?!?
+  // only for transparent spheres!?
+  AbstractNode* vLast = vBuilder.getLast();
+  vLast->mCollidable = 1;
 
   // axis
   ToggleNode* vToggleN = new ToggleNode();
@@ -562,13 +564,14 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
 AbstractNode* SolarSytemScene::createSolarSystem(){
   TransformSeparator* vTSep = new TransformSeparator();
 
-  // Sun surface
+  // Sun
   SunDef vSunD;
-  SunTransDef vSunDTrans;
   vTSep->add(createPlanet(&vSunD));
+  // Sun surface
+  SunTransDef vSunDTrans;
   int vDir = 1;
-  float vAlpha = 0.3f;
-  for(unsigned i=0; i<2; i++){
+  float vAlpha = 0.5f;
+  for(unsigned i=0; i<3; i++){
     vSunDTrans.radius += .015f;
     vSunDTrans.rotVelocity += 1.01f;
     vDir = -vDir;
