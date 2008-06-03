@@ -36,6 +36,7 @@ void Visitor::visit(SphereNode &aSphereNode){
     aSphereNode.mModelMatrix[12] = mCurrentMatrix[12];
     aSphereNode.mModelMatrix[13] = mCurrentMatrix[13];
     aSphereNode.mModelMatrix[14] = mCurrentMatrix[14];
+    aSphereNode.ref();
   }
   gluQuadricNormals(aSphereNode.mQuadric, GLU_SMOOTH);
   gluQuadricTexture(aSphereNode.mQuadric, aSphereNode.mUseTexCoord);
@@ -59,11 +60,20 @@ void Visitor::visit(SphereNode &aSphereNode){
 }
 //----------------------------------------------------------//
 void Visitor::visit(LineNode &aLineNode){
+  if(0<aLineNode.mCollidable){
+    mCollider.push_back(&aLineNode);
+    aLineNode.mModelMatrix[12] = mCurrentMatrix[12];
+    aLineNode.mModelMatrix[13] = mCurrentMatrix[13];
+    aLineNode.mModelMatrix[14] = mCurrentMatrix[14];
+    aLineNode.ref();
+  }
+  glDisable(GL_LIGHTING);
   glLineWidth(aLineNode.mWidth);
   glBegin(GL_LINES);
     glVertex3f(aLineNode.mVert1X, aLineNode.mVert1Y, aLineNode.mVert1Z);
     glVertex3f(aLineNode.mVert2X, aLineNode.mVert2Y, aLineNode.mVert2Z);
   glEnd();
+  glEnable(GL_LIGHTING);
   checkError(2);
 }
 //----------------------------------------------------------//
@@ -743,29 +753,57 @@ inline void Visitor::checkError(int aInt){
 void Visitor::checkCollisions(){
   // only spheres
   for(unsigned i=0; i<mCollider.size(); i++){
-    unsigned vType2 = 1;
     if(1 == mCollider[i]->mCollidable){
-      vType2 = 2;
-    };
-    for(unsigned j=i+1; j<mCollider.size(); j++){
-      // only check collision if it is of other type
-      if( vType2 == mCollider[j]->mCollidable){
-        // check distance
-        float vdx = mCollider[i]->mModelMatrix[12] - mCollider[j]->mModelMatrix[12];
-        float vdy = mCollider[i]->mModelMatrix[13] - mCollider[j]->mModelMatrix[13];
-        float vdz = mCollider[i]->mModelMatrix[14] - mCollider[j]->mModelMatrix[14];
-        float vLen = sqrt(vdx * vdx + vdy * vdy + vdz * vdz);
-        float vR1 = ((SphereNode*)mCollider[i])->mRadius;
-        float vR2 = ((SphereNode*)mCollider[j])->mRadius;
-        if(vLen < (vR1 + vR2)){
-          // collision
-          printf("Collision at %f %f %f \n", 
-                  mCollider[i]->mModelMatrix[12], 
-                  mCollider[i]->mModelMatrix[13], 
-                  mCollider[i]->mModelMatrix[14]);
+      
+      for(unsigned j=i+1; j<mCollider.size(); j++){
+        // only check collision if it is of other type
+        if( 1 < mCollider[j]->mCollidable){
+          // check distance
+          float vdx = mCollider[i]->mModelMatrix[12] - mCollider[j]->mModelMatrix[12];
+          float vdy = mCollider[i]->mModelMatrix[13] - mCollider[j]->mModelMatrix[13];
+          float vdz = mCollider[i]->mModelMatrix[14] - mCollider[j]->mModelMatrix[14];
+          float vLen = sqrt(vdx * vdx + vdy * vdy + vdz * vdz);
+          float vR1 = ((SphereNode*)mCollider[i])->mRadius;
+          float vR2;
+          bool vColliding = false;
+          if(2==mCollider[j]->mCollidable){
+            vR2 = ((SphereNode*)mCollider[j])->mRadius;
+            if(vLen < (vR1 + vR2)){
+              // collision
+              printf("Collision at %f %f %f \n", 
+                      mCollider[i]->mModelMatrix[12] + vR1 * vdx, 
+                      mCollider[i]->mModelMatrix[13] + vR1 * vdy, 
+                      mCollider[i]->mModelMatrix[14] + vR1 * vdz);
+              vColliding = true;
+            }
+          }else{
+            vR2 = 10;
+            if(vLen < (vR1)){
+              // collision
+              printf("Collision 2 at %f %f %f \n", 
+                      mCollider[i]->mModelMatrix[12] + vR1 * vdx, 
+                      mCollider[i]->mModelMatrix[13] + vR1 * vdy, 
+                      mCollider[i]->mModelMatrix[14] + vR1 * vdz);
+              vColliding = true;
+            }
+          }
+          if(vColliding){
+            // draw somthing at that place
+            // TODO: mRoot is not good for viewports
+            // TODO: memory leaks if currently in use while exit!!
+            TransformSeparator* vT = new TransformSeparator();
+            vT->add(new TranslationNode(mCollider[i]->mModelMatrix[12],// + vR1 * vdx, 
+                                        mCollider[i]->mModelMatrix[13],// + vR1 * vdy, 
+                                        mCollider[i]->mModelMatrix[14]));// + vR1 * vdz));
+            vT->add(new SphereNode(1));
+            DestructorNode* vDestr = new DestructorNode(5, (GroupNode*)mRootNode);
+            vDestr->add(vT);
+            ((GroupNode*)mRootNode)->add(vDestr);
+          }
         }
-      }
-    }
+      } // for
+    } // if
+    mCollider[i]->unref();
   }
   mCollider.clear();
 }

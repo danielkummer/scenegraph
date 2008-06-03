@@ -47,7 +47,7 @@ void draw3D() {
   clk->tick();
   scene->update();
 
-	drawGrid();										// Draw a grid on the ground
+//	drawGrid();										// Draw a grid on the ground
 }
 
 /**************************************************/

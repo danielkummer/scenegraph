@@ -1,7 +1,7 @@
 #include "nodes/translatornode.h"
 
-  float mXVel, mYVel, mZVel;
-  float mX, mY, mZ;
+  //float mXVel, mYVel, mZVel;
+  //float mX, mY, mZ;
 
 
 TranslatorNode::TranslatorNode(float aXVel, float aYVel, float aZVel, float aX, float aY, float aZ, Clock* aClock):

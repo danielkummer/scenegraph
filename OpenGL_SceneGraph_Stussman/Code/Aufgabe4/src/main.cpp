@@ -299,7 +299,10 @@ int main( int argc, char* argv[] )
 #ifdef WIN32
   #define _CRTDBG_MAP_ALLOC
   #define _CRTDBG_MAPALLOC
-//  _CrtSetBreakAlloc(1727);
+  //_CrtSetBreakAlloc(442);
+  //_CrtSetBreakAlloc(1134);
+  //_CrtSetBreakAlloc(1185);
+  //_CrtSetBreakAlloc(1237);
 #endif
 
 	if(!init_SDL())					// If intialising of SDL fails -> quit the program with error code 1
