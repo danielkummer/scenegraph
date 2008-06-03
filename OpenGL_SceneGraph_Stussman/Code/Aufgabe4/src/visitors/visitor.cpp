@@ -763,11 +763,11 @@ void Visitor::checkCollisions(){
           float vdy = mCollider[i]->mModelMatrix[13] - mCollider[j]->mModelMatrix[13];
           float vdz = mCollider[i]->mModelMatrix[14] - mCollider[j]->mModelMatrix[14];
           float vLen = sqrt(vdx * vdx + vdy * vdy + vdz * vdz);
-          float vR1 = ((SphereNode*)mCollider[i])->mRadius;
+          float vR1 = (float)((SphereNode*)mCollider[i])->mRadius;
           float vR2;
           bool vColliding = false;
           if(2==mCollider[j]->mCollidable){
-            vR2 = ((SphereNode*)mCollider[j])->mRadius;
+            vR2 = (float)((SphereNode*)mCollider[j])->mRadius;
             if(vLen < (vR1 + vR2)){
               // collision
               printf("Collision at %f %f %f \n", 
@@ -788,13 +788,17 @@ void Visitor::checkCollisions(){
             }
           }
           if(vColliding){
+            // TODO: remove shot from scenegraph (how?)
+            mCollider[j]->mCollidable = 0;
+
             // draw somthing at that place
             // TODO: mRoot is not good for viewports
             // TODO: memory leaks if currently in use while exit!!
             TransformSeparator* vT = new TransformSeparator();
-            vT->add(new TranslationNode(mCollider[i]->mModelMatrix[12],// + vR1 * vdx, 
-                                        mCollider[i]->mModelMatrix[13],// + vR1 * vdy, 
-                                        mCollider[i]->mModelMatrix[14]));// + vR1 * vdz));
+            if(vLen==0) vLen = 1.0f;
+            vT->add(new TranslationNode(mCollider[i]->mModelMatrix[12] - vR1 * vdx / vLen, 
+                                        mCollider[i]->mModelMatrix[13] - vR1 * vdy / vLen, 
+                                        mCollider[i]->mModelMatrix[14] - vR1 * vdz / vLen));
             vT->add(new SphereNode(1));
             DestructorNode* vDestr = new DestructorNode(5, (GroupNode*)mRootNode);
             vDestr->add(vT);
