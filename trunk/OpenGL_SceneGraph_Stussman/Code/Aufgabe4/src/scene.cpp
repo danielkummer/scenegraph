@@ -408,14 +408,14 @@ void SolarSytemScene::createScene(){
 //TODO: add offset to position the shot to the wings
   Builder vRCannon(new TransformSeparator());
   vRCannon.buildTranslationNode(0, -0.25, 0.75);
-//  vRCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
-  vRCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vRCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+//  vRCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
   vSpaceShipBuilder.append(NULL, vRCannon.getResult());
     
   Builder vLCannon(new TransformSeparator());
   vLCannon.buildTranslationNode(0, -0.25, -0.75);
-//  vLCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
-  vLCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vLCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+//  vLCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
   vSpaceShipBuilder.append(NULL, vLCannon.getResult());
 
   mSceneGraph->add(vSpaceShipBuilder.getResult());
