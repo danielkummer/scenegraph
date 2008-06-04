@@ -12,6 +12,9 @@
 #include <iostream> 
 #include <stdlib.h>
 #include <vector>
+#include <string>
+
+typedef std::map<const std::string, unsigned> TTexCache;
 
 class TextureManager {
 	public:
@@ -22,9 +25,10 @@ class TextureManager {
 		unsigned int getId();
 	private:				
 		TextureManager();
-		unsigned int *textures;		//Global Texture Array
+//		unsigned int *textures;		//Global Texture Array
 		unsigned int currTexIndex;
 		static TextureManager *texMan;
+    TTexCache mTexCache;
 };
 
 #endif /*TEXTUREMANAGER_H_*/

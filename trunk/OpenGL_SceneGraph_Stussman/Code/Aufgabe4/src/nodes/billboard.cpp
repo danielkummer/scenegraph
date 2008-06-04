@@ -2,9 +2,8 @@
 
 
 Billboard::Billboard(float aWidth, float aHeight, 
-                     float aPosX, float aPosY, float aPosZ, 
                      float aOffX, float aOffY, float aOffZ):
-Quad(aPosX, aPosY, aPosZ, aOffX, aOffY, aOffZ), 
+Quad(aOffX, aOffY, aOffZ), 
 mWidth(aWidth), 
 mHeight(aHeight)
 {

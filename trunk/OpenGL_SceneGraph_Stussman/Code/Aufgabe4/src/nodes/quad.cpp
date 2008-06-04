@@ -29,10 +29,16 @@ inline SPoint3D SPoint3D::normalize(){
   return *this;
 }
 //-------------------------------------------------------//
-Quad::Quad(float aPosX, float aPosY, float aPosZ, 
-           float aOffX, float aOffY, float aOffZ){
+Quad::Quad(float aOffX, float aOffY, float aOffZ){
   mOffset = SPoint3D(aOffX, aOffY, aOffZ);
-  mPos = SPoint3D(aPosX, aPosY, aPosZ);
+  mModelMatrix[12] += aOffX;
+  mModelMatrix[13] += aOffY;
+  mModelMatrix[14] += aOffZ;
+  mModelMatrix[0] = 1;
+  mModelMatrix[5] = 1;
+  mModelMatrix[10] = 1;
+  mModelMatrix[15] = 1;
+
   // counterclockwise, n shoud be z+
   mP1 = SPoint3D(1, 1, 0);
   mP2 = SPoint3D(-1, 1, 0);
@@ -40,8 +46,7 @@ Quad::Quad(float aPosX, float aPosY, float aPosZ,
   mP4 = SPoint3D(1, -1, 0);
 }
 //-------------------------------------------------------//
-Quad::Quad(float aPosX, float aPosY, float aPosZ,
-           float aNormX, float aNormY, float aNormZ,
+Quad::Quad(float aNormX, float aNormY, float aNormZ,
            float aUpX, float aUpY, float aUpZ,
            float aOffX, float aOffY, float aOffZ){
 
@@ -51,9 +56,13 @@ Quad::Quad(float aPosX, float aPosY, float aPosZ,
   mP3 = SPoint3D(-1, -1, 0);
   mP4 = SPoint3D(1, -1, 0);
 
-  mModelMatrix[12] += aPosX + aOffX;
-  mModelMatrix[13] += aPosY + aOffY;
-  mModelMatrix[14] += aPosZ + aOffZ;
+  mModelMatrix[12] += aOffX;
+  mModelMatrix[13] += aOffY;
+  mModelMatrix[14] +=  aOffZ;
+  mModelMatrix[0] = 1;
+  mModelMatrix[5] = 1;
+  mModelMatrix[10] = 1;
+  mModelMatrix[15] = 1;
   // normal is the local z axis
   mNormal = SPoint3D(aNormX, aNormY, aNormZ);
   mModelMatrix [8] = aNormX;
@@ -76,7 +85,6 @@ Quad::Quad(float aPosX, float aPosY, float aPosZ,
 }
 //-------------------------------------------------------//
 Quad::Quad(float aWidth, float aHeight,
-           float aPosX, float aPosY, float aPosZ,
            float aNormX, float aNormY, float aNormZ,
            float aUpX, float aUpY, float aUpZ,
            float aOffX, float aOffY, float aOffZ){
@@ -89,9 +97,13 @@ Quad::Quad(float aWidth, float aHeight,
   mP3 = SPoint3D(-vW, -vH, 0);
   mP4 = SPoint3D(vW, -vH, 0);
 
-  mModelMatrix[12] += aPosX + aOffX;
-  mModelMatrix[13] += aPosY + aOffY;
-  mModelMatrix[14] += aPosZ + aOffZ;
+  mModelMatrix[12] += aOffX;
+  mModelMatrix[13] += aOffY;
+  mModelMatrix[14] += aOffZ;
+  mModelMatrix[0] = 1;
+  mModelMatrix[5] = 1;
+  mModelMatrix[10] = 1;
+  mModelMatrix[15] = 1;
   // normal is the local z axis
   mNormal = SPoint3D(aNormX, aNormY, aNormZ);
   mModelMatrix [8] = aNormX;
@@ -119,24 +131,25 @@ Quad::Quad(float aP1X, float aP1Y, float aP1Z,
            float aP2X, float aP2Y, float aP2Z, 
            float aP3X, float aP3Y, float aP3Z, 
            float aP4X, float aP4Y, float aP4Z, 
-           float aPosX, float aPosY, float aPosZ, 
            float aOffX, float aOffY, float aOffZ){
   mOffset = SPoint3D(aOffX, aOffY, aOffZ);
-  mPos = SPoint3D(aPosX, aPosY, aPosZ);
   mP1 = SPoint3D(aP1X, aP1Y, aP1Z);
   mP2 = SPoint3D(aP2X, aP2Y, aP2Z);
   mP3 = SPoint3D(aP3X, aP3Y, aP3Z);
   mP4 = SPoint3D(aP4X, aP4Y, aP4Z);
-  mModelMatrix[12] += aPosX + aOffX;
-  mModelMatrix[13] += aPosY + aOffY;
-  mModelMatrix[14] += aPosZ + aOffZ;
+  mModelMatrix[12] += aOffX;
+  mModelMatrix[13] += aOffY;
+  mModelMatrix[14] += aOffZ;
+  mModelMatrix[0] = 1;
+  mModelMatrix[5] = 1;
+  mModelMatrix[10] = 1;
+  mModelMatrix[15] = 1;
 }
 //-------------------------------------------------------//
 Quad::Quad(float aP1X, float aP1Y, float aP1Z, 
            float aP2X, float aP2Y, float aP2Z, 
            float aP3X, float aP3Y, float aP3Z, 
            float aP4X, float aP4Y, float aP4Z, 
-           float aPosX, float aPosY, float aPosZ, 
            float aNormX, float aNormY, float aNormZ,
            float aUpX, float aUpY, float aUpZ,
            float aOffX, float aOffY, float aOffZ){
@@ -149,9 +162,13 @@ Quad::Quad(float aP1X, float aP1Y, float aP1Z,
 //2 6 10 14
 //3 7 11 15
 
-  mModelMatrix[12] += aPosX + aOffX;
-  mModelMatrix[13] += aPosY + aOffY;
-  mModelMatrix[14] += aPosZ + aOffZ;
+  mModelMatrix[12] += aOffX;
+  mModelMatrix[13] += aOffY;
+  mModelMatrix[14] += aOffZ;
+  mModelMatrix[0] = 1;
+  mModelMatrix[5] = 1;
+  mModelMatrix[10] = 1;
+  mModelMatrix[15] = 1;
   // normal is the local z axis
   mNormal = SPoint3D(aNormX, aNormY, aNormZ);
   mModelMatrix [8] = aNormX;

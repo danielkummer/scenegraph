@@ -5,84 +5,84 @@
 
 
 
-/**************************************************/
-/* Create texture                                 */
-/**************************************************/
-
-int createTexture(char *strFileName)
-{
-	SDL_Surface *bitmap;													// SDL_Surface to load the image into
-	SDL_Surface *conv;														// SDL_Surface to copy the image into (with correct color order)
-															
-	int pitch;																// Variable to store the length of one pixel-line
-	int height_div_2;														// Variable to store the size of half the number of rows
-
-	void* temp_row;															// Variable to store the pointer to a pixel-line
-
-	bitmap = SDL_LoadBMP(strFileName);										// Load image into an SDL_Surface
-	
-	if (!bitmap)															// If loading failed
-	{																		//
-	   printf("Could not load texture %s.\n",strFileName);					// print an error message
-	   quit_program( 0 );													// and quit
-	}
-
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN											// Select wether we use RGB or BGR mode 
-	conv = SDL_CreateRGBSurface(SDL_SWSURFACE, bitmap->w, bitmap->h, 32,0xff000000, 0x00ff0000, 0x0000ff00, 0x000000ff); // Create an SDL-Surface (big endian)
-#else
-	conv = SDL_CreateRGBSurface(SDL_SWSURFACE, bitmap->w, bitmap->h, 32,0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000); // Create an SDL-Surface (little endian)
-#endif
-
-	SDL_BlitSurface(bitmap, 0, conv, 0);									// Copy the loaded image to the surface with the correct color order
-
-	// Flip Loaded Bitmap upside down
-	// (SDL and OpenGL use diffrent Coordinate Systems)
-	////////////////////////////////////////////////////////
-	pitch = conv->pitch;													// length of one pixel-line
-
-	temp_row = (void *)malloc(pitch);										// Allocate memory for the inversion
-	if(NULL == temp_row)													// If you're not able to allocate the memory
-	{																		//
-		SDL_SetError("Not enough memory for image inversion");				// display an error message
-	}
-	height_div_2 = (int) (conv->h * .5);									// use only one half of the rows. (Works also with a odd number of rows)
-	for(int index = 0; index < height_div_2; index++)							// for every line in the lower half swap it with the corresponding line
-	{																		// in the upper half
-		memcpy(
-			(Uint8 *)temp_row,												// 
-			(Uint8 *)(conv->pixels) + pitch * index,						// copy one line from the first half to the temp variable
-			pitch);															// size of one line
-		memcpy(
-			(Uint8 *)(conv->pixels) + pitch * index,						//
-			(Uint8 *)(conv->pixels) + pitch * (conv->h - index-1),			// copy the corresponding line from the upper half to the line in the lower half
-			pitch);															// size of one line
-		memcpy(
-			(Uint8 *)(conv->pixels) + pitch * (conv->h - index-1),			//
-			temp_row,														// copy the tempvariable back to the corresponding line in the upper half
-			pitch);															// size of one line
-	}
-	free(temp_row);															// free allocated memory now that we don't need it anymore
-
-	// End flipping
-	/////////////////////////////////////////////////////////
-  unsigned int texId;
-	glGenTextures(1, &texId);									// Generate a new texture ID
-	glBindTexture(GL_TEXTURE_2D, texId);						// Bind the texture (the following commands work with this texture)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);		// Set the filter mode for magnification to linear
-//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);		// Set the filter mode for magnification to linear
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);		// Set the filter mode for minification to linear
-//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);		// Set the filter mode for minification to linear
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);			// Set the wrapping mode for the texturecoourdinate s to repeat
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);			// Set the wrapping mode for the texturecoourdinate t to repeat
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, conv->w, conv->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, conv->pixels);	//copy the image into the texture
-	SDL_FreeSurface(bitmap);
-	SDL_FreeSurface(conv);
-  int vErr = glGetError();
-  if(0!=vErr){
-    printf("GL_ERROR@createTexture(): %i %s %s\n", vErr, gluErrorString(vErr), strFileName);
-  }
-  return texId;
-}
+///**************************************************/
+///* Create texture                                 */
+///**************************************************/
+//
+//int createTexture(char *strFileName)
+//{
+//	SDL_Surface *bitmap;													// SDL_Surface to load the image into
+//	SDL_Surface *conv;														// SDL_Surface to copy the image into (with correct color order)
+//															
+//	int pitch;																// Variable to store the length of one pixel-line
+//	int height_div_2;														// Variable to store the size of half the number of rows
+//
+//	void* temp_row;															// Variable to store the pointer to a pixel-line
+//
+//	bitmap = SDL_LoadBMP(strFileName);										// Load image into an SDL_Surface
+//	
+//	if (!bitmap)															// If loading failed
+//	{																		//
+//	   printf("Could not load texture %s.\n",strFileName);					// print an error message
+//	   quit_program( 0 );													// and quit
+//	}
+//
+//#if SDL_BYTEORDER == SDL_BIG_ENDIAN											// Select wether we use RGB or BGR mode 
+//	conv = SDL_CreateRGBSurface(SDL_SWSURFACE, bitmap->w, bitmap->h, 32,0xff000000, 0x00ff0000, 0x0000ff00, 0x000000ff); // Create an SDL-Surface (big endian)
+//#else
+//	conv = SDL_CreateRGBSurface(SDL_SWSURFACE, bitmap->w, bitmap->h, 32,0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000); // Create an SDL-Surface (little endian)
+//#endif
+//
+//	SDL_BlitSurface(bitmap, 0, conv, 0);									// Copy the loaded image to the surface with the correct color order
+//
+//	// Flip Loaded Bitmap upside down
+//	// (SDL and OpenGL use diffrent Coordinate Systems)
+//	////////////////////////////////////////////////////////
+//	pitch = conv->pitch;													// length of one pixel-line
+//
+//	temp_row = (void *)malloc(pitch);										// Allocate memory for the inversion
+//	if(NULL == temp_row)													// If you're not able to allocate the memory
+//	{																		//
+//		SDL_SetError("Not enough memory for image inversion");				// display an error message
+//	}
+//	height_div_2 = (int) (conv->h * .5);									// use only one half of the rows. (Works also with a odd number of rows)
+//	for(int index = 0; index < height_div_2; index++)							// for every line in the lower half swap it with the corresponding line
+//	{																		// in the upper half
+//		memcpy(
+//			(Uint8 *)temp_row,												// 
+//			(Uint8 *)(conv->pixels) + pitch * index,						// copy one line from the first half to the temp variable
+//			pitch);															// size of one line
+//		memcpy(
+//			(Uint8 *)(conv->pixels) + pitch * index,						//
+//			(Uint8 *)(conv->pixels) + pitch * (conv->h - index-1),			// copy the corresponding line from the upper half to the line in the lower half
+//			pitch);															// size of one line
+//		memcpy(
+//			(Uint8 *)(conv->pixels) + pitch * (conv->h - index-1),			//
+//			temp_row,														// copy the tempvariable back to the corresponding line in the upper half
+//			pitch);															// size of one line
+//	}
+//	free(temp_row);															// free allocated memory now that we don't need it anymore
+//
+//	// End flipping
+//	/////////////////////////////////////////////////////////
+//  unsigned int texId;
+//	glGenTextures(1, &texId);									// Generate a new texture ID
+//	glBindTexture(GL_TEXTURE_2D, texId);						// Bind the texture (the following commands work with this texture)
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);		// Set the filter mode for magnification to linear
+////  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);		// Set the filter mode for magnification to linear
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);		// Set the filter mode for minification to linear
+////  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);		// Set the filter mode for minification to linear
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);			// Set the wrapping mode for the texturecoourdinate s to repeat
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);			// Set the wrapping mode for the texturecoourdinate t to repeat
+//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, conv->w, conv->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, conv->pixels);	//copy the image into the texture
+//	SDL_FreeSurface(bitmap);
+//	SDL_FreeSurface(conv);
+//  int vErr = glGetError();
+//  if(0!=vErr){
+//    printf("GL_ERROR@createTexture(): %i %s %s\n", vErr, gluErrorString(vErr), strFileName);
+//  }
+//  return texId;
+//}
 
 //-------------------------------------------------------//
 
@@ -408,8 +408,8 @@ void SolarSytemScene::createScene(){
 //TODO: add offset to position the shot to the wings
   Builder vRCannon(new TransformSeparator());
   vRCannon.buildTranslationNode(0, -0.25, 0.75);
-  vRCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
-//  vRCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+//  vRCannon.buildShootSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
+  vRCannon.buildLaserSpawn(mSceneGraph, mActionFactory->getAction(EShipShoot));
   vSpaceShipBuilder.append(NULL, vRCannon.getResult());
     
   Builder vLCannon(new TransformSeparator());
@@ -427,22 +427,22 @@ void SolarSytemScene::createScene(){
 //    //TODO: remove test quad
     vTS = new TransformSeparator();
     unsigned vFlames[16];
-    vFlames [0] = createTexture("Textures/corona_anim/flame1.bmp");
-    vFlames [1] = createTexture("Textures/corona_anim/flame2.bmp");
-    vFlames [2] = createTexture("Textures/corona_anim/flame3.bmp");
-    vFlames [3] = createTexture("Textures/corona_anim/flame4.bmp");
-    vFlames [4] = createTexture("Textures/corona_anim/flame5.bmp");
-    vFlames [5] = createTexture("Textures/corona_anim/flame6.bmp");
-    vFlames [6] = createTexture("Textures/corona_anim/flame7.bmp");
-    vFlames [7] = createTexture("Textures/corona_anim/flame8.bmp");
-    vFlames [8] = createTexture("Textures/corona_anim/flame9.bmp");
-    vFlames [9] = createTexture("Textures/corona_anim/flame10.bmp");
-    vFlames[10] = createTexture("Textures/corona_anim/flame11.bmp");
-    vFlames[11] = createTexture("Textures/corona_anim/flame12.bmp");
-    vFlames[12] = createTexture("Textures/corona_anim/flame13.bmp");
-    vFlames[13] = createTexture("Textures/corona_anim/flame14.bmp");
-    vFlames[14] = createTexture("Textures/corona_anim/flame15.bmp");
-    vFlames[15] = createTexture("Textures/corona_anim/flame16.bmp");
+    vFlames [0] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame1.bmp");
+    vFlames [1] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame2.bmp");
+    vFlames [2] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame3.bmp");
+    vFlames [3] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame4.bmp");
+    vFlames [4] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame5.bmp");
+    vFlames [5] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame6.bmp");
+    vFlames [6] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame7.bmp");
+    vFlames [7] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame8.bmp");
+    vFlames [8] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame9.bmp");
+    vFlames [9] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame10.bmp");
+    vFlames[10] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame11.bmp");
+    vFlames[11] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame12.bmp");
+    vFlames[12] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame13.bmp");
+    vFlames[13] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame14.bmp");
+    vFlames[14] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame15.bmp");
+    vFlames[15] = TextureManager::getReference()->createTexture("Textures/corona_anim/flame16.bmp");
 
 //    vTS->add(new TextureNode(createTexture("Textures/th_Corona.bmp"), GL_ONE, GL_ONE_MINUS_SRC_COLOR, GL_TEXTURE_2D));
     vTS->add(new TextureAnimator(16, vFlames, GL_ONE, GL_ONE_MINUS_SRC_COLOR, GL_TEXTURE_2D, 16));
@@ -451,7 +451,7 @@ void SolarSytemScene::createScene(){
     vTMat.set(GL_EMISSION, 1.0, 1.0, 1.0, 1.0);
 
     vTS->add(new MaterialNode(GL_FRONT_AND_BACK, &vTMat));
-    vTS->add(new Billboard(9, 9, 0, 0, 0));
+    vTS->add(new Billboard(9, 9));
 ////    mTS->add(new Quad(9, 9, 0, 0, 0, 1, 1, 1, 0, 1, 0));
 ////    mTS->add(new Quad(9, 9, 0, 0, 0, rand()-32500, rand()-32500, rand()-32500, 0, 1, 0));
 //    vTS->add(new MaterialNode(GL_FRONT_AND_BACK, &DefaultMaterial()));
@@ -511,7 +511,7 @@ AbstractNode* SolarSytemScene::createPlanet(PlanetDef* aPlanetDef, bool aMoonYes
   vBuilder.buildRotorNode(aPlanetDef->rotVelocity, 0, 0, 1, 0);
   vBuilder.buildRotationNode(90, 1, 0, 0);
   //TODO: add textures, material, color here
-  int vTexId = createTexture(aPlanetDef->textureName);
+  int vTexId = TextureManager::getReference()->createTexture(aPlanetDef->textureName);
   if(1.0f > aAlpha){
     vBuilder.buildTextureNode(vTexId, GL_TEXTURE_2D, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, NULL);
   }else{
@@ -550,7 +550,7 @@ AbstractNode* SolarSytemScene::createPlanet(RingDef* aRingDef){
   // same tilt as planet
   vTSep->add(new RotationNode(vPlanetDef->tilt, 1, 0, 0));
 
-  vTSep->add( new TextureNode( createTexture(aRingDef->textureName)) );
+  vTSep->add( new TextureNode( TextureManager::getReference()->createTexture(aRingDef->textureName)) );
   vTSep->add( new ColorNode(1, 1, 1) ); 
   float vInner = vPlanetDef->radius * aRingDef->mInnerFactor;
   float vOuter = vPlanetDef->radius * aRingDef->mOuterFactor;

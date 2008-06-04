@@ -2,9 +2,15 @@
 
 
 //-------------------------------------------------------//
-ScalatorNode::ScalatorNode(float aScaleX, float aScaleY, float aScaleZ,
-float aScaleVelX, float aScaleVelY,float aScaleVelZ, Clock* aClock):
-ScaleNode(aScaleX, aScaleY, aScaleZ), ClockListener()
+ScalatorNode::ScalatorNode(float aScaleX, 
+                           float aScaleY, 
+                           float aScaleZ,
+                           float aScaleVelX, 
+                           float aScaleVelY,
+                           float aScaleVelZ, 
+                           Clock* aClock):
+ScaleNode(aScaleX, aScaleY, aScaleZ), 
+ClockListener()
 {
   if(NULL != aClock){
     mClock = aClock;
@@ -22,10 +28,11 @@ inline void ScalatorNode::accept(AbstractVisitor &aVisitor){
 }
 //-------------------------------------------------------//
 void ScalatorNode::update(float aDt, double aTime){
-  mScaleX = (mScaleVelX * aDt);
-  mScaleY = (mScaleVelY * aDt);
-  mScaleZ = (mScaleVelZ * aDt);
+  mScaleX += (mScaleVelX * aDt);
+  mScaleY += (mScaleVelY * aDt);
+  mScaleZ += (mScaleVelZ * aDt);
 }
+//----------------------------------------------------------//
 ScalatorNode::~ScalatorNode(){
 	mClock->removeListener(this);
 }
