@@ -20,6 +20,6 @@ public:
   GroupNode* mParent;
 };
 
-#endif // _H_ROTORNODE
+#endif // _H_DESTRUCTORNODE
 
 

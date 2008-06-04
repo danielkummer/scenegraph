@@ -7,6 +7,12 @@ GroupNode::~GroupNode(){
   for(vItr = mChildren.begin(); vItr < mChildren.end(); vItr++){
     (*vItr)->unref();
   }
+  for(vItr = mToRemove.begin(); vItr < mToRemove.end(); vItr++){
+    (*vItr)->unref();
+  }
+  for(vItr = mToAdd.begin(); vItr < mToAdd.end(); vItr++){
+    (*vItr)->unref();
+  }
   mChildren.clear();
 }
 //----------------------------------------------------------//

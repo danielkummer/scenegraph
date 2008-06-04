@@ -17,7 +17,6 @@ Visitor::Visitor():AbstractVisitor(), mStackIdx(0), mBlendInfoSet(false){
   for(unsigned i=0; i<32; i++){
     mMatrixStack[i] = NULL;
   }
-
 }
 //----------------------------------------------------------//
 Visitor::~Visitor(){
@@ -50,6 +49,7 @@ void Visitor::visit(SphereNode &aSphereNode){
     //gluSphere(aSphereNode.mQuadric, aSphereNode.mRadius, aSphereNode.mSlices, aSphereNode.mStacks);
     //glDisable(GL_BLEND);
     mCurBlendInfo.mGeomNode = &aSphereNode;
+    aSphereNode.ref();
     mBlendInfos.push_back(mCurBlendInfo);
     mBlendInfoSet = false;
   }else{
@@ -135,6 +135,7 @@ void Visitor::visit(LightNode &aLightNode){
 void Visitor::visit(MaterialNode &aMaterialNode){
   if(mBlendInfoSet){
     mCurBlendInfo.mMatNode = &aMaterialNode;
+    aMaterialNode.ref();
   }else{
     std::map<GLenum, float*>::iterator vItr;
     for(vItr=aMaterialNode.mParams.begin(); vItr!= aMaterialNode.mParams.end(); vItr++){
@@ -147,7 +148,8 @@ void Visitor::visit(MaterialNode &aMaterialNode){
 //----------------------------------------------------------//
 void Visitor::visit(ColorNode &aColorNode){
   if(mBlendInfoSet){
-    mCurBlendInfo.mColorNode = &aColorNode;
+    //mCurBlendInfo.mColorNode = &aColorNode;
+    //aColorNode.ref();
   }else{
     glDisable(GL_TEXTURE_2D);
     glEnable(GL_COLOR_MATERIAL);	
@@ -161,6 +163,7 @@ void Visitor::visit(TextureNode &aTexNode){
   glBindTexture(aTexNode.mTarget, aTexNode.mTexID);
   if(true == aTexNode.mBlending){
     mCurBlendInfo.mTextureNode = &aTexNode;
+    aTexNode.ref();
 //    copy(mCurBlendInfo.mModelView);
     mBlendInfoSet = true;
     copy(aTexNode.mModelMatrix);
@@ -419,7 +422,7 @@ void Visitor::visit(CamFollowNode &aNode) {
     glRotatef(90, 0, 1, 0);
 //  	glLoadMatrixf(vM);
     glMultMatrixf(vM);
-    mCurrentCam = &aNode;
+    mCurrentCam = &aNode ;
 }
 //----------------------------------------------------------//
 
@@ -464,9 +467,11 @@ void Visitor::visit(PolygonObjectNode &aPolygonObjectNode){
 void Visitor::visit(Quad& aQuad){
   if(mBlendInfoSet){
     mCurBlendInfo.mGeomNode = &aQuad;
+    aQuad.ref();
     mBlendInfos.push_back(mCurBlendInfo);
     mBlendInfoSet = false;
   }else{
+    checkError(151);
     push();
     glPushMatrix();
     //glTranslatef(aQuad.mPos.x, aQuad.mPos.y, aQuad.mPos.z);
@@ -475,6 +480,7 @@ void Visitor::visit(Quad& aQuad){
     //translate(aQuad.mOffset.x, aQuad.mOffset.y, aQuad.mOffset.z);
     glMultMatrixf(aQuad.mModelMatrix);
     mult(aQuad.mModelMatrix);
+    checkError(152);
     glBegin(GL_QUADS);
       glTexCoord2f(1.0f, 1.0f);
       glVertex3f(aQuad.mP1.x, aQuad.mP1.y, aQuad.mP1.z);
@@ -494,6 +500,7 @@ void Visitor::visit(Quad& aQuad){
 void Visitor::visit(Billboard& aNode){
   if(mBlendInfoSet){
     mCurBlendInfo.mGeomNode = &aNode;
+    aNode.ref();
     mBlendInfos.push_back(mCurBlendInfo);
     mBlendInfoSet = false;
   }else{
@@ -502,9 +509,12 @@ void Visitor::visit(Billboard& aNode){
 //2 6 10 14
 //3 7 11 15
 
-    SPoint3D vLook = SPoint3D(mCurrentCam->mTransform[12] - aNode.mModelMatrix[12],
-                              mCurrentCam->mTransform[13] - aNode.mModelMatrix[13],
-                              mCurrentCam->mTransform[14] - aNode.mModelMatrix[14]);
+    //SPoint3D vLook = SPoint3D(mCurrentCam->mTransform[12] - aNode.mModelMatrix[12],
+    //                          mCurrentCam->mTransform[13] - aNode.mModelMatrix[13],
+    //                          mCurrentCam->mTransform[14] - aNode.mModelMatrix[14]);
+    SPoint3D vLook = SPoint3D(mCurrentCam->mTransform[12] - mCurrentMatrix[12],
+                              mCurrentCam->mTransform[13] - mCurrentMatrix[13],
+                              mCurrentCam->mTransform[14] - mCurrentMatrix[14]);
     // HACK: actually it should be in a fixed axis billboard
     SPoint3D vUp = SPoint3D(0, 1, 0);
     //SPoint3D vUp = SPoint3D(mCurrentCam->mTransform[4],
@@ -697,6 +707,7 @@ void Visitor::loadMatrix(float *aMatrix){
 
 void Visitor::drawBlended(){
 
+  checkError(171);
   sort(mBlendInfos.begin(), mBlendInfos.end());
   mBlendInfoSet = false;
   // draw back first
@@ -704,17 +715,25 @@ void Visitor::drawBlended(){
   glEnable(GL_BLEND);
   glEnable(GL_CULL_FACE);
   glCullFace(GL_FRONT);
+  checkError(172);
   for(unsigned i=0; i<mBlendInfos.size(); i++){
     SBlendInfo* vBI = &(mBlendInfos[i]);
     vBI->mMatNode->accept(*this);
+  checkError(175);
     glBindTexture(vBI->mTextureNode->mTarget, vBI->mTextureNode->mTexID);
+  checkError(1750);
     glBlendFunc(vBI->mTextureNode->mSFactor, vBI->mTextureNode->mDFactor);
+  checkError(1751);
     glPushMatrix();
+    push();
     glMultMatrixf(vBI->mTextureNode->mModelMatrix);
+    mult(vBI->mTextureNode->mModelMatrix);
 //    vBI->mColorNode->accept(*this);
     vBI->mGeomNode->accept(*this);
     glPopMatrix();
+    pop();
   }
+  checkError(173);
   glCullFace(GL_BACK);
   for(unsigned i=0; i<mBlendInfos.size(); i++){
     SBlendInfo* vBI = &(mBlendInfos[i]);
@@ -722,15 +741,24 @@ void Visitor::drawBlended(){
     glBindTexture(vBI->mTextureNode->mTarget, vBI->mTextureNode->mTexID);
     glBlendFunc(vBI->mTextureNode->mSFactor, vBI->mTextureNode->mDFactor);
     glPushMatrix();
+    push();
     glMultMatrixf(vBI->mTextureNode->mModelMatrix);
+    mult(vBI->mTextureNode->mModelMatrix);
     //vBI->mColorNode->accept(*this);
     vBI->mGeomNode->accept(*this);
     glPopMatrix();
+    pop();
+    vBI->mTextureNode->unref();
+    vBI->mGeomNode->unref();
+//    vBI->mColorNode->unref();
+    vBI->mMatNode->unref();
   }
+  checkError(174);
   glBlendFunc(GL_ONE, GL_ZERO);
   glDisable(GL_BLEND);
   glDisable(GL_CULL_FACE);
   glDisable(GL_TEXTURE_2D);
+
 
   mBlendInfos.clear();
   checkError(17);
@@ -799,8 +827,12 @@ void Visitor::checkCollisions(){
             vT->add(new TranslationNode(mCollider[i]->mModelMatrix[12] - vR1 * vdx / vLen, 
                                         mCollider[i]->mModelMatrix[13] - vR1 * vdy / vLen, 
                                         mCollider[i]->mModelMatrix[14] - vR1 * vdz / vLen));
+            vT->add(new ScalatorNode(0.1f, 0.1f, 0.1f, 2, 2, 2));
+            vT->add(new TextureNode( TextureManager::getReference()->createTexture("Textures/latest_smooth2.bmp"), GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_TEXTURE_2D));
+            vT->add(new MaterialNode(GL_FRONT, new TransDefaultMaterial()));
+//            vT->add(new Billboard(1, 1));
             vT->add(new SphereNode(1));
-            DestructorNode* vDestr = new DestructorNode(5, (GroupNode*)mRootNode);
+            DestructorNode* vDestr = new DestructorNode(3, (GroupNode*)mRootNode);
             vDestr->add(vT);
             ((GroupNode*)mRootNode)->add(vDestr);
           }

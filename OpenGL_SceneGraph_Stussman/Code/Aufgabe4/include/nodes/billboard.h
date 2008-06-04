@@ -7,7 +7,6 @@
 class Billboard:public Quad{
 public:
   Billboard(float aWidth, float aHeight,
-            float aPosX, float aPosY, float aPosZ,
             float aOffX=0, float aOffY=0, float aOffZ=0);
   virtual ~Billboard();
 

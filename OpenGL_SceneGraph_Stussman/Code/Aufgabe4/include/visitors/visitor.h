@@ -5,7 +5,7 @@
 #include "visitors/abstractvisitor.h"
 #include <vector>
 #include <algorithm> 
-
+#include "factories/TextureManager.h"
 
 
 
@@ -13,7 +13,7 @@ struct SBlendInfo{
   float mModelView[16];
   TextureNode* mTextureNode;
   AbstractNode* mGeomNode;
-  ColorNode* mColorNode;
+//  ColorNode* mColorNode;
   MaterialNode* mMatNode;
   bool operator<(const SBlendInfo& other) const {
     return mModelView[14] < other.mModelView[14];
@@ -86,6 +86,7 @@ private:
 
   std::vector<AbstractNode*> mCollider;
   void checkCollisions();
+  unsigned mExplTexID;
 
 };
 
