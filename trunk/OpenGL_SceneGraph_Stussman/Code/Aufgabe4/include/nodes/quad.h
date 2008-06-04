@@ -13,14 +13,11 @@ struct SPoint3D{
 
 class Quad: public AbstractNode{
 public:
-  Quad(float aPosX, float aPosY, float aPosZ,
-       float aOffX=0, float aOffY=0, float aOffZ=0);
-  Quad(float aPosX, float aPosY, float aPosZ,
-       float aNormX, float aNormY, float aNormZ,
+  Quad(float aOffX=0, float aOffY=0, float aOffZ=0);
+  Quad(float aNormX, float aNormY, float aNormZ,
        float aUpX, float aUpY, float aUpZ,
        float aOffX, float aOffY, float aOffZ);
   Quad(float aWidth, float aHeight,
-       float aPosX, float aPosY, float aPosZ,
        float aNormX, float aNormY, float aNormZ,
        float aUpX, float aUpY, float aUpZ,
        float aOffX=0, float aOffY=0, float aOffZ=0);
@@ -28,13 +25,11 @@ public:
        float aP2X, float aP2Y, float aP2Z,
        float aP3X, float aP3Y, float aP3Z,
        float aP4X, float aP4Y, float aP4Z,
-       float aPosX, float aPosY, float aPosZ,
        float aOffX=0, float aOffY=0, float aOffZ=0);
   Quad(float aP1X, float aP1Y, float aP1Z,
        float aP2X, float aP2Y, float aP2Z,
        float aP3X, float aP3Y, float aP3Z,
        float aP4X, float aP4Y, float aP4Z,
-       float aPosX, float aPosY, float aPosZ,
        float aNormX, float aNormY, float aNormZ,
        float aUpX, float aUpY, float aUpZ,
        float aOffX=0, float aOffY=0, float aOffZ=0);
@@ -44,7 +39,6 @@ public:
 
 
   SPoint3D mNormal;
-  SPoint3D mPos;
   SPoint3D mOffset;
   SPoint3D mP1;
   SPoint3D mP2;
