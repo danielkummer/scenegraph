@@ -224,6 +224,7 @@ void SolarSytemScene::init(){
   mKeyFlags[SDLK_F2] = 2;
   mKeyFlags[SDLK_F3] = 2;
   mKeyFlags[SDLK_F4] = 2;
+  mKeyFlags[SDLK_F5] = 2;
   mKeyFlags[SDLK_TAB] = 2;
 //  mKeyFlags[SDLK_SPACE] = 2;
 
