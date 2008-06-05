@@ -1,4 +1,4 @@
-#include "nodes/Quad.h"
+#include "nodes/quad.h"
 #include <math.h>
 
 //TODO: idea: orientationNode and orientator: given an orientation, all after
@@ -13,13 +13,13 @@ SPoint3D::SPoint3D(float aX, float aY, float aZ){
     z = aZ; 
   }
 //-------------------------------------------------------//
-inline SPoint3D SPoint3D::cross(SPoint3D other){
+SPoint3D SPoint3D::cross(SPoint3D other){
   return SPoint3D(y * other.z - other.y * z,
                   z * other.x - other.z * x,
                   x * other.y - other.x * y);
 }
 //-------------------------------------------------------//
-inline SPoint3D SPoint3D::normalize(){
+SPoint3D SPoint3D::normalize(){
   float vL = sqrt(x * x + y * y + z * z);
   if(0!=vL){
     x /= vL;
